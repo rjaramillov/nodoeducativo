@@ -1,0 +1,1244 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NODO Educativo </title>
+<meta name="description" content="NODO Educativo: sandboxes interactivos, diseñados con la estrategia EAIA de Aprendizaje de Inmersión Activa. Libre y gratuito.">
+<meta name="theme-color" content="#0b0b0e" id="meta-theme">
+<link rel="icon" href='data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><rect width="100" height="100" rx="24" fill="%230b0b0e"/><rect x="17" y="17" width="66" height="66" rx="18" fill="none" stroke="%232dd4bf" stroke-width="7"/><circle cx="50" cy="50" r="13" fill="%232dd4bf"/></svg>'>
+
+<!-- ═══ ANTI-FLASH: aplica el tema guardado (o el del sistema) ANTES del primer render ═══ -->
+<script>
+(function () {
+  try {
+    var t = localStorage.getItem('nodo-theme');
+    if (t !== 'light' && t !== 'dark') {
+      t = window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark';
+    }
+    document.documentElement.setAttribute('data-theme', t);
+  } catch (e) {
+    document.documentElement.setAttribute('data-theme', 'dark');
+  }
+})();
+</script>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+
+<!--
+  ═══════════════════════════════════════════════════════════════
+  NODO — Nodo educativo de práctica telemática
+  Facultad de Telemática · Universidad de Colima
+  Marca: NODO (logotipo) + "Nodo educativo" (descriptor)
+  Sandboxes: Flexbox · Python Playground (artefactos EAIA)
+  METODOLOGÍA: EAIA — diagrama del ciclo visible en la sección
+  02, ampliable en modal accesible (<dialog>: trap de foco,
+  Escape, retorno de foco, cierre con clic exterior).
+  CUMPLIMIENTO: WCAG 2.1 AA · Heurísticas de Nielsen (10/10)
+  ═══════════════════════════════════════════════════════════════
+-->
+<style>
+  /* ============ TEMA OSCURO (por defecto) ============ */
+  :root {
+    color-scheme: dark;
+    --ease: cubic-bezier(0.16, 1, 0.3, 1);
+    --bg-main: #0b0b0e;
+    --bg-card: #141419;
+    --bg-code: #0e0e12;
+    --bg-nav: rgba(11, 11, 14, 0.85);
+    --border: #2c2c33;
+    --border-strong: #4b4b55;
+    --text-hi: #f4f6fa;
+    --text-md: #b7c0ce;
+    --teal: #2dd4bf;
+    --teal-strong: #5eead4;
+    --teal-dim: rgba(45, 212, 191, 0.12);
+    --est: #a5b4fc;
+    --est-dim: rgba(165, 180, 252, 0.12);
+    --rose: #fda4af;
+    --rose-dim: rgba(251, 113, 133, 0.12);
+    --btn-bg: #2dd4bf;
+    --btn-bg-hover: #5eead4;
+    --btn-text: #062f28;
+    --focus-on-btn: #ffffff;
+    --shadow: 0 16px 40px rgba(0, 0, 0, 0.45);
+    --hover-bg: rgba(255, 255, 255, 0.06);
+    --grid-dot: rgba(255, 255, 255, 0.05);
+    --orb-color: rgba(45, 212, 191, 0.13);
+    --sel-bg: rgba(45, 212, 191, 0.35);
+    --tk-sel: #5eead4; --tk-prop: #a5b4fc; --tk-val: #fcd34d;
+    --tk-com: #9aa4b5; --tk-ok: #6ee7a0;
+    --ill-surface: #141419; --ill-alt: #0e0e12; --ill-stroke: #4b4b55;
+    --ill-accent: #2dd4bf;  --ill-accent-strong: #5eead4; --ill-accent-bg: #0e2a25;
+    --ill-text: #b7c0ce;    --ill-rose: #fda4af;          --ill-rose-bg: #3a1a22;
+  }
+
+  /* ============ TEMA CLARO ============ */
+  :root[data-theme="light"] {
+    color-scheme: light;
+    --bg-main: #f7f8fa;
+    --bg-card: #ffffff;
+    --bg-code: #f2f4f7;
+    --bg-nav: rgba(247, 248, 250, 0.85);
+    --border: #dce0e6;
+    --border-strong: #7d8590;
+    --text-hi: #151a21;
+    --text-md: #3f4856;
+    --teal: #0d9488;
+    --teal-strong: #0f766e;
+    --teal-dim: rgba(13, 148, 136, 0.10);
+    --est: #4338ca;
+    --est-dim: rgba(67, 56, 202, 0.10);
+    --rose: #be123c;
+    --rose-dim: rgba(190, 18, 60, 0.08);
+    --btn-bg: #0f766e;
+    --btn-bg-hover: #115e59;
+    --btn-text: #ffffff;
+    --focus-on-btn: #151a21;
+    --shadow: 0 16px 40px rgba(21, 26, 33, 0.12);
+    --hover-bg: rgba(21, 26, 33, 0.06);
+    --grid-dot: rgba(21, 26, 33, 0.07);
+    --orb-color: rgba(13, 148, 136, 0.10);
+    --sel-bg: rgba(13, 148, 136, 0.25);
+    --tk-sel: #0f766e; --tk-prop: #4338ca; --tk-val: #854d0e;
+    --tk-com: #57606a; --tk-ok: #047857;
+    --ill-surface: #ffffff; --ill-alt: #e9edf2; --ill-stroke: #7d8590;
+    --ill-accent: #0d9488;  --ill-accent-strong: #0f766e; --ill-accent-bg: #d3f1ec;
+    --ill-text: #3f4856;    --ill-rose: #be123c;          --ill-rose-bg: #fbe5ea;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg-main);
+    color: var(--text-hi);
+    font-family: 'Inter', system-ui, sans-serif;
+    line-height: 1.65;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+  }
+
+  .sr-only {
+    position: absolute; width: 1px; height: 1px;
+    padding: 0; margin: -1px; overflow: hidden;
+    clip: rect(0 0 0 0); white-space: nowrap; border: 0;
+  }
+
+  .skip-link {
+    position: absolute; left: -999px; top: 12px; z-index: 200;
+    background: var(--btn-bg); color: var(--btn-text);
+    font-weight: 700; padding: 12px 20px; border-radius: 8px;
+    text-decoration: none; font-size: 0.95rem;
+  }
+  .skip-link:focus { left: 12px; }
+
+  a:focus-visible, button:focus-visible, summary:focus-visible {
+    outline: 3px solid var(--teal-strong);
+    outline-offset: 3px;
+    border-radius: 6px;
+  }
+  .btn-primary:focus-visible { outline-color: var(--focus-on-btn); }
+
+  ::selection { background: var(--sel-bg); color: var(--text-hi); }
+  ::-webkit-scrollbar { width: 10px; }
+  ::-webkit-scrollbar-track { background: var(--bg-main); }
+  ::-webkit-scrollbar-thumb { background: var(--border-strong); border-radius: 8px; }
+
+  .container { max-width: 1120px; margin: 0 auto; padding: 0 24px; }
+  section[id] { scroll-margin-top: 96px; }
+
+  .bg-grid {
+    position: fixed; inset: 0; z-index: -1; pointer-events: none;
+    background-image: radial-gradient(var(--grid-dot) 1px, transparent 1px);
+    background-size: 24px 24px;
+    mask-image: linear-gradient(to bottom, black 30%, transparent 85%);
+    -webkit-mask-image: linear-gradient(to bottom, black 30%, transparent 85%);
+  }
+  .orb {
+    position: fixed; border-radius: 50%; z-index: -2;
+    pointer-events: none; filter: blur(90px);
+  }
+  .orb-1 {
+    width: 520px; height: 520px; top: -180px; right: -120px;
+    background: radial-gradient(circle, var(--orb-color), transparent 70%);
+  }
+
+  /* ============ Navegación ============ */
+  nav[aria-label] {
+    position: sticky; top: 0; z-index: 50;
+    display: flex; justify-content: space-between; align-items: center;
+    gap: 16px; flex-wrap: wrap; padding: 12px 0;
+    background: var(--bg-nav);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+  }
+  .brand {
+    display: flex; align-items: center; gap: 12px;
+    text-decoration: none; color: var(--text-hi);
+    padding: 8px 0;
+  }
+  .brand-mark { display: inline-flex; color: var(--teal); flex-shrink: 0; }
+  .brand-mark .ping-ring { opacity: 0; transform-box: fill-box; transform-origin: center; }
+  @media (prefers-reduced-motion: no-preference) {
+    .brand-mark .ping-ring { animation: node-ping 2.4s var(--ease) infinite; }
+  }
+  @keyframes node-ping {
+    0%        { transform: scale(1);   opacity: 0.8; }
+    70%, 100% { transform: scale(2.6); opacity: 0;   }
+  }
+  .brand-text { display: flex; flex-direction: column; gap: 1px; line-height: 1.1; }
+  .brand-word { font-weight: 800; font-size: 1.2rem; letter-spacing: 0.08em; }
+  .brand-sub {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.58rem; font-weight: 500;
+    letter-spacing: 0.28em; text-transform: uppercase;
+    color: var(--teal-strong);
+  }
+
+  .nav-right { display: flex; align-items: center; gap: 18px; flex-wrap: wrap; }
+  .nav-links { display: flex; gap: 6px; flex-wrap: wrap; }
+  .nav-links a {
+    color: var(--text-md); text-decoration: none;
+    font-size: 0.92rem; font-weight: 600;
+    padding: 12px 14px; border-radius: 8px;
+    transition: color 0.2s, background 0.2s;
+  }
+  .nav-links a:hover { color: var(--text-hi); background: var(--hover-bg); }
+  .faculty {
+    font-family: 'JetBrains Mono', monospace; font-size: 0.8rem;
+    color: var(--text-md);
+    padding-left: 20px; border-left: 1px solid var(--border-strong);
+  }
+
+  /* ============ Conmutador de tema ============ */
+  .theme-toggle {
+    display: inline-flex; align-items: center; justify-content: center; gap: 9px;
+    min-height: 44px; min-width: 44px;
+    padding: 8px 14px; border-radius: 9px;
+    background: transparent;
+    border: 1px solid var(--border-strong);
+    color: var(--text-md);
+    font: 600 0.88rem 'Inter', system-ui, sans-serif;
+    cursor: pointer;
+    transition: color 0.2s, border-color 0.2s, background 0.2s;
+  }
+  .theme-toggle:hover { color: var(--text-hi); border-color: var(--teal); background: var(--teal-dim); }
+  .theme-toggle svg { flex-shrink: 0; }
+  .theme-toggle .icon-moon { display: none; }
+
+  /* ============ Hero ============ */
+  .hero { padding: 88px 0 64px; text-align: center; }
+  .badge {
+    display: inline-flex; align-items: center; gap: 10px;
+    padding: 9px 18px; border-radius: 99px;
+    background: var(--teal-dim);
+    border: 1px solid var(--teal);
+    color: var(--teal-strong);
+    font-family: 'JetBrains Mono', monospace; font-size: 0.82rem;
+    margin-bottom: 28px;
+  }
+  .pulse-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--teal-strong); }
+  @media (prefers-reduced-motion: no-preference) {
+    .pulse-dot { animation: pulse 2s ease-in-out infinite; }
+  }
+  @keyframes pulse { 0%,100% { opacity: 1; } 50% { opacity: 0.3; } }
+
+  .hero h1 {
+    font-size: clamp(2.6rem, 6.5vw, 4.8rem);
+    font-weight: 900; letter-spacing: -0.035em; line-height: 1.06;
+    margin: 0 auto 24px; max-width: 18ch;
+  }
+  .hero h1 span { color: var(--teal-strong); }
+  .hero p { font-size: 1.13rem; color: var(--text-md); max-width: 62ch; margin: 0 auto 40px; }
+
+  .hero-ctas { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
+  .btn {
+    display: inline-flex; align-items: center; justify-content: center; gap: 10px;
+    min-height: 48px; padding: 12px 26px; border-radius: 10px;
+    font-weight: 700; font-size: 1rem; text-decoration: none;
+    transition: transform 0.25s var(--ease), box-shadow 0.25s, background 0.25s, border-color 0.25s;
+  }
+  .btn-primary { background: var(--btn-bg); color: var(--btn-text); }
+  .btn-primary:hover { background: var(--btn-bg-hover); transform: translateY(-2px); box-shadow: 0 10px 30px rgba(13, 148, 136, 0.3); }
+  .btn-ghost { border: 2px solid var(--border-strong); color: var(--text-hi); }
+  .btn-ghost:hover { border-color: var(--teal); transform: translateY(-2px); }
+  .btn svg { flex-shrink: 0; }
+
+  .hero-visual { max-width: 640px; margin: 60px auto 0; }
+  .code-window {
+    background: var(--bg-code);
+    border: 1px solid var(--border-strong);
+    border-radius: 14px;
+    box-shadow: var(--shadow);
+    text-align: left; overflow: hidden;
+  }
+  .code-titlebar {
+    display: flex; align-items: center; gap: 8px;
+    padding: 12px 16px; border-bottom: 1px solid var(--border);
+    background: rgba(128, 128, 128, 0.06);
+  }
+  .win-dot { width: 11px; height: 11px; border-radius: 50%; }
+  .win-red { background: #ff5f57; } .win-yellow { background: #febc2e; } .win-green { background: #28c840; }
+  .code-title { font-family: 'JetBrains Mono', monospace; font-size: 0.75rem; color: var(--text-md); margin-left: 8px; }
+  .code-status {
+    margin-left: auto; font-family: 'JetBrains Mono', monospace; font-size: 0.72rem;
+    color: var(--teal-strong); display: flex; align-items: center; gap: 6px;
+  }
+  .code-body {
+    padding: 22px 24px;
+    font-family: 'JetBrains Mono', monospace; font-size: 0.85rem; line-height: 1.8;
+    color: var(--text-md); overflow-x: auto;
+  }
+  .tk-sel { color: var(--tk-sel); } .tk-prop { color: var(--tk-prop); }
+  .tk-val { color: var(--tk-val); } .tk-com { color: var(--tk-com); } .tk-ok { color: var(--tk-ok); }
+
+  .stats {
+    display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px;
+    border-top: 1px solid var(--border); border-bottom: 1px solid var(--border);
+    padding: 44px 0;
+  }
+  .stat { text-align: center; }
+  .stat-num {
+    display: block; font-family: 'JetBrains Mono', monospace;
+    font-size: 2.3rem; font-weight: 600; color: var(--teal-strong);
+    line-height: 1.15; font-variant-numeric: tabular-nums;
+  }
+  .stat-label { font-size: 0.9rem; color: var(--text-md); }
+
+  .section-head { max-width: 66ch; margin-bottom: 48px; }
+  .section-kicker {
+    font-family: 'JetBrains Mono', monospace; font-size: 0.78rem;
+    letter-spacing: 0.15em; text-transform: uppercase;
+    color: var(--teal-strong); display: block; margin-bottom: 14px;
+  }
+  .section-head h2 {
+    font-size: clamp(1.8rem, 3.5vw, 2.4rem);
+    font-weight: 800; letter-spacing: -0.02em; margin-bottom: 14px;
+  }
+  .section-head p { color: var(--text-md); }
+
+  /* ============ Sandboxes ============ */
+  #cards-container {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 20px; padding-bottom: 96px;
+  }
+  .card {
+    display: flex; flex-direction: column;
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 16px; overflow: hidden;
+    text-decoration: none; color: inherit;
+    transition: transform 0.3s var(--ease), border-color 0.3s, box-shadow 0.3s;
+  }
+  a.card:hover, a.card:focus-visible {
+    transform: translateY(-4px);
+    border-color: var(--teal);
+    box-shadow: var(--shadow);
+  }
+  .card.is-soon { cursor: default; }
+  .card-ill {
+    background: var(--bg-code);
+    border-bottom: 1px solid var(--border);
+    padding: 18px 18px 6px; margin: 0;
+  }
+  .card-ill svg { display: block; width: 100%; height: auto; }
+  .card-content { padding: 26px; display: flex; flex-direction: column; flex: 1; }
+  .card-topline {
+    display: flex; justify-content: space-between; align-items: center;
+    gap: 12px; margin-bottom: 16px; flex-wrap: wrap;
+  }
+  .tag {
+    display: inline-flex; align-items: center; gap: 6px;
+    font-family: 'JetBrains Mono', monospace; font-size: 0.72rem; font-weight: 500;
+    letter-spacing: 0.05em; text-transform: uppercase;
+    padding: 6px 11px; border-radius: 6px; border: 1px solid;
+  }
+  .tag-live { color: var(--teal-strong); background: var(--teal-dim); border-color: var(--teal); }
+  .tag-soon { color: var(--rose); background: var(--rose-dim); border-color: var(--rose); }
+  .card h3 { font-size: 1.28rem; font-weight: 700; letter-spacing: -0.01em; }
+  .card-desc { color: var(--text-md); font-size: 0.94rem; margin-top: 10px; margin-bottom: 24px; flex-grow: 1; }
+  .card-footer {
+    display: flex; justify-content: space-between; align-items: center;
+    gap: 10px; margin-top: auto; flex-wrap: wrap;
+  }
+  .card-link {
+    display: inline-flex; align-items: center; gap: 8px;
+    font-weight: 700; font-size: 0.92rem; color: var(--teal-strong);
+  }
+  a.card:hover .card-link svg, a.card:focus-visible .card-link svg { transform: translateX(4px); }
+  .card-link svg { transition: transform 0.25s; }
+  .card-meta { font-family: 'JetBrains Mono', monospace; font-size: 0.75rem; color: var(--text-md); }
+  .soon-note {
+    display: inline-flex; align-items: center; gap: 8px;
+    font-family: 'JetBrains Mono', monospace; font-size: 0.8rem; color: var(--text-md);
+  }
+  .card-add .card-content {
+    align-items: center; justify-content: center; text-align: center;
+    border: 2px dashed var(--border-strong); border-radius: 14px;
+    margin: 10px; padding: 40px 24px;
+  }
+  a.card-add:hover .card-content, a.card-add:focus-visible .card-content { border-color: var(--teal); }
+  .card-add p { margin: 14px 0 6px; font-weight: 700; font-size: 1.02rem; }
+  .card-add span { font-family: 'JetBrains Mono', monospace; font-size: 0.82rem; color: var(--teal-strong); }
+
+  /* ============ EAIA: intro con diagrama ampliable ============ */
+  .strategy { padding-bottom: 100px; }
+  .strategy-intro {
+    display: grid; grid-template-columns: 1.05fr 0.95fr;
+    gap: 44px; align-items: center; margin-bottom: 44px;
+  }
+  .strategy-intro .section-head { margin-bottom: 0; max-width: none; }
+  .eaia-figure { margin: 0; }
+  .eaia-trigger {
+    display: block; width: 100%; padding: 0;
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 14px; overflow: hidden;
+    cursor: zoom-in; position: relative;
+    transition: border-color 0.3s, transform 0.3s var(--ease), box-shadow 0.3s;
+  }
+  .eaia-trigger:hover, .eaia-trigger:focus-visible {
+    border-color: var(--teal);
+    transform: translateY(-3px);
+    box-shadow: var(--shadow);
+  }
+  .eaia-trigger img { display: block; width: 100%; height: auto; }
+  .eaia-hint {
+    position: absolute; right: 12px; bottom: 12px;
+    display: inline-flex; align-items: center; gap: 7px;
+    background: var(--bg-main);
+    border: 1px solid var(--teal);
+    color: var(--teal-strong);
+    font: 600 0.72rem 'JetBrains Mono', monospace;
+    padding: 7px 11px; border-radius: 8px;
+    pointer-events: none;
+  }
+
+  /* ============ Modal del diagrama (<dialog> accesible) ============ */
+  dialog.eaia-modal {
+    background: var(--bg-card);
+    color: var(--text-hi);
+    border: 1px solid var(--border-strong);
+    border-radius: 16px;
+    padding: 0;
+    width: min(1080px, 94vw);
+    max-height: 92vh;
+    box-shadow: var(--shadow);
+    overscroll-behavior: contain;
+	 margin: auto;
+  }
+  dialog.eaia-modal::backdrop {
+    background: rgba(0, 0, 0, 0.72);
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+  }
+  .modal-head {
+    display: flex; justify-content: space-between; align-items: center;
+    gap: 16px; padding: 14px 16px 14px 22px;
+    border-bottom: 1px solid var(--border);
+  }
+  .modal-head h2 { font-size: 1.02rem; font-weight: 700; letter-spacing: -0.01em; }
+  .modal-close {
+    display: inline-flex; align-items: center; justify-content: center;
+    width: 44px; height: 44px; flex-shrink: 0;
+    background: transparent;
+    border: 1px solid var(--border-strong);
+    border-radius: 9px;
+    color: var(--text-md); cursor: pointer;
+    transition: color 0.2s, border-color 0.2s, background 0.2s;
+  }
+  .modal-close:hover { color: var(--text-hi); border-color: var(--teal); background: var(--teal-dim); }
+  .eaia-modal img {
+    display: block;
+    width: auto;                       /* la imagen mide lo que necesita */
+    max-width: 100%;                   /* pero nunca más ancha que el modal */
+    height: auto;
+    max-height: calc(92vh - 170px);    /* ni más alta que la ventana */
+    margin-inline: auto;               /* ← centrada horizontalmente, siempre */
+  }
+  .modal-caption {
+    padding: 14px 22px 18px;
+    color: var(--text-md); font-size: 0.88rem;
+    border-top: 1px solid var(--border);
+  }
+  @media (prefers-reduced-motion: no-preference) {
+    dialog.eaia-modal[open] { animation: modalIn 0.3s var(--ease); }
+    @keyframes modalIn {
+      from { opacity: 0; transform: translateY(14px) scale(0.985); }
+      to   { opacity: 1; transform: none; }
+    }
+  }
+  /* Reserva para navegadores sin <dialog> (se controla por JS) */
+  dialog.eaia-modal.modal-fallback { display: none; position: fixed; inset: 0; margin: auto; z-index: 300; height: fit-content; }
+  dialog.eaia-modal.modal-fallback.open { display: block; }
+  .modal-fallback-backdrop {
+    display: none; position: fixed; inset: 0; z-index: 299;
+    background: rgba(0, 0, 0, 0.72);
+  }
+  .modal-fallback-backdrop.open { display: block; }
+
+  /* ============ EAIA: ciclo y principios ============ */
+  .cycle-legend {
+    font-family: 'JetBrains Mono', monospace; font-size: 0.8rem;
+    color: var(--text-md); margin-bottom: 20px;
+  }
+  .cycle-legend b { color: var(--text-hi); font-weight: 600; }
+  .cycle { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+  .cycle-step {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 16px; padding: 24px;
+    transition: border-color 0.3s, transform 0.3s var(--ease);
+  }
+  .cycle-step:hover { border-color: var(--border-strong); transform: translateY(-3px); }
+  .cycle-top {
+    display: flex; justify-content: space-between; align-items: center;
+    gap: 10px; margin-bottom: 12px; flex-wrap: wrap;
+  }
+  .cycle-num {
+    font-family: 'JetBrains Mono', monospace; font-size: 1.9rem; font-weight: 600;
+    color: var(--teal-strong); line-height: 1;
+  }
+  .role {
+    display: inline-flex; align-items: center;
+    font-family: 'JetBrains Mono', monospace; font-size: 0.68rem; font-weight: 500;
+    letter-spacing: 0.08em; text-transform: uppercase;
+    padding: 5px 10px; border-radius: 6px; border: 1px solid;
+  }
+  .role-docente { color: var(--teal-strong); background: var(--teal-dim); border-color: var(--teal); }
+  .role-estudiante { color: var(--est); background: var(--est-dim); border-color: var(--est); }
+  .cycle-step h3 { font-size: 1.15rem; font-weight: 700; margin-bottom: 8px; }
+  .cycle-step p { font-size: 0.92rem; color: var(--text-md); }
+  .cycle-loop {
+    grid-column: 1 / -1;
+    background: transparent;
+    border: 2px dashed var(--border-strong);
+    display: flex; gap: 18px; align-items: flex-start;
+    padding: 24px 28px;
+  }
+  .cycle-loop:hover { border-color: var(--teal); transform: none; }
+  .cycle-loop .loop-icon { color: var(--teal-strong); flex-shrink: 0; margin-top: 2px; }
+  .cycle-loop h3 { margin-bottom: 6px; }
+  .cycle-loop .cycle-top { margin-bottom: 8px; }
+
+  .sub-block-title { font-size: 1.2rem; font-weight: 800; letter-spacing: -0.01em; margin: 64px 0 24px; }
+  .principles { display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; }
+  .principle { padding-top: 22px; border-top: 3px solid var(--border-strong); transition: border-color 0.3s; }
+  .principle:hover { border-top-color: var(--teal); }
+  .p-code {
+    font-family: 'JetBrains Mono', monospace; font-size: 0.78rem; font-weight: 600;
+    color: var(--teal-strong); letter-spacing: 0.1em; display: block; margin-bottom: 10px;
+  }
+  .principle h3 { font-size: 1.02rem; font-weight: 700; margin-bottom: 8px; }
+  .principle p { font-size: 0.9rem; color: var(--text-md); }
+
+  .foundations {
+    margin-top: 56px;
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 20px 24px;
+    font-family: 'JetBrains Mono', monospace; font-size: 0.8rem;
+    line-height: 1.9; color: var(--text-md);
+  }
+  .foundations strong { color: var(--teal-strong); font-weight: 600; }
+
+  /* ============ CTA ============ */
+  .cta { padding-bottom: 100px; }
+  .cta-box {
+    background: var(--bg-card);
+    border: 2px solid var(--teal);
+    border-radius: 20px;
+    padding: 64px 32px; text-align: center;
+  }
+  .cta-box h2 { font-size: clamp(1.6rem, 3.5vw, 2.2rem); font-weight: 800; margin-bottom: 14px; }
+  .cta-box > p { color: var(--text-md); max-width: 54ch; margin: 0 auto 32px; }
+
+  /* ============ FAQ ============ */
+  .faq { padding-bottom: 100px; }
+  .faq-list { max-width: 76ch; display: grid; gap: 12px; }
+  details {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+  }
+  details[open] { border-color: var(--border-strong); }
+  summary {
+    cursor: pointer; list-style: none;
+    display: flex; justify-content: space-between; align-items: center; gap: 16px;
+    padding: 18px 22px; min-height: 48px;
+    font-weight: 700; font-size: 1rem;
+  }
+  summary::-webkit-details-marker { display: none; }
+  summary:hover { color: var(--teal-strong); }
+  summary svg { flex-shrink: 0; transition: transform 0.25s; color: var(--teal-strong); }
+  details[open] summary svg { transform: rotate(180deg); }
+  details > p { padding: 0 22px 20px; color: var(--text-md); font-size: 0.95rem; }
+
+  /* ============ Footer ============ */
+  footer { border-top: 1px solid var(--border); padding: 56px 0 36px; }
+  .footer-top {
+    display: flex; justify-content: space-between; align-items: center;
+    flex-wrap: wrap; gap: 32px; margin-bottom: 36px;
+  }
+  .profile-info { display: flex; align-items: center; gap: 18px; }
+  .profile-avatar {
+    width: 60px; height: 60px; border-radius: 16px;
+    background: linear-gradient(135deg, var(--ill-accent-bg), var(--bg-card));
+    border: 1px solid var(--teal);
+    display: flex; justify-content: center; align-items: center;
+    font-family: 'JetBrains Mono', monospace; font-size: 1.05rem; font-weight: 600;
+    color: var(--teal-strong);
+  }
+  .profile-details h2 { font-size: 1.05rem; font-weight: 700; margin-bottom: 3px; }
+  .profile-details p { font-size: 0.9rem; color: var(--text-md); }
+  .social-links { display: flex; gap: 10px; flex-wrap: wrap; }
+  .social-links a {
+    color: var(--text-md); text-decoration: none;
+    font-family: 'JetBrains Mono', monospace; font-size: 0.86rem;
+    padding: 12px 10px; border-radius: 8px;
+    transition: color 0.2s, background 0.2s;
+  }
+  .social-links a:hover { color: var(--teal-strong); background: var(--teal-dim); }
+  .footer-bottom {
+    display: flex; justify-content: space-between; flex-wrap: wrap; gap: 12px;
+    padding-top: 26px; border-top: 1px solid var(--border);
+    font-family: 'JetBrains Mono', monospace; font-size: 0.78rem; color: var(--text-md);
+  }
+  .footer-brand { display: inline-flex; align-items: center; gap: 9px; }
+  .footer-brand svg { color: var(--teal); flex-shrink: 0; }
+
+  /* ============ Animaciones ============ */
+  @keyframes fadeUp { from { opacity: 0; transform: translateY(22px); } to { opacity: 1; transform: none; } }
+  .reveal {
+    opacity: 0; transform: translateY(22px);
+    transition: opacity 0.7s var(--ease), transform 0.7s var(--ease);
+    transition-delay: var(--d, 0s);
+  }
+  .reveal.visible { opacity: 1; transform: none; }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .net-flow { stroke-dasharray: 6 10; animation: flow 1.6s linear infinite; }
+    @keyframes flow { to { stroke-dashoffset: -32; } }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    *, *::before, *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
+    .reveal { opacity: 1; transform: none; }
+  }
+
+  /* ============ Responsive ============ */
+  @media (max-width: 980px) {
+    .cycle { grid-template-columns: repeat(2, 1fr); }
+    .principles { grid-template-columns: repeat(2, 1fr); }
+  }
+  @media (max-width: 900px) {
+    .faculty { display: none; }
+    .strategy-intro { grid-template-columns: 1fr; gap: 28px; }
+  }
+  @media (max-width: 700px) {
+    .nav-links { display: none; }
+    .hero { padding: 56px 0 48px; }
+    .stats { grid-template-columns: repeat(2, 1fr); gap: 28px; }
+    .cycle { grid-template-columns: 1fr; }
+    .principles { grid-template-columns: 1fr; gap: 20px; }
+    .footer-top { flex-direction: column; align-items: flex-start; }
+    .code-body { font-size: 0.75rem; }
+  }
+</style>
+
+<noscript>
+  <style>
+    .reveal { opacity: 1 !important; transform: none !important; }
+    .theme-toggle { display: none; }
+    /* Sin JS: el diagrama se muestra tal cual, sin ampliación */
+    .eaia-trigger { pointer-events: none; cursor: default; }
+    .eaia-hint { display: none; }
+  </style>
+</noscript>
+</head>
+<body>
+
+<a class="skip-link" href="#contenido">Saltar al contenido principal</a>
+
+<div class="bg-grid" aria-hidden="true"></div>
+<div class="orb orb-1" aria-hidden="true"></div>
+
+<div class="container">
+
+  <header>
+    <nav aria-label="Navegación principal">
+      <a href="#inicio" class="brand" aria-label="NODO — Nodo educativo. Ir al inicio.">
+        <span class="brand-mark" aria-hidden="true">
+          <svg width="27" height="27" viewBox="0 0 64 64" fill="none">
+            <rect x="7" y="7" width="50" height="50" rx="15" stroke="currentColor" stroke-width="3.5"/>
+            <circle class="ping-ring" cx="32" cy="32" r="8" stroke="currentColor" stroke-width="2.5"/>
+            <circle cx="32" cy="32" r="8" fill="currentColor"/>
+            <circle cx="32" cy="32" r="14.5" stroke="currentColor" stroke-width="2.5" stroke-dasharray="5.5 5.5" stroke-linecap="round" transform="rotate(-60 32 32)" opacity="0.6"/>
+          </svg>
+        </span>
+        <span class="brand-text">
+          <span class="brand-word">NODO</span>
+          <span class="brand-sub">Educativo</span>
+        </span>
+      </a>
+      <div class="nav-right">
+        <div class="nav-links">
+          <a href="#sandbox">Sandboxes</a>
+          <a href="#estrategia">Estrategia EAIA</a>
+          <a href="#faq">Preguntas</a>
+          <a href="#contacto">Contacto</a>
+        </div>
+        <span class="faculty"></span>
+
+        <button type="button" class="theme-toggle" id="theme-toggle">
+          <svg class="icon-sun" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+          <svg class="icon-moon" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+          <span id="theme-label">Tema claro</span>
+        </button>
+      </div>
+    </nav>
+  </header>
+
+  <main id="contenido">
+
+    <section class="hero" id="inicio" aria-labelledby="titulo-principal">
+      <p class="badge">
+        <span class="pulse-dot" aria-hidden="true"></span>
+        Nuevo: Python Playground
+      </p>
+      <h1 id="titulo-principal">De la teoría a la <span>práctica.</span></h1>
+      <p>
+        Este NODO Educativo es una espacio para publicar sandboxes diseñados con la
+        estrategia EAIA — Aprendizaje de Inmersión Activa — donde programas, rompes y
+        reconstruyes sobre problemas reales, con retroalimentación inmediata.
+        Libre y gratuito para la comunidad universitaria.
+      </p>
+      <div class="hero-ctas">
+        <a href="#sandbox" class="btn btn-primary">
+          Explorar el sandbox
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+        </a>
+        <a href="#estrategia" class="btn btn-ghost">Conocer la estrategia EAIA</a>
+      </div>
+
+      <div class="hero-visual">
+        <div class="code-window" role="img" aria-label="Ilustración: ventana de código con la solución del reto uno del Sandbox de Flexbox escrita en CSS, con dos marcas de verificación y el mensaje: tres de tres pruebas superadas, más cincuenta puntos de experiencia.">
+          <div class="code-titlebar" aria-hidden="true">
+            <span class="win-dot win-red"></span><span class="win-dot win-yellow"></span><span class="win-dot win-green"></span>
+            <span class="code-title">sandbox-flexbox-01.css</span>
+            <span class="code-status"><span class="pulse-dot"></span> live</span>
+          </div>
+          <pre class="code-body" aria-hidden="true"><code><span class="tk-com">/* Sandbox Flexbox · Reto 01 · El centrado perfecto */</span>
+<span class="tk-sel">.contenedor</span> {
+  <span class="tk-prop">display</span>: <span class="tk-val">flex</span>;
+  <span class="tk-prop">justify-content</span>: <span class="tk-val">center</span>;  <span class="tk-ok">✓</span>
+  <span class="tk-prop">align-items</span>: <span class="tk-val">center</span>;       <span class="tk-ok">✓</span>
+}
+
+<span class="tk-com">// 3/3 pruebas superadas · +50 XP</span></code></pre>
+        </div>
+      </div>
+    </section>
+
+    <section class="stats" aria-label="NODO en números">
+      <div class="stat">
+        <span class="stat-num" aria-hidden="true" data-target="2">2</span><span class="sr-only">2</span>
+        <span class="stat-label">Sandboxes disponibles</span>
+      </div>
+      <div class="stat">
+        <span class="stat-num" aria-hidden="true" data-target="20" data-suffix="+">20+</span><span class="sr-only">Más de 20</span>
+        <span class="stat-label">Retos y ejemplos guiados</span>
+      </div>
+      <div class="stat">
+        <span class="stat-num" aria-hidden="true" data-target="100" data-suffix="%">100%</span><span class="sr-only">Cien por ciento</span>
+        <span class="stat-label">En tu navegador, sin instalar</span>
+      </div>
+      <div class="stat">
+        <span class="stat-num" aria-hidden="true" data-target="24" data-suffix="/7">24/7</span><span class="sr-only">24 horas, 7 días</span>
+        <span class="stat-label">Acceso libre y gratuito</span>
+      </div>
+    </section>
+
+    <section id="sandbox" aria-labelledby="tit-sandbox" style="padding-top: 96px;">
+      <div class="section-head reveal">
+        <span class="section-kicker">01 · Sandboxes</span>
+        <h2 id="tit-sandbox">El Sandbox</h2>
+        <p>Cada herramienta de NODO es un sandbox: un artefacto interactivo de la EAIA, un entorno seguro donde se aprende rompiendo cosas y volviéndolas a construir. Los disponibles están listos ahora; los que están en desarrollo se publicarán aquí mismo al terminar.</p>
+      </div>
+
+      <div id="cards-container">
+
+        <!-- ── Sandbox 1 · Flexbox ── -->
+        <a href="sanboxes/Flexbox_Laboratorio_Interactivo.html" class="card reveal" style="--d:0s" aria-label="Abrir Sandbox de Flexbox">
+          <figure class="card-ill">
+            <svg viewBox="0 0 320 140" role="img" aria-labelledby="ill-flex-t ill-flex-d">
+              <title id="ill-flex-t">Ilustración de un layout Flexbox</title>
+              <desc id="ill-flex-d">Contenedor punteado con tres cajas alineadas al centro; el eje principal horizontal está señalado con una flecha y la caja central muestra una palomita de verificación.</desc>
+              <g aria-hidden="true">
+                <rect x="46" y="18" width="228" height="84" rx="12" fill="none" stroke="var(--ill-accent-strong)" stroke-width="1.5" stroke-dasharray="5 5"/>
+                <rect x="70" y="42" width="44" height="36" rx="8" fill="var(--ill-surface)" stroke="var(--ill-stroke)" stroke-width="1.5"/>
+                <rect x="138" y="42" width="44" height="36" rx="8" fill="var(--ill-accent-bg)" stroke="var(--ill-accent)" stroke-width="2"/>
+                <path d="M154 60 l6 6 l12 -12" fill="none" stroke="var(--ill-accent-strong)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+                <rect x="206" y="42" width="44" height="36" rx="8" fill="var(--ill-surface)" stroke="var(--ill-stroke)" stroke-width="1.5"/>
+                <line x1="52" y1="116" x2="268" y2="116" stroke="var(--ill-text)" stroke-width="1.5"/>
+                <path d="M262 112 l8 4 l-8 4" fill="none" stroke="var(--ill-text)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                <text x="30" y="120" fill="var(--ill-text)" font-family="monospace" font-size="10">eje →</text>
+              </g>
+            </svg>
+          </figure>
+          <div class="card-content">
+            <div class="card-topline">
+              <h3 style="margin:0;">Sandbox de Flexbox</h3>
+              <span class="tag tag-live">✓ Disponible</span>
+            </div>
+            <p class="card-desc">Practica layouts modernos en tiempo real. Resuelve retos visuales y recibe retroalimentación automática sobre tu CSS, reto por reto.</p>
+            <div class="card-footer">
+              <span class="card-link">Abrir sandbox
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+              </span>
+              <span class="card-meta">12 retos</span>
+            </div>
+          </div>
+        </a>
+
+        <!-- ── Sandbox 2 · Python Playground ── -->
+        <a href="sanboxes/Python_Playground_Prototipo.html" class="card reveal" style="--d:.06s" aria-label="Abrir Python Playground, sandbox de fundamentos de programación">
+          <figure class="card-ill">
+            <svg viewBox="0 0 320 140" role="img" aria-labelledby="ill-py-t ill-py-d">
+              <title id="ill-py-t">Ilustración del Python Playground</title>
+              <desc id="ill-py-d">Un editor de código con números de línea y bloques de sintaxis de colores, junto a una consola que muestra el resultado de la ejecución con una palomita de verificación.</desc>
+              <g aria-hidden="true">
+                <rect x="26" y="18" width="160" height="104" rx="10" fill="var(--ill-surface)" stroke="var(--ill-stroke)" stroke-width="1.5"/>
+                <text x="38" y="42" fill="var(--ill-text)" font-family="monospace" font-size="9" opacity="0.7">1</text>
+                <text x="38" y="58" fill="var(--ill-text)" font-family="monospace" font-size="9" opacity="0.7">2</text>
+                <text x="38" y="74" fill="var(--ill-text)" font-family="monospace" font-size="9" opacity="0.7">3</text>
+                <text x="38" y="90" fill="var(--ill-text)" font-family="monospace" font-size="9" opacity="0.7">4</text>
+                <rect x="52" y="35" width="40" height="7" rx="3.5" fill="var(--ill-accent)"/>
+                <rect x="98" y="35" width="26" height="7" rx="3.5" fill="var(--ill-rose)" opacity="0.7"/>
+                <rect x="52" y="51" width="70" height="7" rx="3.5" fill="var(--ill-text)" opacity="0.5"/>
+                <rect x="52" y="67" width="54" height="7" rx="3.5" fill="var(--ill-text)" opacity="0.35"/>
+                <rect x="64" y="83" width="46" height="7" rx="3.5" fill="var(--ill-text)" opacity="0.35"/>
+                <rect x="52" y="99" width="7" height="10" fill="var(--ill-accent-strong)"/>
+                <rect x="198" y="18" width="96" height="104" rx="10" fill="var(--ill-alt)" stroke="var(--ill-stroke)" stroke-width="1.5"/>
+                <text x="210" y="42" fill="var(--ill-accent-strong)" font-family="monospace" font-size="10">&gt;&gt;&gt;</text>
+                <rect x="232" y="35" width="44" height="7" rx="3.5" fill="var(--ill-text)" opacity="0.4"/>
+                <rect x="210" y="55" width="60" height="7" rx="3.5" fill="var(--ill-accent)" opacity="0.7"/>
+                <rect x="210" y="71" width="44" height="7" rx="3.5" fill="var(--ill-text)" opacity="0.35"/>
+                <path d="M212 96 l6 6 l12 -12" fill="none" stroke="var(--ill-accent-strong)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+                <text x="238" y="104" fill="var(--ill-accent-strong)" font-family="monospace" font-size="9">OK</text>
+              </g>
+            </svg>
+          </figure>
+          <div class="card-content">
+            <div class="card-topline">
+              <h3 style="margin:0;">Python Playground</h3>
+              <span class="tag tag-live">✓ Disponible</span>
+            </div>
+            <p class="card-desc">Escribe y ejecuta Python real en tu navegador, sin instalar nada y sin miedo a equivocarte: errores explicados en español sencillo, ejemplos guiados de variables, condicionales, bucles, funciones y listas, y reporte de evidencia en PDF.</p>
+            <div class="card-footer">
+              <span class="card-link">Abrir sandbox
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+              </span>
+              <span class="card-meta">Práctica libre</span>
+            </div>
+          </div>
+        </a>
+
+        <!-- ── Sugerir sandbox ── -->
+        <a href="mailto:rjaramillo0@ucol.mx?subject=Sugerencia%20de%20sandbox%20para%20NODO" class="card card-add reveal" style="--d:.12s">
+          <div class="card-content">
+            <svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" style="color: var(--teal-strong);" aria-hidden="true"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="16"/><line x1="8" y1="12" x2="16" y2="12"/></svg>
+            <p>¿Falta un sandbox que te urgue?</p>
+            <span>Sugerir un sandbox por correo →</span>
+          </div>
+        </a>
+
+      </div>
+    </section>
+
+    <!-- ═══════════ EAIA · La estrategia ═══════════ -->
+    <section id="estrategia" class="strategy" aria-labelledby="tit-estrategia">
+
+      <!-- Intro a dos columnas: texto + diagrama ampliable -->
+      <div class="strategy-intro reveal">
+        <div class="section-head">
+          <span class="section-kicker">02 · La estrategia</span>
+          <h2 id="tit-estrategia">EAIA — Aprendizaje de Inmersión Activa</h2>
+          <p>Todos los sandboxes de NODO se diseñan con la EAIA: el docente prepara la sesión y genera el artefacto con apoyo de inteligencia artificial; tú interactúas con él, produces evidencia de esa interacción y cierras con una reflexión sobre tu propio proceso. Y lo que el grupo deja registrado regresa al docente, que ajusta el siguiente ciclo.</p>
+        </div>
+
+        <figure class="eaia-figure">
+          <!-- Guarda tu imagen como: img/eaia-ciclo.png -->
+          <button type="button" class="eaia-trigger" id="eaia-open" aria-haspopup="dialog" aria-controls="eaia-modal">
+            <img src="img/eaia-ciclo.png"
+                 alt="Diagrama circular del ciclo de la EAIA: alrededor del centro EAIA se encuentran Interactúa, activa; Expone, visual; Genera, profesor con inteligencia artificial; Evidencia, generada; y las fases Prepara, del profesor, y Reflexiona, metacognitiva. Una flecha inferior llamada Retroalimenta cierra el ciclo sobre una base de fundamentos teóricos: Zona de Desarrollo Próximo de Vygotsky, Aprendizaje Activo de Bonwell y Eison, Aprendizaje Situado de Lave y Wenger, Metacognición de Flavell, y Aprendizaje Activo con Tecnología de Glasserman."
+                 width="1600" height="944" loading="lazy">
+            <span class="eaia-hint" aria-hidden="true">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 3 21 3 21 9"/><polyline points="9 21 3 21 3 15"/><line x1="21" y1="3" x2="14" y2="10"/><line x1="3" y1="21" x2="10" y2="14"/></svg>
+              Ampliar diagrama
+            </span>
+            <span class="sr-only">Abrir el diagrama del ciclo EAIA en tamaño ampliado</span>
+          </button>
+        </figure>
+      </div>
+
+      <p class="cycle-legend reveal" aria-hidden="true">
+        Tres momentos del <b>docente</b> · tres del <b>estudiante</b> · un bucle que cierra el ciclo
+      </p>
+
+      <div class="cycle reveal">
+        <div class="cycle-step">
+          <div class="cycle-top">
+            <span class="cycle-num" aria-hidden="true">01</span>
+            <span class="role role-docente">Docente</span>
+          </div>
+          <h3>Prepara</h3>
+          <p>Diseña la sesión, decide qué tipo de artefacto conviene al tema, la modalidad y qué evidencia se esperará — todo antes de tocar la IA.</p>
+        </div>
+
+        <div class="cycle-step">
+          <div class="cycle-top">
+            <span class="cycle-num" aria-hidden="true">02</span>
+            <span class="role role-docente">Docente</span>
+          </div>
+          <h3>Genera</h3>
+          <p>Produce el sandbox con apoyo de IA y lo valida a fondo. Nada llega a tus manos sin revisión: ni errores de contenido, ni ejemplos mal calibrados.</p>
+        </div>
+
+        <div class="cycle-step">
+          <div class="cycle-top">
+            <span class="cycle-num" aria-hidden="true">03</span>
+            <span class="role role-estudiante">Estudiante</span>
+          </div>
+          <h3>Interactúa</h3>
+          <p>Tú operas el sandbox: primero el reto, luego la teoría que lo explica. Respondes, ejecutas, decides y te equivocas sobre un problema real del curso.</p>
+        </div>
+
+        <div class="cycle-step">
+          <div class="cycle-top">
+            <span class="cycle-num" aria-hidden="true">04</span>
+            <span class="role role-estudiante">Estudiante</span>
+          </div>
+          <h3>Evidencia</h3>
+          <p>Tu interacción deja un registro concreto — reporte, capturas, código ejecutado — que documenta el proceso, no solo el resultado, y entra a tu portafolio.</p>
+        </div>
+
+        <div class="cycle-step">
+          <div class="cycle-top">
+            <span class="cycle-num" aria-hidden="true">05</span>
+            <span class="role role-estudiante">Estudiante</span>
+          </div>
+          <h3>Reflexiona</h3>
+          <p>Cierras mirando tu propio proceso: qué aprendiste, qué te costó trabajo y qué error te enseñó más. Sin este paso, la experiencia no se consolida.</p>
+        </div>
+
+        <div class="cycle-step cycle-loop">
+          <span class="loop-icon" aria-hidden="true">
+            <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 4 23 10 17 10"></polyline><path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"></path></svg>
+          </span>
+          <div>
+            <div class="cycle-top">
+              <span class="role role-docente">Docente · Bucle de cierre</span>
+            </div>
+            <h3>Retroalimenta</h3>
+            <p>Las evidencias y reflexiones del grupo regresan al docente, que identifica qué no quedó claro y ajusta el diseño del siguiente ciclo. El ciclo no termina: gira.</p>
+          </div>
+        </div>
+      </div>
+
+      <h3 class="sub-block-title reveal">Principios que gobiernan cada sandbox</h3>
+      <div class="principles">
+        <div class="principle reveal" style="--d:0s">
+          <span class="p-code">P1 · Regla matriz</span>
+          <h3>El profesor genera, el estudiante interactúa</h3>
+          <p>El sandbox lo produce el docente con apoyo de IA y llega validado a tus manos. La IA amplía su criterio pedagógico; no sustituye a nadie.</p>
+        </div>
+        <div class="principle reveal" style="--d:.06s">
+          <span class="p-code">P5 · Nunca opcional</span>
+          <h3>La reflexión cierra el ciclo</h3>
+          <p>Puede acortarse si el tiempo apremia, nunca eliminarse: sin metacognición, la experiencia no se convierte en aprendizaje consciente.</p>
+        </div>
+        <div class="principle reveal" style="--d:.12s">
+          <span class="p-code">P6 · Acumulativo</span>
+          <h3>Tu portafolio crece contigo</h3>
+          <p>Las evidencias forman una colección continua: puedes ver tu propia evolución de ciclo a ciclo, no calificaciones sueltas.</p>
+        </div>
+        <div class="principle reveal" style="--d:.18s">
+          <span class="p-code">P7 · Sin castigo</span>
+          <h3>El error es parte del aprendizaje</h3>
+          <p>El error no se penaliza: se documenta. Romper, entender y reconstruir es el método — un sandbox existe justamente para eso.</p>
+        </div>
+      </div>
+
+      <p class="foundations reveal">
+        <strong>Respaldo teórico:</strong> andamiaje y Zona de Desarrollo Próximo (Vygotsky) ·
+        aprendizaje activo (Bonwell y Eison) · aprendizaje situado (Lave y Wenger) ·
+        ciclo experiencial (Kolb) · metacognición (Flavell) ·
+        descubrimiento guiado (Piaget y Bruner) · portafolio digital (Ramírez-Montoya) ·
+        el proyecto que crece (Kilpatrick).
+      </p>
+    </section>
+
+    <section class="cta reveal" aria-labelledby="tit-cta">
+      <div class="cta-box">
+        <h2 id="tit-cta">El próximo reto te está esperando.</h2>
+        <p>Elige un sandbox y empieza a practicar en menos de un minuto. Sin registro, sin instalar nada, sin miedo a romper nada.</p>
+        <div class="hero-ctas">
+          <a href="#sandbox" class="btn btn-primary">
+            Ir al sandbox
+            <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+          </a>
+          <a href="mailto:rjaramillo0@ucol.mx" class="btn btn-ghost">Escribir al profesor</a>
+        </div>
+      </div>
+    </section>
+
+    <section id="faq" class="faq" aria-labelledby="tit-faq">
+      <div class="section-head reveal">
+        <span class="section-kicker">03 · Preguntas frecuentes</span>
+        <h2 id="tit-faq">Antes de empezar</h2>
+      </div>
+      <div class="faq-list">
+        <details class="reveal">
+          <summary>¿Qué es NODO?
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+          </summary>
+          <p>NODO es un nodo educativo de la Facultad de Telemática de la Universidad de Colima: un punto de conexión entre la teoría de los cursos y la práctica real, construido con sandboxes interactivos diseñados bajo la estrategia EAIA.</p>
+        </details>
+        <details class="reveal" style="--d:.06s">
+          <summary>¿El Python de verdad corre en mi navegador?
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+          </summary>
+          <p>Sí. El Playground usa Pyodide — Python compilado a WebAssembly —, así que tu código se ejecuta completo dentro del navegador: nada se envía a ningún servidor. Incluye botón de detener para bucles infinitos y reinicio del entorno si algo se queda pegado.</p>
+        </details>
+        <details class="reveal" style="--d:.12s">
+          <summary>¿Necesito instalar algo para usar los sandboxes?
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+          </summary>
+          <p>No. Todos los sandboxes de NODO funcionan directamente en el navegador, en cualquier computadora con conexión a internet, sin cuentas ni instalaciones.</p>
+        </details>
+        <details class="reveal" style="--d:.18s">
+          <summary>¿Por qué el sandbox lo genera el profesor y no yo con IA?
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+          </summary>
+          <p>Es la regla matriz de la EAIA (principio P1). Si generas tú el material de un tema que aún no dominas, nadie con criterio experto validó que sea correcto y bien calibrado, y la IA funciona como atajo en lugar de andamio. Aquí la IA es herramienta de producción del docente; tu rol es interactuar, equivocarte y construir comprensión dentro de una experiencia diseñada.</p>
+        </details>
+        <details class="reveal" style="--d:.24s">
+          <summary>¿Puedo romper algo mientras practico?
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+          </summary>
+          <p>Ese es exactamente el punto, y es un principio de diseño de la EAIA (P7): el error no se penaliza, se documenta. Un sandbox es un entorno seguro donde romper y reconstruir es parte del método, y nunca afecta nada real.</p>
+        </details>
+        <details class="reveal" style="--d:.3s">
+          <summary>¿Puedo sugerir un sandbox nuevo?
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+          </summary>
+          <p>¡Sí, por favor! Escríbeme por correo o LinkedIn con tu idea. Los sandboxes en desarrollo nacieron de sugerencias de estudiantes.</p>
+        </details>
+      </div>
+    </section>
+  </main>
+
+  <footer id="contacto">
+    <div class="footer-top">
+      <div class="profile-info">
+        <div class="profile-avatar" aria-hidden="true">RJ</div>
+        <div class="profile-details">
+          <h2>Ing. Ricardo Jaramillo Velasco</h2>
+          <p>Profesor · Facultad de Telemática · Universidad de Colima</p>
+        </div>
+      </div>
+      <div class="social-links">
+        <a href="mailto:rjaramillo0@ucol.mx">
+          rjaramillo0@ucol.mx<span class="sr-only"> (abre tu aplicación de correo)</span>
+        </a>
+        <a href="https://www.linkedin.com/in/rjaramillov" target="_blank" rel="noopener">
+          LinkedIn ↗<span class="sr-only"> (se abre en una pestaña nueva)</span>
+        </a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span class="footer-brand">
+        <svg width="16" height="16" viewBox="0 0 64 64" fill="none" aria-hidden="true">
+          <rect x="7" y="7" width="50" height="50" rx="15" stroke="currentColor" stroke-width="4"/>
+          <circle cx="32" cy="32" r="9" fill="currentColor"/>
+        </svg>
+        © <span id="year">2025</span> NODO Educativo 
+      </span>
+      <span>Estrategia EAIA · WCAG 2.1 AA</span>
+    </div>
+  </footer>
+
+</div>
+
+<!-- ═══════════ Modal accesible del diagrama EAIA ═══════════ -->
+<dialog class="eaia-modal" id="eaia-modal" aria-labelledby="eaia-modal-title">
+  <div class="modal-head">
+    <h2 id="eaia-modal-title">EAIA — Estrategia de Aprendizaje de Inmersión Activa</h2>
+    <button type="button" class="modal-close" id="eaia-close" aria-label="Cerrar el diagrama y volver a la página">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" aria-hidden="true"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+    </button>
+  </div>
+  <img src="img/eaia-ciclo.png"
+       alt="Diagrama circular del ciclo de la EAIA: alrededor del centro EAIA se encuentran Interactúa, activa; Expone, visual; Genera, profesor con inteligencia artificial; Evidencia, generada; y las fases Prepara, del profesor, y Reflexiona, metacognitiva. Una flecha inferior llamada Retroalimenta cierra el ciclo sobre una base de fundamentos teóricos: Zona de Desarrollo Próximo de Vygotsky, Aprendizaje Activo de Bonwell y Eison, Aprendizaje Situado de Lave y Wenger, Metacognición de Flavell, y Aprendizaje Activo con Tecnología de Glasserman."
+       loading="lazy">
+  <p class="modal-caption">Ciclo de la estrategia con su bucle de Retroalimenta. La IA potencia el momento Genera; el ciclo completo se sostiene sobre el fundamento teórico de la base inferior. Pulsa <kbd>Escape</kbd> o el botón ✕ para cerrar.</p>
+</dialog>
+
+<script>
+(() => {
+  'use strict';
+  const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  /* ═══ 1 · CONMUTADOR DE TEMA ═══
+     Regla única: el botón siempre muestra el modo AL QUE SE CAMBIARÁ. */
+  const root      = document.documentElement;
+  const toggle    = document.getElementById('theme-toggle');
+  const sunIcon   = toggle ? toggle.querySelector('.icon-sun')   : null;
+  const moonIcon  = toggle ? toggle.querySelector('.icon-moon')  : null;
+  const label     = document.getElementById('theme-label');
+  const meta      = document.getElementById('meta-theme');
+
+  function syncToggle() {
+    const isLight = root.getAttribute('data-theme') === 'light';
+    if (sunIcon)  sunIcon.style.display  = isLight ? 'none' : '';
+    if (moonIcon) moonIcon.style.display = isLight ? ''     : 'none';
+    if (label)    label.textContent      = isLight ? 'Tema oscuro' : 'Tema claro';
+  }
+
+  function applyTheme(theme) {
+    root.setAttribute('data-theme', theme);
+    syncToggle();
+    if (meta) meta.setAttribute('content', theme === 'light' ? '#f7f8fa' : '#0b0b0e');
+  }
+
+  syncToggle();
+
+  if (toggle) {
+    toggle.addEventListener('click', () => {
+      const next = root.getAttribute('data-theme') === 'light' ? 'dark' : 'light';
+      try { localStorage.setItem('nodo-theme', next); } catch (e) {}
+      applyTheme(next);
+    });
+  }
+
+  const mq = window.matchMedia('(prefers-color-scheme: light)');
+  const onSystemChange = e => {
+    let manual = null;
+    try { manual = localStorage.getItem('nodo-theme'); } catch (err) {}
+    if (!manual) applyTheme(e.matches ? 'light' : 'dark');
+  };
+  if (mq.addEventListener) mq.addEventListener('change', onSystemChange);
+  else if (mq.addListener) mq.addListener(onSystemChange);
+
+  /* ═══ 2 · MODAL DEL DIAGRAMA EAIA (<dialog> accesible) ═══
+     · showModal(): trap de foco + Escape + retorno de foco (nativo)
+     · Clic en el fondo oscuro también cierra
+     · Fallback manual para navegadores sin <dialog>            */
+  const modal    = document.getElementById('eaia-modal');
+  const openBtn  = document.getElementById('eaia-open');
+  const closeBtn = document.getElementById('eaia-close');
+
+  if (modal && openBtn) {
+    const native = typeof modal.showModal === 'function';
+    let backdrop = null;
+
+    if (!native) {
+      modal.classList.add('modal-fallback');
+      backdrop = document.createElement('div');
+      backdrop.className = 'modal-fallback-backdrop';
+      backdrop.addEventListener('click', closeModal);
+      document.body.appendChild(backdrop);
+    }
+
+    function openModal() {
+      if (native) {
+        modal.showModal();
+      } else {
+        modal.classList.add('open');
+        backdrop.classList.add('open');
+        closeBtn && closeBtn.focus();
+      }
+      document.body.style.overflow = 'hidden'; /* bloquea scroll de fondo */
+    }
+
+    function closeModal() {
+      if (native) {
+        modal.close(); /* dispara el evento 'close' de abajo */
+      } else {
+        modal.classList.remove('open');
+        backdrop.classList.remove('open');
+        document.body.style.overflow = '';
+        openBtn.focus(); /* devuelve el foco al disparador */
+      }
+    }
+
+    openBtn.addEventListener('click', openModal);
+    if (closeBtn) closeBtn.addEventListener('click', closeModal);
+
+    /* Clic fuera del contenido (en el backdrop) cierra */
+    modal.addEventListener('click', e => {
+      if (e.target === modal) closeModal();
+    });
+
+    /* Nativo: al cerrar por cualquier vía, devolver scroll y foco */
+    modal.addEventListener('close', () => {
+      document.body.style.overflow = '';
+      openBtn.focus();
+    });
+
+    /* Fallback: Escape manual */
+    if (!native) {
+      document.addEventListener('keydown', e => {
+        if (e.key === 'Escape' && modal.classList.contains('open')) closeModal();
+      });
+    }
+  }
+
+  /* ═══ 3 · Aparición de secciones al hacer scroll ═══ */
+  const reveals = document.querySelectorAll('.reveal');
+  if (reduced || !('IntersectionObserver' in window)) {
+    reveals.forEach(el => el.classList.add('visible'));
+  } else {
+    const io = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) { entry.target.classList.add('visible'); io.unobserve(entry.target); }
+      });
+    }, { threshold: 0.12 });
+    reveals.forEach(el => io.observe(el));
+  }
+
+  /* ═══ 4 · Contadores (el valor final ya está en el HTML) ═══ */
+  document.querySelectorAll('.stat-num').forEach(el => {
+    if (reduced || !('IntersectionObserver' in window)) return;
+    const target = +el.dataset.target, suffix = el.dataset.suffix || '';
+    const cio = new IntersectionObserver(entries => {
+      if (!entries[0].isIntersecting) return;
+      cio.disconnect();
+      const dur = 1300, t0 = performance.now();
+      const tick = now => {
+        const p = Math.min((now - t0) / dur, 1);
+        el.textContent = Math.round(target * (1 - Math.pow(1 - p, 3))) + suffix;
+        if (p < 1) requestAnimationFrame(tick);
+      };
+      requestAnimationFrame(tick);
+    }, { threshold: 0.5 });
+    cio.observe(el);
+  });
+
+  /* ═══ 5 · Año dinámico ═══ */
+  const year = document.getElementById('year');
+  if (year) year.textContent = new Date().getFullYear();
+})();
+</script>
+</body>
+</html>
