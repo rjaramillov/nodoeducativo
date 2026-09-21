@@ -1,0 +1,1042 @@
+<!DOCTYPE html>
+
+<html lang="es">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>HTML5 desde cero · Fase 1 · Experiencia visual guiada</title>
+<style>
+:root{
+  --bg:#07111f;--bg2:#0d1a2d;--panel:#12213a;--panel2:#182b49;--line:#314a70;
+  --text:#f2f6fc;--muted:#c0cce0;--blue:#72d8ff;--green:#90edb8;--yellow:#ffd166;
+  --red:#ff9a9a;--white:#fff;--ink:#172a43;--paper:#f8fbff;
+  --shadow:0 20px 45px rgba(0,0,0,.22);--r:18px;
+  --sans:Inter,"Segoe UI",Arial,Helvetica,sans-serif;--mono:"Cascadia Code",Consolas,monospace;
+}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:linear-gradient(180deg,#07111f,#0b1628 65%,#08111e);color:var(--text);font-family:var(--sans);line-height:1.55;font-size:16px}
+button,input,textarea{font:inherit}button{min-height:44px}.wrap{width:min(1380px,95vw);margin:auto}.skip{position:absolute;left:-9999px}.skip:focus{left:12px;top:12px;background:#fff;color:#000;padding:10px 14px;border-radius:9px;z-index:999}
+.top{position:sticky;top:0;z-index:50;background:rgba(7,17,31,.93);backdrop-filter:blur(9px);border-bottom:1px solid rgba(255,255,255,.08)}
+.top-inner{display:grid;grid-template-columns:auto 1fr auto;gap:18px;align-items:center;padding:13px 0}.brand{display:flex;gap:11px;align-items:center}.brand-icon{width:100px;height:44px;border-radius:13px;background:#112947;border:1px solid #33557c;display:grid;place-items:center;color:var(--yellow);font:800 15px var(--mono)}.brand strong{display:block}.brand small{color:var(--muted)}
+.progress-area{min-width:0}.progress-label{display:flex;justify-content:space-between;gap:10px;color:var(--muted);font-size:.82rem;margin-bottom:5px}.progress{height:8px;background:#182742;border-radius:999px;overflow:hidden}.progress span{display:block;height:100%;width:12.5%;background:linear-gradient(90deg,var(--blue),var(--green));transition:width .2s ease}.step-count{font:700 .9rem var(--mono);color:var(--blue);white-space:nowrap}
+.hero{padding:34px 0 18px}.hero-card{background:linear-gradient(135deg,rgba(18,33,58,.96),rgba(13,28,50,.96));border:1px solid rgba(255,255,255,.09);border-radius:22px;padding:26px;box-shadow:var(--shadow);display:grid;grid-template-columns:1.1fr .9fr;gap:24px;align-items:center}.hero h1{font-size:clamp(2rem,4vw,3.5rem);line-height:1.05;margin:0 0 12px}.hero p{color:var(--muted);max-width:780px;margin:0}.goal{display:grid;gap:10px}.goal-item{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.07);border-radius:14px;padding:12px}.goal-item strong{color:var(--green);display:block}
+.workspace{display:grid;grid-template-columns:minmax(0,1fr) 250px;gap:28px;padding:22px 0 56px;align-items:start}main#lesson{min-width:0}.route{order:2;position:sticky;top:86px;align-self:start;background:rgba(13,26,45,.92);border:1px solid rgba(255,255,255,.08);border-radius:18px;padding:14px;max-height:calc(100vh - 110px);overflow:auto}.route h2{font-size:1rem;margin:0 0 9px}.route button{width:100%;text-align:left;border:1px solid transparent;background:transparent;color:var(--muted);padding:10px;border-radius:12px;cursor:pointer;margin:2px 0}.route button span{font:800 .76rem var(--mono);display:inline-grid;place-items:center;width:25px;height:25px;border-radius:50%;margin-right:7px;background:#1a2b48;color:#a9bedb}.route button.active{background:rgba(114,216,255,.10);border-color:rgba(114,216,255,.35);color:var(--text)}.route button.active span{background:var(--blue);color:#08243c}.route button.done span{background:var(--green);color:#0c3927}
+.stage{display:none}.stage.active{display:block}.step-card{background:linear-gradient(180deg,rgba(18,33,58,.96),rgba(13,26,46,.98));border:1px solid rgba(255,255,255,.08);border-radius:22px;box-shadow:var(--shadow);overflow:hidden}.step-head{padding:28px 30px 20px;border-bottom:1px solid rgba(255,255,255,.08)}.eyebrow{display:inline-block;color:var(--yellow);font:800 .78rem var(--mono);letter-spacing:.04em;text-transform:uppercase;margin-bottom:8px}.step-head h2{margin:0;font-size:clamp(1.55rem,2.6vw,2.25rem)}.step-head p{color:var(--muted);margin:8px 0 0;max-width:850px}.learning-target{margin-top:14px;padding:11px 13px;border-radius:12px;border-left:4px solid var(--green);background:rgba(144,237,184,.08);color:#dff7e9}.step-body{padding:28px 30px}.grid2{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:24px}.grid3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px}.panel{background:rgba(255,255,255,.035);border:1px solid rgba(255,255,255,.075);border-radius:16px;padding:18px}.panel h3{margin-top:0}.soft{color:var(--muted)}code,pre{font-family:var(--mono)}code{color:#b9e9ff;background:#0b1830;padding:1px 5px;border-radius:5px}pre{margin:0;white-space:pre-wrap;overflow:auto}.codebox{background:#091427;border:1px solid #2b466c;border-radius:14px;padding:15px;color:#eaf4ff;line-height:1.6;white-space:pre-wrap}.source-note{margin-top:14px;padding:11px 13px;border-radius:12px;background:rgba(114,216,255,.07);border:1px solid rgba(114,216,255,.23);color:var(--muted);font-size:.92rem}.source-note strong{color:var(--blue)}
+.visual-card{background:var(--paper);color:var(--ink);border-radius:18px;border:1px solid #d5e2f1;overflow:hidden}.visual-title{padding:12px 15px;background:#edf5ff;border-bottom:1px solid #d5e2f1;font-weight:800;color:#274b70}.visual-body{padding:18px}.browser{background:#fff;border:1px solid #d2deed;border-radius:15px;overflow:hidden;color:#182b45}.browser-bar{display:flex;align-items:center;gap:6px;padding:10px 12px;background:#eef3f9;border-bottom:1px solid #d5deea}.dot{width:10px;height:10px;border-radius:50%;background:#ff7b7b}.dot:nth-child(2){background:#ffd166}.dot:nth-child(3){background:#6fd8a6}.address{margin-left:auto;background:#fff;border:1px solid #d2deed;border-radius:999px;padding:3px 9px;font-size:.76rem;color:#657893}.browser-page{padding:18px;min-height:210px}.browser-page h1{font-size:1.55rem;margin:0 0 8px}.browser-page h2{font-size:1.12rem;margin:18px 0 7px;color:#275b8b}
+.compare{display:grid;grid-template-columns:1fr auto 1fr;gap:12px;align-items:center}.raw{padding:15px;border:2px dashed #b5c5d8;border-radius:14px;background:#fff;color:#4c6077;min-height:180px}.arrow{font-size:2rem;color:#306fa0;font-weight:800}.structured{padding:15px;border:2px solid #82bce5;border-radius:14px;background:#fafdff;min-height:180px}.structured h2{margin:0 0 8px;color:#1d5785}.structured ul{padding-left:22px}
+.flow{display:grid;grid-template-columns:1fr 50px 1fr 50px 1fr;gap:8px;align-items:center;text-align:center;margin-top:16px}.flow-box{padding:12px;border-radius:13px;border:1px solid #c7d8eb;background:#fff}.flow-arrow{font-size:1.7rem;color:#3c78a5}.flow-box b{display:block;color:#255c86}.flow-box small{color:#60748b}
+.definition{font-size:1.05rem;padding:16px;border-left:5px solid var(--blue);border-radius:0 14px 14px 0;background:rgba(114,216,255,.08)}.definition strong{color:#fff}.not-programming{margin-top:12px;display:flex;gap:10px;align-items:start;background:rgba(255,209,102,.08);border:1px solid rgba(255,209,102,.22);border-radius:12px;padding:12px}.not-programming b{color:var(--yellow)}
+.checkpoint{margin-top:20px;padding:17px;border-radius:16px;background:rgba(0,0,0,.13);border:1px solid rgba(255,255,255,.08)}.checkpoint h3{margin:0 0 8px}.choices{display:grid;gap:9px}.choice{cursor:pointer;text-align:left;background:#12243f;border:1px solid #355273;color:#eef5ff;padding:11px 13px;border-radius:12px}.choice:hover,.choice:focus{border-color:var(--blue);outline:none}.feedback{display:none;margin-top:10px;padding:11px 13px;border-radius:12px}.feedback.good{display:block;background:rgba(144,237,184,.1);border:1px solid rgba(144,237,184,.38);color:#dcf8e8}.feedback.bad{display:block;background:rgba(255,154,154,.1);border:1px solid rgba(255,154,154,.35);color:#ffe2e2}
+.nav-bottom{display:flex;justify-content:space-between;gap:12px;align-items:center;margin-top:20px}.nav-btn{cursor:pointer;border:1px solid #3a5678;border-radius:12px;padding:11px 16px;background:#10223c;color:#eef5ff}.nav-btn.primary{background:var(--blue);border-color:var(--blue);color:#08253e;font-weight:850}.nav-btn:disabled{opacity:.42;cursor:not-allowed}
+.anatomy-line{font:700 clamp(.92rem,2vw,1.12rem) var(--mono);padding:18px;background:#071528;border:1px solid #2e4a6e;border-radius:14px;line-height:2.4}.piece{display:inline-block;padding:1px 7px;border-radius:8px;cursor:pointer;border:1px solid transparent}.piece:hover,.piece.active{background:rgba(114,216,255,.12);border-color:#4da6d0}.label-card{min-height:240px}.label-card .big{font:800 1.1rem var(--mono);color:var(--blue)}
+.doc-map{display:grid;gap:10px}.doc-layer{border-radius:13px;padding:11px 13px;border:2px solid transparent;cursor:pointer;background:#fff;color:#203a56}.doc-layer.active{border-color:#1f87c1;box-shadow:0 0 0 4px rgba(114,216,255,.22)}.doc-layer strong{display:block}.doc-layer small{color:#61758d}.head-zone{background:#edf4fb}.body-zone{background:#effbf4}.doc-note{margin-top:12px;color:#526b84;font-size:.9rem}.tab-row{display:flex;gap:9px;flex-wrap:wrap;margin-bottom:15px}.tab-btn{cursor:pointer;background:#10233f;color:#dce7f5;border:1px solid #355273;border-radius:999px;padding:9px 13px}.tab-btn.active{background:rgba(114,216,255,.13);border-color:var(--blue);color:#fff}.concept-layout{display:grid;grid-template-columns:.9fr 1.1fr;gap:18px}.meaning{display:grid;gap:10px}.meaning-row{padding:10px 12px;border-radius:12px;background:rgba(255,255,255,.035);border:1px solid rgba(255,255,255,.065)}.meaning-row b{display:block;color:var(--green)}
+.semantic-visual{display:grid;grid-template-columns:270px 1fr;gap:18px;align-items:start}.semantic-buttons{display:grid;gap:10px}.semantic-buttons button{cursor:pointer;text-align:left;color:#eaf3ff;background:#10223c;border:1px solid #355274;border-radius:14px;padding:13px 14px}.semantic-buttons button.active{border-color:var(--blue);background:rgba(114,216,255,.12);box-shadow:inset 0 0 0 1px rgba(114,216,255,.25)}.wireframe{background:#f7fbff;border:1px solid #d6e2f0;border-radius:18px;padding:14px;display:grid;gap:11px;color:#29455f}.wire{padding:14px 14px 14px 16px;border-radius:13px;border:2px solid transparent;background:#fff;transition:.15s}.wire strong{display:block;font-size:1.08rem;color:#193d62;margin-bottom:2px}.wire.active{border-color:#1981b8;box-shadow:0 0 0 4px rgba(66,163,215,.20)}.wire.header{background:linear-gradient(180deg,#d9f0ff,#cfeaff);border-color:#6ab7e3}.wire.nav{background:linear-gradient(180deg,#fff2cd,#ffe9ad);border-color:#e2bc56}.wire.main{background:linear-gradient(180deg,#dff5e8,#d6efdf);border-color:#7cc697;position:relative}.wire.main .wire.section{margin-left:28px!important;margin-top:12px!important;padding-left:18px;background:linear-gradient(180deg,#efe4ff,#e7d7fb);border:2px solid #bb9ae9;box-shadow:inset 5px 0 0 #9d6fdc}.wire.footer{background:linear-gradient(180deg,#e8eef6,#dfe7f1);border-color:#a8bdd5}.wire small{display:block;color:#4e6984;line-height:1.4}.wire.main > small{margin-bottom:12px}.wire.main::before{content:"Estructura interna";display:inline-block;margin:4px 0 10px;padding:4px 8px;border-radius:999px;background:rgba(34,126,71,.13);color:#245a3b;font-size:.78rem;font-weight:800;letter-spacing:.02em;text-transform:uppercase}
+.mission-layout{display:grid;grid-template-columns:1fr;gap:20px}.missions{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:10px}.mission{cursor:pointer;text-align:left;background:#10223c;border:1px solid #355274;color:#eaf3ff;padding:11px;border-radius:12px}.mission.active{border-color:var(--yellow);background:rgba(255,209,102,.08)}.mission.done{border-color:#4a8f70}.mission strong{display:block}.mission small{color:var(--muted)}.lab{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,.85fr);gap:18px}.lab-col h3{margin-top:0}.field{display:grid;gap:5px;margin-bottom:10px}.field label{font-weight:750}.field input,.field textarea{width:100%;padding:10px 11px;border-radius:10px;border:1px solid #355274;background:#091629;color:#fff}.field textarea{min-height:82px;resize:vertical}.live-preview{width:100%;display:block;background:#fff;border-radius:15px;border:1px solid #d4e0ed;color:#1e3148;min-height:430px;overflow:hidden}.cv-head{background:#ecf6ff;padding:17px}.cv-head h1{margin:0}.cv-body{padding:17px}.cv-body h2{color:#1d5f91;margin-top:17px}.cv-foot{padding:12px 17px;border-top:1px solid #dce5ef;color:#5c6d80}.code-live{max-height:520px;overflow:auto}.mission-instruction{padding:12px 13px;border-left:4px solid var(--yellow);background:rgba(255,209,102,.08);border-radius:0 11px 11px 0;margin-bottom:12px}.mini-actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:8px}.small-btn{cursor:pointer;border:1px solid #3a5779;border-radius:10px;background:#10223d;color:#edf5ff;padding:8px 11px}
+.final-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px}.final-check{display:grid;gap:9px}.final-item{padding:11px 12px;border-radius:12px;background:rgba(255,255,255,.035);border:1px solid rgba(255,255,255,.07)}.final-item.done{border-color:rgba(144,237,184,.4);background:rgba(144,237,184,.07)}.reflection textarea{width:100%;min-height:130px;padding:12px;border-radius:12px;border:1px solid #355274;background:#091629;color:#fff}.refs{font-size:.94rem;color:var(--muted)}.refs li{margin-bottom:10px}.refs em{color:#e8eff9}
+@media(max-width:1180px){.workspace{grid-template-columns:1fr}.route{order:-1;position:static;display:flex;gap:8px;overflow:auto;max-height:none}.route h2{display:none}.route button{width:auto;min-width:max-content}.hero-card,.grid2,.concept-layout,.semantic-visual,.mission-layout,.final-grid{grid-template-columns:1fr}.lab{grid-template-columns:1fr}.top-inner{grid-template-columns:1fr auto}.progress-area{grid-column:1/-1;grid-row:2}.hero{padding-top:20px}.flow{grid-template-columns:1fr}.flow-arrow{transform:rotate(90deg)}.compare{grid-template-columns:1fr}.arrow{transform:rotate(90deg);text-align:center}}
+@media(max-width:620px){.wrap{width:min(94vw,1180px)}.step-head,.step-body{padding:18px}.grid3{grid-template-columns:1fr}.brand small{display:none}.brand strong{font-size:.92rem}.step-count{font-size:.75rem}}
+@media(prefers-reduced-motion:reduce){*{scroll-behavior:auto!important;transition:none!important}}
+
+/* === Accesibilidad, usabilidad y evidencia · revisión WCAG 2.2 / Nielsen === */
+html{scroll-padding-top:104px}
+.sr-only{position:absolute!important;width:1px!important;height:1px!important;padding:0!important;margin:-1px!important;overflow:hidden!important;clip:rect(0,0,0,0)!important;white-space:nowrap!important;border:0!important}
+button,a,input,textarea,[tabindex]{scroll-margin-top:112px}
+button:focus-visible,a:focus-visible,input:focus-visible,textarea:focus-visible,[tabindex]:focus-visible{outline:3px solid var(--yellow)!important;outline-offset:3px!important;box-shadow:0 0 0 2px #07111f!important}
+.choice:focus-visible{border-color:var(--yellow)!important}
+button[aria-current="step"]{border-color:var(--blue)!important;background:rgba(114,216,255,.12)!important;font-weight:800}
+button[aria-current="step"]::after{content:" · actual";font-size:.78rem;color:var(--blue);font-weight:800}
+.route button:disabled{opacity:.58;cursor:not-allowed}
+.route button.done:not([aria-current="step"])::after{content:" ✓";color:var(--green);font-weight:900}
+.mission.done::after{content:" ✓ Completada";display:block;margin-top:5px;color:var(--green);font-size:.78rem;font-weight:800}
+.piece{font:700 clamp(.92rem,2vw,1.12rem) var(--mono);min-height:44px;background:transparent;color:inherit;vertical-align:middle}
+.piece[aria-pressed="true"],.tab-btn[aria-pressed="true"],.semantic-btn[aria-pressed="true"],.mission[aria-pressed="true"]{border-color:var(--blue);box-shadow:inset 0 0 0 1px var(--blue)}
+.wire small{color:#526b84}.raw{border-color:#7891ad}
+@media(max-width:1180px){.route{flex-wrap:wrap;overflow:visible}.route button{flex:1 1 190px;min-width:0}.workspace{gap:18px}}
+@media(max-width:620px){.route{display:grid;grid-template-columns:1fr 1fr}.route button{width:100%}.nav-bottom{flex-direction:column;align-items:stretch}.nav-bottom button{width:100%}}
+@media(prefers-contrast:more){:root{--muted:#d8e3f3;--line:#6988b1}.panel,.step-card,.route{border-width:2px}.choice,.nav-btn,.mission,.tab-btn,.semantic-btn{border-width:2px}}
+@media(forced-colors:active){button:focus-visible,a:focus-visible,input:focus-visible,textarea:focus-visible{outline:3px solid Highlight!important}.active,.done,[aria-current="step"],[aria-pressed="true"]{forced-color-adjust:auto}}
+.baseline{margin-bottom:20px;border-left:4px solid var(--yellow)}
+.rating-fieldset{border:0;margin:0;padding:0}.rating-fieldset legend{margin-bottom:6px}.rating-scale{display:grid;grid-template-columns:repeat(5,minmax(54px,1fr));gap:8px;margin-top:10px}.rating-scale label{min-height:54px;display:flex;align-items:center;justify-content:center;gap:6px;text-align:center;padding:8px;border:1px solid #446488;border-radius:12px;background:#0e203a;cursor:pointer}.rating-scale label:has(input:checked){border-color:var(--yellow);background:rgba(255,209,102,.10);box-shadow:inset 0 0 0 1px var(--yellow)}.rating-scale input{width:20px;height:20px;accent-color:#ffd166}.rating-scale small{font-size:.72rem;color:var(--muted)}
+.evidence-grid,.closing-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px}.closing-grid{grid-template-columns:repeat(3,minmax(0,1fr))}.field-help{margin:.2rem 0 0;color:var(--muted);font-size:.88rem}.evidence-summary{display:flex;flex-wrap:wrap;gap:8px;margin:14px 0}.evidence-summary span{padding:7px 10px;border-radius:999px;border:1px solid #426184;background:#0d1f38;color:var(--muted);font-size:.88rem}.error-summary{margin:12px 0;padding:13px 15px;border:2px solid #ff9a9a;border-radius:12px;background:rgba(255,154,154,.10);color:#ffe7e7}.error-summary ul{margin:.45rem 0 0;padding-left:22px}.danger-btn{border-color:#a75f68;color:#ffdadd}.ref-btn{cursor:pointer;border:1px solid #466888;background:#0d223e;color:#eef5ff;min-height:44px;padding:9px 12px;border-radius:10px;margin-top:10px}.info-dialog{width:min(680px,92vw);max-height:85vh;border:1px solid #58779e;border-radius:18px;background:#10213a;color:var(--text);padding:0;box-shadow:0 28px 70px rgba(0,0,0,.45)}.info-dialog::backdrop{background:rgba(3,9,18,.76)}.dialog-inner{position:relative;padding:24px}.dialog-close{position:absolute;right:12px;top:12px;width:44px;height:44px;border-radius:50%;border:1px solid #58779e;background:#0a1729;color:#fff;font-size:1.4rem}.institutional-mark{display:flex;align-items:center;gap:16px;margin-top:18px;padding:14px 16px;border:1px solid rgba(255,255,255,.09);border-radius:16px;background:rgba(255,255,255,.025)}.institutional-mark .logo-shell{width:150px;background:#fff;border-radius:8px;padding:6px 8px;flex:0 0 auto}.institutional-mark svg{display:block;width:100%;height:auto}.institutional-mark strong,.institutional-mark span{display:block}.institutional-mark span{color:var(--muted);font-size:.88rem}
+@media(max-width:840px){.evidence-grid,.closing-grid{grid-template-columns:1fr}.rating-scale{grid-template-columns:repeat(5,minmax(48px,1fr))}.institutional-mark{align-items:flex-start;flex-direction:column}}
+@media(max-width:480px){.rating-scale{grid-template-columns:1fr}.rating-scale label{justify-content:flex-start}.route{grid-template-columns:1fr}}
+
+.mission:disabled{opacity:.55;cursor:not-allowed}.inline-result{margin-top:8px;font-weight:800;color:var(--text)}.final-item.done .inline-result{color:var(--green)}
+
+/* === Consistencia visual Fase 1 / Fase 2 === */
+.top-actions{display:flex;gap:8px;align-items:center;justify-content:flex-end}.top-btn{cursor:pointer;border:1px solid #49698c;background:#0e203a;color:#edf5ff;padding:8px 11px;border-radius:10px;min-height:44px}.top-btn:hover,.top-btn:focus-visible{border-color:var(--blue);background:rgba(114,216,255,.10)}
+.rating-scale{align-items:stretch}.rating-scale label{min-height:88px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:7px;padding:10px 7px}.rating-scale input{flex:0 0 auto;margin:0;width:20px;height:20px}.rating-scale label>span{display:grid;grid-template-rows:1.35em 1.25em;place-items:center;min-width:0;line-height:1.05}.rating-number{display:block;font-size:1rem;font-weight:800;color:#fff;line-height:1.2}.rating-caption{display:block;min-height:1.2em;font-size:.72rem;color:var(--muted);line-height:1.15;white-space:nowrap}.rating-scale label:has(input:checked) .rating-number{color:var(--yellow)}.rating-scale label:has(input:checked) .rating-caption{color:#fff1bf}
+.quality-panel{grid-template-columns:repeat(2,minmax(0,1fr))}.quality-card{border-color:rgba(114,216,255,.16)}.quality-card>strong{color:var(--blue)}.author-card{background:linear-gradient(145deg,rgba(114,216,255,.08),rgba(185,163,255,.06))}.author-card p{margin:.35rem 0}.dialog-quality-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;margin-top:16px}.warning-note{margin-top:16px;padding:13px 15px;border-left:4px solid var(--yellow);background:rgba(255,209,102,.08);border-radius:0 12px 12px 0}.quality-links a{color:#bcecff}
+.resource-footer{width:min(1380px,95vw);margin:0 auto 42px;padding:20px 22px;border:1px solid rgba(255,255,255,.09);border-radius:18px;background:linear-gradient(135deg,rgba(14,32,58,.96),rgba(24,39,70,.96));box-shadow:var(--shadow)}.resource-footer-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px 24px}.resource-footer strong{display:block;color:var(--blue);margin-bottom:4px}.resource-footer span{display:block;color:var(--muted);font-size:.9rem;line-height:1.5}.resource-footer a{color:#bcecff;font-weight:700}
+@media(max-width:900px){.top-actions{flex-wrap:wrap}.dialog-quality-grid,.quality-panel,.resource-footer-grid{grid-template-columns:1fr}}@media(max-width:760px){.rating-scale{grid-template-columns:repeat(5,minmax(52px,1fr));gap:6px}.rating-scale label{padding:8px 4px;min-height:82px}.rating-caption{font-size:.66rem}}@media(max-width:470px){.rating-scale{grid-template-columns:1fr}.rating-scale label{min-height:60px;display:grid;grid-template-columns:26px 36px 1fr;justify-content:start;text-align:left}.rating-scale label>span{display:contents}.rating-number{justify-self:start}.rating-caption{justify-self:start;white-space:normal}.top-actions{justify-content:flex-start}}
+</style>
+</head>
+<body>
+<a class="skip" href="#lesson">Saltar al contenido de la lección</a>
+<header class="top">
+<div class="wrap top-inner">
+<div class="brand"><div class="brand-icon">NODO.HTML</div><div><strong>HTML5 desde cero</strong><small>Fase 1 · Estructura HTML · Experiencia visual guiada</small></div></div>
+<div aria-label="Progreso del recurso" class="progress-area"><div class="progress-label"><span id="progressName">Paso 1 · ¿Qué es HTML?</span><span id="progressPercent">13%</span></div><div aria-describedby="progressName progressPercent" aria-label="Progreso de la actividad" aria-valuemax="100" aria-valuemin="0" aria-valuenow="13" class="progress" role="progressbar"><span id="progressBar"></span></div></div>
+<div class="top-actions"><button aria-haspopup="dialog" class="top-btn" id="openQuality" type="button">Calidad y transparencia</button><div class="step-count" id="stepCount">1 / 8</div></div>
+</div>
+</header><div aria-atomic="true" aria-live="polite" class="sr-only" id="a11yStatus" role="status"></div>
+<div class="wrap hero">
+<div class="hero-card">
+<div>
+<span class="eyebrow">Punto de partida</span>
+<h1>Primero entiende la estructura. Después escribe el código.</h1>
+<p>Esta es la fase 1 de una secuencia de aprendizaje. Primero comprenderás la estructura HTML, después la aplicarás en un currículum sencillo y cerrarás con una evidencia PDF y una reflexión. La siguiente fase trabajará CSS aplicado.</p>
+</div>
+<div aria-label="Qué lograrás" class="goal">
+<div class="goal-item"><strong>1. Reconocer</strong><span>qué es HTML y qué función cumple en una página web.</span></div>
+<div class="goal-item"><strong>2. Interpretar</strong><span>etiquetas, elementos y la estructura de un documento.</span></div>
+<div class="goal-item"><strong>3. Construir</strong><span>una página HTML sencilla con contenido organizado.</span></div>
+</div>
+</div>
+</div>
+<div class="wrap workspace">
+<nav aria-label="Progreso y pasos de la actividad" class="route">
+<h2>Ruta</h2>
+<button class="route-btn active" data-go="0" type="button"><span>1</span>Qué es HTML</button>
+<button class="route-btn" data-go="1" type="button"><span>2</span>Elemento y etiqueta</button>
+<button class="route-btn" data-go="2" type="button"><span>3</span>Documento HTML</button>
+<button class="route-btn" data-go="3" type="button"><span>4</span>Contenido básico</button>
+<button class="route-btn" data-go="4" type="button"><span>5</span>Estructura semántica</button>
+<button class="route-btn" data-go="5" type="button"><span>6</span>Actividad · CV</button>
+<button class="route-btn" data-go="6" type="button"><span>7</span>Evidencia + reflexión</button>
+<button class="route-btn" data-go="7" type="button"><span>8</span>Cierre y fuentes</button>
+</nav>
+<main id="lesson">
+<!-- PASO 1 -->
+<section aria-hidden="false" aria-labelledby="stage-title-1" class="stage active" data-stage="0" data-title="¿Qué es HTML?">
+<article class="step-card">
+<div class="step-head">
+<span class="eyebrow">Paso 1 de 8 · Concepto fundamental</span>
+<h2 id="stage-title-1" tabindex="-1">¿Qué es HTML y para qué sirve?</h2>
+<p>Antes de aprender etiquetas, necesitas saber exactamente qué problema resuelve HTML.</p>
+<div class="learning-target"><strong>Al terminar este paso debes poder explicar:</strong> “HTML sirve para dar estructura y significado al contenido de una página web”.</div>
+</div>
+<div class="step-body">
+<div class="panel baseline" id="baselinePanel">
+<fieldset class="rating-fieldset">
+<legend><strong>Antes de empezar · diagnóstico personal (no califica)</strong></legend>
+<p class="soft" id="baselineHelp">¿Qué tan seguro te sientes ahora para explicar qué es HTML y construir una página sencilla?</p>
+<div aria-describedby="baselineHelp" class="rating-scale" role="radiogroup"><label><input aria-label="1 - Nada" name="confidenceBefore" type="radio" value="1"/> <span><strong class="rating-number">1</strong><small class="rating-caption">Nada</small></span></label><label><input aria-label="2 - Poco" name="confidenceBefore" type="radio" value="2"/> <span><strong class="rating-number">2</strong><small class="rating-caption">Poco</small></span></label><label><input aria-label="3 - Medio" name="confidenceBefore" type="radio" value="3"/> <span><strong class="rating-number">3</strong><small class="rating-caption">Medio</small></span></label><label><input aria-label="4 - Bastante" name="confidenceBefore" type="radio" value="4"/> <span><strong class="rating-number">4</strong><small class="rating-caption">Bastante</small></span></label><label><input aria-label="5 - Mucho" name="confidenceBefore" type="radio" value="5"/> <span><strong class="rating-number">5</strong><small class="rating-caption">Mucho</small></span></label></div>
+</fieldset>
+</div><div class="grid2">
+<div>
+<div class="definition">
+<strong>HTML</strong> significa <strong>HyperText Markup Language</strong> (Lenguaje de Marcado de Hipertexto). Es un <strong>lenguaje de marcado</strong> que indica al navegador cómo <strong>estructurar</strong> el contenido de una página web.
+              </div>
+<div class="source-note"><strong>Referencia del concepto:</strong> MDN explica que HTML es un lenguaje de marcado que indica a los navegadores cómo estructurar las páginas web (Mozilla Developer Network, 2026).</div><button class="ref-btn" data-ref="html" type="button">ⓘ Ver referencia APA 7 del concepto</button>
+<div class="grid3" style="margin-top:12px">
+<div class="panel"><h3 style="color:var(--blue)">HyperText</h3><p class="soft">“Hipertexto”: contenido que puede conectarse con otros recursos mediante enlaces.</p></div>
+<div class="panel"><h3 style="color:var(--green)">Markup</h3><p class="soft">“Marcado”: etiquetas que identifican qué representa cada parte del contenido.</p></div>
+<div class="panel"><h3 style="color:var(--yellow)">Language</h3><p class="soft">“Lenguaje”: una sintaxis y reglas que el navegador sabe interpretar.</p></div>
+</div>
+<div class="not-programming"><b>Importante:</b><span>HTML no se estudia aquí como un lenguaje de programación. Su función inicial es <strong>marcar y organizar contenido</strong>: qué es un título, un párrafo, una lista, un enlace, una imagen, etc.</span></div>
+<div class="panel" style="margin-top:14px">
+<h3>Una forma sencilla de pensarlo</h3>
+<p class="soft">Imagina que tienes información escrita, pero nadie sabe qué parte es el título, qué parte es una lista o qué parte es un enlace. HTML <strong>etiqueta</strong> cada pieza para que el navegador sepa qué representa.</p>
+<div aria-label="Proceso de HTML" class="flow">
+<div class="flow-box"><b>Contenido</b><small>“Ana López”, “Habilidades”, “HTML”</small></div><div class="flow-arrow">→</div>
+<div class="flow-box"><b>HTML lo marca</b><small>&lt;h1&gt; · &lt;p&gt; · &lt;ul&gt;</small></div><div class="flow-arrow">→</div>
+<div class="flow-box"><b>Navegador</b><small>Interpreta y organiza la página</small></div>
+</div>
+</div>
+</div>
+<div class="visual-card">
+<div class="visual-title">Mira la diferencia: información suelta vs. contenido estructurado</div>
+<div class="visual-body">
+<div class="compare">
+<div aria-hidden="true" class="raw"><strong>Información sin marcar</strong><br/><br/>Ana López<br/>Estudiante de desarrollo web<br/><br/>Habilidades<br/>HTML<br/>Trabajo en equipo<br/>Git</div>
+<div class="arrow">→</div>
+<div aria-hidden="true" class="structured"><h2>Ana López</h2><p>Estudiante de desarrollo web</p><h3>Habilidades</h3><ul><li>HTML</li><li>Trabajo en equipo</li><li>Git</li></ul></div>
+</div>
+<p style="margin-bottom:8px;color:#586e85"><strong>Qué debes observar:</strong> la información es la misma. HTML no inventó el contenido; le dio una estructura comprensible.</p><p style="margin-bottom:0;color:#586e85"><strong>Nota:</strong> el navegador aplica estilos básicos por defecto a títulos, listas y párrafos. Más adelante CSS controlará su apariencia.</p>
+</div>
+</div>
+</div>
+<div class="checkpoint" data-check="0">
+<h3>Antes de continuar</h3>
+<p>¿Cuál frase explica mejor qué hace HTML?</p>
+<div class="choices">
+<button aria-pressed="false" class="choice" data-result="bad" type="button">Hace que una página tenga colores, animaciones y diseño visual.</button>
+<button aria-pressed="false" class="choice" data-result="good" type="button">Estructura y da significado al contenido que interpreta el navegador.</button>
+<button aria-pressed="false" class="choice" data-result="bad" type="button">Sirve principalmente para guardar información en una base de datos.</button>
+</div>
+<div aria-live="polite" class="feedback" id="feedback0"></div>
+</div>
+<div class="nav-bottom"><button class="nav-btn" disabled="" type="button">← Anterior</button><button class="nav-btn primary next" data-next="1" type="button">Siguiente: elemento y etiqueta →</button></div>
+</div>
+</article>
+</section>
+<!-- PASO 2 -->
+<section aria-hidden="true" aria-labelledby="stage-title-2" class="stage" data-stage="1" data-title="Elemento y etiqueta">
+<article class="step-card">
+<div class="step-head">
+<span class="eyebrow">Paso 2 de 8 · La unidad básica</span>
+<h2 id="stage-title-2" tabindex="-1">Una etiqueta le dice al navegador qué es cada contenido</h2>
+<p>Aprender HTML empieza por entender un elemento completo, no por memorizar decenas de nombres.</p>
+<div class="learning-target"><strong>Al terminar:</strong> distinguirás etiqueta de apertura, contenido, etiqueta de cierre y atributo.</div>
+</div>
+<div class="step-body">
+<div class="grid2">
+<div class="panel">
+<h3>Explora este elemento</h3>
+<div aria-label="Elemento HTML interactivo" class="anatomy-line">
+<button aria-pressed="true" class="piece active" data-piece="open" type="button">&lt;p&gt;</button>
+<button aria-pressed="false" class="piece" data-piece="content" type="button">Estoy aprendiendo HTML</button>
+<button aria-pressed="false" class="piece" data-piece="close" type="button">&lt;/p&gt;</button>
+</div>
+<p class="soft">Haz clic en cada parte. Después prueba el ejemplo con un enlace, que incluye un atributo.</p>
+<div class="anatomy-line" style="margin-top:12px">
+<button aria-pressed="false" class="piece" data-piece="openA" type="button">&lt;a</button>
+<button aria-pressed="false" class="piece" data-piece="attr" type="button">href="portafolio.html"</button>
+<button aria-pressed="false" class="piece" data-piece="openEnd" type="button">&gt;</button>
+<button aria-pressed="false" class="piece" data-piece="linkText" type="button">Mi portafolio</button>
+<button aria-pressed="false" class="piece" data-piece="closeA" type="button">&lt;/a&gt;</button>
+</div>
+<div class="source-note"><strong>Referencia técnica:</strong> MDN define un elemento como la etiqueta de apertura, su contenido y la etiqueta de cierre; los atributos agregan información adicional al elemento (MDN, 2026).</div>
+</div>
+<div class="panel label-card" id="pieceInfo">
+<div class="big">&lt;p&gt; · etiqueta de apertura</div>
+<h3>Marca dónde comienza el elemento</h3>
+<p class="soft">La letra <code>p</code> significa “paragraph” (párrafo). El navegador entiende que el texto que sigue forma un párrafo.</p>
+<div aria-hidden="true" class="browser"><div class="browser-bar"><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="address">vista</span></div><div class="browser-page"><p>Estoy aprendiendo HTML</p></div></div>
+</div>
+</div>
+<div class="checkpoint" data-check="1">
+<h3>Comprueba la idea</h3><p>En <code>&lt;a href="pagina.html"&gt;Ir&lt;/a&gt;</code>, ¿qué es <code>href</code>?</p>
+<div class="choices"><button aria-pressed="false" class="choice" data-result="bad" type="button">El contenido visible.</button><button aria-pressed="false" class="choice" data-result="good" type="button">Un atributo que aporta información al enlace.</button><button aria-pressed="false" class="choice" data-result="bad" type="button">La etiqueta de cierre.</button></div><div class="feedback" id="feedback1"></div>
+</div>
+<div class="nav-bottom"><button class="nav-btn prev" data-prev="0" type="button">← Qué es HTML</button><button class="nav-btn primary next" data-next="2" type="button">Siguiente: documento HTML →</button></div>
+</div>
+</article>
+</section>
+<!-- PASO 3 -->
+<section aria-hidden="true" aria-labelledby="stage-title-3" class="stage" data-stage="2" data-title="Documento HTML">
+<article class="step-card">
+<div class="step-head">
+<span class="eyebrow">Paso 3 de 8 · La estructura mínima</span>
+<h2 id="stage-title-3" tabindex="-1">Ahora arma el “contenedor” de una página completa</h2>
+<p>Los elementos no viven aislados. Un documento HTML tiene una estructura base que el navegador interpreta.</p>
+<div class="learning-target"><strong>Al terminar:</strong> sabrás para qué sirven <code>&lt;html&gt;</code>, <code>&lt;head&gt;</code>, <code>&lt;title&gt;</code> y <code>&lt;body&gt;</code>.</div>
+</div>
+<div class="step-body">
+<div class="grid2">
+<div class="panel">
+<h3>Haz clic en una línea</h3>
+<div class="codebox" id="docCode">
+<button aria-pressed="true" class="piece doc-piece active" data-doc="doctype" type="button">&lt;!DOCTYPE html&gt;</button>
+<button aria-pressed="false" class="piece doc-piece" data-doc="html" type="button">&lt;html lang="es"&gt;</button>
+<button aria-pressed="false" class="piece doc-piece" data-doc="head" type="button">&lt;head&gt;</button>
+<button aria-pressed="false" class="piece doc-piece" data-doc="meta" type="button">&lt;meta charset="UTF-8"&gt;</button>
+<button aria-pressed="false" class="piece doc-piece" data-doc="title" type="button">&lt;title&gt;Mi primera página&lt;/title&gt;</button>
+<button aria-pressed="false" class="piece doc-piece" data-doc="head" type="button">&lt;/head&gt;</button>
+<button aria-pressed="false" class="piece doc-piece" data-doc="body" type="button">&lt;body&gt;</button>
+    &lt;h1&gt;Hola, web&lt;/h1&gt;
+    &lt;p&gt;Mi primera página HTML.&lt;/p&gt;
+  <button aria-pressed="false" class="piece doc-piece" data-doc="body" type="button">&lt;/body&gt;</button>
+<button aria-pressed="false" class="piece doc-piece" data-doc="html" type="button">&lt;/html&gt;</button>
+</div>
+</div>
+<div class="visual-card">
+<div class="visual-title" id="docTitle">DOCTYPE · indica el tipo de documento</div>
+<div class="visual-body">
+<div class="doc-map">
+<div class="doc-layer" id="doc-head"><strong>HEAD · información para el navegador</strong><small>Configuración, título de pestaña, metadatos. Normalmente no aparece como contenido de la página.</small></div>
+<div class="doc-layer" id="doc-body"><strong>BODY · contenido que ve la persona</strong><small>Títulos, párrafos, listas, enlaces, imágenes, formularios, etc.</small></div>
+</div>
+<div aria-hidden="true" class="browser" style="margin-top:13px"><div class="browser-bar"><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="address" id="tabTitle">Mi primera página</span></div><div class="browser-page"><h1>Hola, web</h1><p>Mi primera página HTML.</p></div></div>
+<p class="doc-note" id="docExplain">El <code>&lt;!DOCTYPE html&gt;</code> va al inicio y activa el modo estándar de HTML moderno.</p>
+</div>
+</div>
+</div>
+<div class="checkpoint" data-check="2"><h3>Antes de avanzar</h3><p>¿Dónde colocas el contenido visible de la página?</p><div class="choices"><button aria-pressed="false" class="choice" data-result="bad" type="button">Dentro de &lt;head&gt;.</button><button aria-pressed="false" class="choice" data-result="good" type="button">Dentro de &lt;body&gt;.</button><button aria-pressed="false" class="choice" data-result="bad" type="button">Dentro de &lt;title&gt;.</button></div><div class="feedback" id="feedback2"></div></div>
+<div class="nav-bottom"><button class="nav-btn prev" data-prev="1" type="button">← Elemento y etiqueta</button><button class="nav-btn primary next" data-next="3" type="button">Siguiente: contenido básico →</button></div>
+</div>
+</article>
+</section>
+<!-- PASO 4 -->
+<section aria-hidden="true" aria-labelledby="stage-title-4" class="stage" data-stage="3" data-title="Contenido básico">
+<article class="step-card">
+<div class="step-head"><span class="eyebrow">Paso 4 de 8 · Vocabulario esencial</span><h2 id="stage-title-4" tabindex="-1">Aprende solo las etiquetas que necesitas para tu primera página</h2><p>Cada etiqueta responde a una intención: “quiero un título”, “quiero un párrafo”, “quiero varios elementos relacionados”, etc.</p><div class="learning-target"><strong>Al terminar:</strong> elegirás entre título, párrafo, lista, enlace e imagen según lo que quieras comunicar.</div></div>
+<div class="step-body">
+<div aria-label="Tipos de contenido" class="tab-row" role="tablist"><button aria-pressed="true" class="tab-btn active" data-concept="heading" type="button">Título</button><button aria-pressed="false" class="tab-btn" data-concept="paragraph" type="button">Párrafo</button><button aria-pressed="false" class="tab-btn" data-concept="list" type="button">Lista</button><button aria-pressed="false" class="tab-btn" data-concept="link" type="button">Enlace</button><button aria-pressed="false" class="tab-btn" data-concept="image" type="button">Imagen</button></div>
+<div class="concept-layout">
+<div class="panel meaning" id="conceptMeaning"></div>
+<div class="visual-card"><div class="visual-title">Código → resultado visible</div><div class="visual-body"><pre class="codebox" id="conceptCode"></pre><div aria-hidden="true" class="browser" style="margin-top:13px"><div class="browser-bar"><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="address">resultado</span></div><div class="browser-page" id="conceptRender"></div></div></div></div>
+</div>
+<div class="checkpoint" data-check="3"><h3>Práctica breve</h3><p>Quieres mostrar “HTML, CSS y Git” como tres habilidades relacionadas. ¿Qué opción comunica mejor la relación?</p><div class="choices"><button aria-pressed="false" class="choice" data-result="bad" type="button">Tres &lt;h1&gt;.</button><button aria-pressed="false" class="choice" data-result="good" type="button">Una &lt;ul&gt; con tres &lt;li&gt;.</button><button aria-pressed="false" class="choice" data-result="bad" type="button">Una sola &lt;img&gt;.</button></div><div class="feedback" id="feedback3"></div></div>
+<div class="nav-bottom"><button class="nav-btn prev" data-prev="2" type="button">← Documento HTML</button><button class="nav-btn primary next" data-next="4" type="button">Siguiente: estructura semántica →</button></div>
+</div>
+</article>
+</section>
+<!-- PASO 5 -->
+<section aria-hidden="true" aria-labelledby="stage-title-5" class="stage" data-stage="4" data-title="Estructura semántica">
+<article class="step-card">
+<div class="step-head"><span class="eyebrow">Paso 5 de 8 · Organizar la página</span><h2 id="stage-title-5" tabindex="-1">Una página también se divide en regiones con significado</h2><p>Cuando el contenido crece, necesitas organizarlo en zonas. Para una primera página, empieza por pocas regiones claras.</p><div class="learning-target"><strong>Al terminar:</strong> reconocerás <code>&lt;header&gt;</code>, <code>&lt;main&gt;</code>, <code>&lt;section&gt;</code> y <code>&lt;footer&gt;</code>; usarás <code>&lt;nav&gt;</code> cuando haya navegación.</div></div>
+<div class="step-body">
+<div class="semantic-visual">
+<div class="semantic-buttons"><button aria-pressed="true" class="semantic-btn active" data-sem="header" type="button"><strong>&lt;header&gt;</strong><br/><small>Presenta la página.</small></button><button aria-pressed="false" class="semantic-btn" data-sem="nav" type="button"><strong>&lt;nav&gt;</strong><br/><small>Navegación principal.</small></button><button aria-pressed="false" class="semantic-btn" data-sem="main" type="button"><strong>&lt;main&gt;</strong><br/><small>Contenido central.</small></button><button aria-pressed="false" class="semantic-btn" data-sem="section" type="button"><strong>&lt;section&gt;</strong><br/><small>Agrupa un tema.</small></button><button aria-pressed="false" class="semantic-btn" data-sem="footer" type="button"><strong>&lt;footer&gt;</strong><br/><small>Cierra la página.</small></button></div>
+<div><div class="wireframe"><div class="wire header active" id="sem-header"><strong>header</strong><small>Nombre y presentación del CV</small></div><div class="wire nav" id="sem-nav"><strong>nav</strong><small>Perfil · Habilidades · Contacto</small></div><div class="wire main" id="sem-main"><strong>main</strong><small>Contenido principal<div class="wire section" id="sem-section" style="margin-top:8px"><strong>section</strong><small>Habilidades</small></div><div class="wire section" style="margin-top:8px"><strong>section</strong><small>Educación</small></div></small></div><div class="wire footer" id="sem-footer"><strong>footer</strong><small>Contacto y cierre</small></div></div><div class="source-note" id="semInfo"><strong>&lt;header&gt;</strong> introduce la página o una sección. En un CV puede contener tu nombre y perfil.</div><button class="ref-btn" data-ref="semantic" type="button">ⓘ Ver referencia APA 7 sobre estructura semántica</button></div>
+</div>
+<div class="grid2" style="margin-top:16px"><div class="panel"><h3>Regla para no complicarte</h3><p class="soft">No uses una etiqueta porque “se ve bonita”. Úsala por lo que <strong>significa</strong>. W3C recomienda marcar la estructura con elementos semánticos apropiados, de modo que las relaciones sean comprensibles para navegadores y tecnologías de asistencia.</p></div><div class="panel"><h3>¿Y <code>&lt;article&gt;</code> / <code>&lt;aside&gt;</code>?</h3><p class="soft">Existen y son importantes, pero no necesitas dominarlos para tu primera página. Primero consolida la estructura básica. Después podrás aprender que <code>&lt;article&gt;</code> representa contenido autocontenido y <code>&lt;aside&gt;</code> contenido complementario.</p></div></div>
+<div class="checkpoint" data-check="4"><h3>Comprueba la estructura</h3><p>En un CV, “Habilidades” y “Educación” son bloques temáticos dentro del contenido principal. ¿Qué elemento encaja bien para cada bloque?</p><div class="choices"><button aria-pressed="false" class="choice" data-result="good" type="button">&lt;section&gt;</button><button aria-pressed="false" class="choice" data-result="bad" type="button">&lt;title&gt;</button><button aria-pressed="false" class="choice" data-result="bad" type="button">&lt;meta&gt;</button></div><div class="feedback" id="feedback4"></div></div>
+<div class="nav-bottom"><button class="nav-btn prev" data-prev="3" type="button">← Contenido básico</button><button class="nav-btn primary next" data-next="5" type="button">Siguiente: construir mi página →</button></div>
+</div>
+</article>
+</section>
+<!-- PASO 6 -->
+<section aria-hidden="true" aria-labelledby="stage-title-6" class="stage" data-stage="5" data-title="Actividad · CV">
+<article class="step-card">
+<div class="step-head"><span class="eyebrow">Paso 6 de 8 · Aprender haciendo</span><h2 id="stage-title-6" tabindex="-1">Construye un currículum web en 5 misiones</h2><p>No empiezas desde una hoja en blanco. Primero estudias una solución guiada y después personalizas cada parte. La ayuda disminuye conforme avanzas.</p><div class="learning-target"><strong>Producto:</strong> un archivo HTML con encabezado, perfil, habilidades, educación/proyecto y contacto.</div></div>
+<div class="step-body">
+<div class="mission-layout">
+<div>
+<div class="missions"><button aria-pressed="true" class="mission active" data-mission="0" type="button"><strong>1 · Identidad</strong><small>Nombre y perfil en header.</small></button><button aria-pressed="false" class="mission" data-mission="1" type="button"><strong>2 · Perfil</strong><small>Una section con párrafo.</small></button><button aria-pressed="false" class="mission" data-mission="2" type="button"><strong>3 · Habilidades</strong><small>Una lista de elementos.</small></button><button aria-pressed="false" class="mission" data-mission="3" type="button"><strong>4 · Formación / proyecto</strong><small>Otra sección temática.</small></button><button aria-pressed="false" class="mission" data-mission="4" type="button"><strong>5 · Contacto</strong><small>Enlace y footer.</small></button></div>
+<div class="panel" style="margin-top:12px"><h3 id="missionTitle">Misión 1 · Identidad</h3><div aria-live="polite" class="mission-instruction" id="missionInstruction">Observa cómo un <code>&lt;header&gt;</code> puede presentar tu página. Personaliza tu nombre y tu perfil.</div><div id="missionFields"></div><div class="mini-actions"><button class="small-btn" id="markMission" type="button">Marcar misión como comprendida</button><button class="small-btn" id="copyCode" type="button">Copiar código</button><button class="small-btn" id="downloadHtmlPhase1" type="button">Descargar CV.html</button></div></div>
+</div>
+<div>
+<div class="lab">
+<div class="lab-col"><h3>Vista previa real del navegador</h3><p class="soft" id="cvPreviewHelp">Sin CSS propio: observa solo la estructura y los estilos predeterminados del navegador.</p><iframe aria-describedby="cvPreviewHelp" class="live-preview" id="cvPreview" sandbox="" title="Vista previa real del currículum HTML"></iframe></div>
+<div class="lab-col"><h3>Código que estás construyendo</h3><pre class="codebox code-live" id="cvCode"></pre></div>
+</div>
+</div>
+</div>
+<div class="checkpoint" data-check="5"><h3>Antes de terminar el proyecto</h3><p>¿Qué relación quieres conservar en tu mente?</p><div class="choices"><button aria-pressed="false" class="choice" data-result="good" type="button">Primero decido qué significa el contenido; después elijo la etiqueta que lo representa.</button><button aria-pressed="false" class="choice" data-result="bad" type="button">Primero elijo etiquetas al azar y después intento acomodar el contenido.</button></div><div class="feedback" id="feedback5"></div></div>
+<div class="nav-bottom"><button class="nav-btn prev" data-prev="4" type="button">← Estructura semántica</button><button class="nav-btn primary next" data-next="6" type="button">Siguiente: evidencia y reflexión →</button></div>
+</div>
+</article>
+</section>
+<!-- PASO 7 -->
+<section aria-hidden="true" aria-labelledby="stage-title-7" class="stage" data-stage="6" data-title="Evidencia y reflexión">
+<article class="step-card">
+<div class="step-head"><span class="eyebrow">Paso 7 de 8 · Evidencia y reflexión</span><h2 id="stage-title-7" tabindex="-1">Comprueba, documenta y reflexiona sobre lo aprendido</h2><p>Aquí conviertes tu interacción en evidencia: compruebas conceptos, valoras tu avance y explicas qué cambió en tu comprensión.</p><div class="learning-target"><strong>Producto de cierre:</strong> un PDF con tu matrícula, resultado de la actividad, nivel de confianza y reflexión metacognitiva.</div></div>
+<div class="step-body">
+<div class="panel final-check" id="finalQuestions">
+<h3 style="margin:0">Mini comprobación</h3>
+<div class="final-item" data-final="0"><strong>1. HTML principalmente…</strong><div class="choices" style="margin-top:7px"><button aria-pressed="false" class="choice final-choice" data-correct="1" type="button">estructura y marca contenido.</button><button aria-pressed="false" class="choice final-choice" data-correct="0" type="button">diseña bases de datos.</button></div></div>
+<div class="final-item" data-final="1"><strong>2. El contenido visible suele ir dentro de…</strong><div class="choices" style="margin-top:7px"><button aria-pressed="false" class="choice final-choice" data-correct="0" type="button">&lt;head&gt;</button><button aria-pressed="false" class="choice final-choice" data-correct="1" type="button">&lt;body&gt;</button></div></div>
+<div class="final-item" data-final="2"><strong>3. Una colección de habilidades se representa bien con…</strong><div class="choices" style="margin-top:7px"><button aria-pressed="false" class="choice final-choice" data-correct="1" type="button">&lt;ul&gt; y &lt;li&gt;</button><button aria-pressed="false" class="choice final-choice" data-correct="0" type="button">varios &lt;title&gt;</button></div></div>
+<div class="final-item" data-final="3"><strong>4. Un bloque temático como “Educación” puede ser…</strong><div class="choices" style="margin-top:7px"><button aria-pressed="false" class="choice final-choice" data-correct="1" type="button">&lt;section&gt;</button><button aria-pressed="false" class="choice final-choice" data-correct="0" type="button">&lt;meta&gt;</button></div></div>
+</div>
+<div class="evidence-grid" style="margin-top:20px">
+<section aria-labelledby="evidenceDataTitle" class="panel">
+<h3 id="evidenceDataTitle">1 · Identifica tu evidencia</h3>
+<p class="soft">Estos datos aparecerán en el reporte. Los campos marcados como obligatorios deben completarse antes de generar el PDF.</p>
+<div class="field"><label for="studentName">Nombre del estudiante <span aria-hidden="true">*</span></label><input aria-required="true" autocomplete="name" id="studentName" placeholder="Escribe tu nombre completo" required=""/></div>
+<div class="field"><label for="studentId">Matrícula <span aria-hidden="true">*</span></label><input aria-describedby="studentIdHelp" aria-required="true" autocomplete="off" id="studentId" inputmode="text" placeholder="Ej. 20261234" required=""/></div>
+<p class="field-help" id="studentIdHelp">Se usará también en el nombre del archivo: <code>HTML5_Fase1_MATRICULA.pdf</code>. Tus datos permanecen en este navegador; el recurso no los envía a ningún servidor.</p>
+</section>
+<section aria-labelledby="selfEvalTitle" class="panel">
+<h3 id="selfEvalTitle">2 · Evalúa tu aprendizaje</h3>
+<fieldset class="rating-fieldset">
+<legend>Confianza al terminar: puedo explicar qué hace HTML y construir una página sencilla. <span aria-hidden="true">*</span></legend>
+<div class="rating-scale"><label><input aria-label="1 - Nada" name="confidenceAfter" required="" type="radio" value="1"/> <span><strong class="rating-number">1</strong><small class="rating-caption">Nada</small></span></label><label><input aria-label="2 - Poco" name="confidenceAfter" type="radio" value="2"/> <span><strong class="rating-number">2</strong><small class="rating-caption">Poco</small></span></label><label><input aria-label="3 - Medio" name="confidenceAfter" type="radio" value="3"/> <span><strong class="rating-number">3</strong><small class="rating-caption">Medio</small></span></label><label><input aria-label="4 - Bastante" name="confidenceAfter" type="radio" value="4"/> <span><strong class="rating-number">4</strong><small class="rating-caption">Bastante</small></span></label><label><input aria-label="5 - Mucho" name="confidenceAfter" type="radio" value="5"/> <span><strong class="rating-number">5</strong><small class="rating-caption">Mucho</small></span></label></div>
+</fieldset>
+<fieldset class="rating-fieldset" style="margin-top:14px">
+<legend>¿Qué tan útil fue el artefacto para comprender el tema? <span aria-hidden="true">*</span></legend>
+<div class="rating-scale"><label><input aria-label="1 - Nada" name="artifactUtility" required="" type="radio" value="1"/> <span><strong class="rating-number">1</strong><small class="rating-caption">Nada</small></span></label><label><input aria-label="2 - Poco" name="artifactUtility" type="radio" value="2"/> <span><strong class="rating-number">2</strong><small class="rating-caption">Poco</small></span></label><label><input aria-label="3 - Media" name="artifactUtility" type="radio" value="3"/> <span><strong class="rating-number">3</strong><small class="rating-caption">Media</small></span></label><label><input aria-label="4 - Alta" name="artifactUtility" type="radio" value="4"/> <span><strong class="rating-number">4</strong><small class="rating-caption">Alta</small></span></label><label><input aria-label="5 - Mucha" name="artifactUtility" type="radio" value="5"/> <span><strong class="rating-number">5</strong><small class="rating-caption">Mucha</small></span></label></div>
+</fieldset>
+<fieldset class="rating-fieldset" style="margin-top:14px">
+<legend>¿El recorrido mejoró tu entendimiento de HTML? <span aria-hidden="true">*</span></legend>
+<div class="rating-scale"><label><input aria-label="1 - Nada" name="understandingGain" required="" type="radio" value="1"/> <span><strong class="rating-number">1</strong><small class="rating-caption">Nada</small></span></label><label><input aria-label="2 - Poco" name="understandingGain" type="radio" value="2"/> <span><strong class="rating-number">2</strong><small class="rating-caption">Poco</small></span></label><label><input aria-label="3 - Algo" name="understandingGain" type="radio" value="3"/> <span><strong class="rating-number">3</strong><small class="rating-caption">Algo</small></span></label><label><input aria-label="4 - Bastante" name="understandingGain" type="radio" value="4"/> <span><strong class="rating-number">4</strong><small class="rating-caption">Bastante</small></span></label><label><input aria-label="5 - Mucho" name="understandingGain" type="radio" value="5"/> <span><strong class="rating-number">5</strong><small class="rating-caption">Mucho</small></span></label></div>
+</fieldset>
+</section>
+</div>
+<section aria-labelledby="metaTitle" class="panel reflection" style="margin-top:20px">
+<h3 id="metaTitle">3 · Reflexión metacognitiva</h3>
+<p class="soft">No se evalúa la extensión, sino que puedas reconocer qué cambió en tu forma de entender y construir HTML.</p>
+<div class="field"><label for="reflectionChange">Antes de la actividad, ¿cómo entendías HTML y qué entiendes ahora? <span aria-hidden="true">*</span></label><textarea aria-required="true" id="reflectionChange" placeholder="Antes pensaba que… Ahora entiendo que…" required=""></textarea></div>
+<div class="field"><label for="reflectionDifficulty">¿Qué fue lo más difícil y qué hiciste para comprenderlo o resolverlo? <span aria-hidden="true">*</span></label><textarea aria-required="true" id="reflectionDifficulty" placeholder="Lo más difícil fue… Lo resolví al…" required=""></textarea></div>
+<div class="field"><label for="reflectionEvidence">¿Qué parte de tu currículum web demuestra mejor que comprendiste la estructura HTML? <span aria-hidden="true">*</span></label><textarea aria-required="true" id="reflectionEvidence" placeholder="La parte que mejor lo demuestra es… porque…" required=""></textarea></div>
+</section>
+<section aria-labelledby="pdfTitle" class="panel evidence-panel" style="margin-top:20px">
+<h3 id="pdfTitle">4 · Genera tu evidencia en PDF</h3>
+<p>El reporte incluirá identificación, avance, resultado de la comprobación, código HTML construido, autoevaluación, reflexión metacognitiva, autoría, licencia y transparencia de IAG.</p>
+<div class="error-summary" hidden="" id="evidenceErrors" role="alert" tabindex="-1"></div>
+<div aria-live="polite" class="evidence-summary" id="evidenceSummary">
+<span id="quizSummary">Comprobación final: 0 / 4</span>
+<span id="missionSummary">Actividad CV: 0 / 5 misiones registradas</span>
+<span id="reflectionSummary">Reflexión: pendiente</span>
+</div>
+<div class="mini-actions">
+<button class="nav-btn primary" id="generateEvidence" type="button">Generar evidencia PDF</button>
+<button class="small-btn" id="previewEvidence" type="button">Revisar datos antes de generar</button>
+</div>
+<div aria-live="polite" class="source-note" id="pdfStatus" role="status">Completa los elementos anteriores. El botón validará lo que falte.</div>
+</section>
+<div class="nav-bottom"><button class="nav-btn prev" data-prev="5" type="button">← Actividad · CV</button><button class="nav-btn primary next" data-next="7" type="button">Siguiente: cierre y fuentes →</button></div>
+</div>
+</article>
+</section>
+<!-- PASO 8 -->
+<section aria-hidden="true" aria-labelledby="stage-title-8" class="stage" data-stage="7" data-title="Cierre y fuentes">
+<article class="step-card">
+<div class="step-head"><span class="eyebrow">Paso 8 de 8 · Cierre</span><h2 id="stage-title-8" tabindex="-1">Lo esencial que debes llevarte</h2><p>Si puedes explicar estas ideas y ya generaste tu evidencia, completaste la fase 1: estructura y significado en HTML. La siguiente fase aplicará CSS sobre esta misma base.</p></div>
+<div class="step-body">
+<div class="grid3">
+<div class="panel"><h3>1 · HTML estructura</h3><p class="soft">Marca el significado del contenido para que el navegador pueda interpretarlo.</p></div>
+<div class="panel"><h3>2 · Los elementos tienen partes</h3><p class="soft">Etiqueta de apertura + contenido + cierre; algunos incluyen atributos.</p></div>
+<div class="panel"><h3>3 · Existe una estructura base</h3><p class="soft"><code>html</code>, <code>head</code> y <code>body</code> organizan el documento.</p></div>
+<div class="panel"><h3>4 · Elige por significado</h3><p class="soft">Título, párrafo, lista, enlace e imagen responden a intenciones diferentes.</p></div>
+<div class="panel"><h3>5 · Una página tiene regiones</h3><p class="soft"><code>header</code>, <code>main</code>, <code>section</code> y <code>footer</code> ayudan a organizarla.</p></div>
+<div class="panel"><h3>Siguiente paso</h3><p class="soft">CSS tomará esta estructura y trabajará su presentación visual.</p></div>
+</div>
+<div class="panel refs" style="margin-top:18px"><h3>Referencias · APA 7</h3><ol>
+<li>Mozilla Developer Network. (2026). <em>Primeros pasos con HTML</em>. https://developer.mozilla.org/es/docs/Learn_web_development/Core/Structuring_content/Basic_HTML_syntax</li>
+<li>Mozilla Developer Network. (2026). <em>HTML: Lenguaje de marcado de hipertexto</em>. https://developer.mozilla.org/es/docs/Web/HTML</li>
+<li>Mozilla Developer Network. (2026). <em>Structuring documents</em>. https://developer.mozilla.org/en-US/docs/Learn_web_development/Core/Structuring_content/Structuring_documents</li>
+<li>World Wide Web Consortium, Web Accessibility Initiative. (2026). <em>Page Structure Tutorial</em>. https://www.w3.org/WAI/tutorials/page-structure/</li>
+<li>World Wide Web Consortium, Web Accessibility Initiative. (2026). <em>Content Structure</em>. https://www.w3.org/WAI/tutorials/page-structure/content/</li>
+<li>van Gog, T., Paas, F., &amp; Sweller, J. (2010). Cognitive load theory: Advances in research on worked examples, animations, and cognitive load measurement. <em>Educational Psychology Review, 22</em>, 375–378. https://doi.org/10.1007/s10648-010-9145-4</li>
+<li>McDermott, K. B. (2021). Practicing retrieval facilitates learning. <em>Annual Review of Psychology, 72</em>, 609–633. https://doi.org/10.1146/annurev-psych-010419-051019</li>
+<li>Mayer, R. E., &amp; Fiorella, L. (Eds.). (2021). <em>The Cambridge handbook of multimedia learning</em> (3rd ed.). Cambridge University Press.</li>
+<li>World Wide Web Consortium. (2023). <em>Web Content Accessibility Guidelines (WCAG) 2.2</em>. https://www.w3.org/TR/WCAG22/</li><li>World Wide Web Consortium, Web Accessibility Initiative. (2026). <em>ARIA Authoring Practices Guide</em>. https://www.w3.org/WAI/ARIA/apg/</li><li>Nielsen, J. (1994/2024). <em>10 usability heuristics for user interface design</em>. Nielsen Norman Group. https://www.nngroup.com/articles/ten-usability-heuristics/</li><li>Universidad de Colima. (2024). <em>Acuerdo No. 23 de 2024: Lineamientos para el uso de Inteligencia Artificial Generativa</em>.</li></ol></div>
+<div class="closing-grid quality-panel" style="margin-top:18px"><section class="panel quality-card"><h3>Accesibilidad y usabilidad</h3><p class="soft">El recurso fue diseñado y revisado con criterios de <strong>WCAG 2.2 nivel AA</strong>: estructura semántica, navegación con teclado, foco visible, contraste, reflow, controles nativos, mensajes de estado y reducción de movimiento. También se utilizaron las heurísticas de Nielsen como guía de usabilidad.</p><p class="soft"><strong>Alcance:</strong> esta declaración describe criterios aplicados al diseño; no equivale a una certificación formal independiente.</p></section>
+<section class="panel quality-card"><h3>Transparencia de IAG</h3><p class="soft"><strong>Docente:</strong> Ing. Ricardo Jaramillo Velasco<br><strong>Curso:</strong> Programación Web<br><strong>Periodo:</strong> Agosto-Noviembre 2026</p><p class="soft">La IAG se utilizó como apoyo para elaborar materiales educativos, generar código de la herramienta interactiva, diseñar evaluación formativa y producir retroalimentación orientativa. <strong>No revisa automáticamente el trabajo del estudiante.</strong></p><button aria-haspopup="dialog" class="ref-btn" id="openAIInfo" type="button">Calidad, accesibilidad y transparencia</button></section>
+<section class="panel quality-card author-card"><h3>Autoría</h3><p><strong>Autor y responsable académico:</strong> Ing. Ricardo Jaramillo Velasco.</p><p class="soft">Facultad de Telemática · Universidad de Colima.</p><p class="soft">Recurso educativo de la asignatura Programación Web.</p></section>
+<section class="panel quality-card"><h3>Licencia y marco institucional</h3><p class="soft">© 2026 Ricardo Jaramillo Velasco, Universidad de Colima.</p><p class="soft">Licencia <strong>Creative Commons Atribución-NoComercial-CompartirIgual 4.0 Internacional (CC BY-NC-SA 4.0)</strong>.</p><p class="soft">Transparencia de IAG conforme a la Declaratoria del curso y al <strong>Acuerdo No. 23 de 2024</strong> de la Universidad de Colima.</p></section></div><div class="institutional-mark"><div class="logo-shell"><svg aria-label="Universidad de Colima" id="udec-logo-phase1" role="img" style="enable-background:new 0 0 582.7 199.2;" version="1.1" viewBox="0 0 582.7 199.2" x="0px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" y="0px">
+<g>
+<g>
+<g>
+<path d="M98.9,14.6c-46.5,0-84.3,38.3-84.3,85.2c0,46.9,37.9,85.2,84.3,85.2c46.4,0,84.3-38.3,84.3-85.2
+				C183.3,52.8,145.4,14.6,98.9,14.6z M98.9,181.5c-44.6,0-81-36.7-81-81.8c0-45,36.4-81.7,81-81.7c44.6,0,81,36.7,81,81.8
+				C179.9,144.8,143.5,181.5,98.9,181.5z"></path>
+<path d="M98.9,22.6c-42.1,0-76.4,34.7-76.4,77.2c0,42.5,34.3,77.2,76.4,77.2c42.1,0,76.4-34.7,76.4-77.2
+				C175.4,57.2,141,22.6,98.9,22.6z M98.9,173.4c-40.2,0-73-33.1-73-73.7c0-40.6,32.8-73.7,73-73.7s73,33.1,73,73.7
+				C171.9,140.3,139.1,173.4,98.9,173.4z"></path>
+<g>
+<path d="M141.5,66.2C141.5,66.3,141.5,66.3,141.5,66.2C141.5,66.3,141.5,66.3,141.5,66.2C141.5,66.3,141.5,66.3,141.5,66.2z"></path>
+<path d="M150.6,148c-3.3,0.1-6.2-2.7-6.2-6.2v-22.3l0,0l4.7,2.2v22.7C149.2,145.6,149.6,146.8,150.6,148z"></path>
+<path d="M144.5,145.1c-3.3,0.1-6.2-2.7-6.2-6.2v-22.3l0,0l4.7,2.2v22.6C143,142.8,143.4,144,144.5,145.1z"></path>
+<path d="M136.9,116v22.5c0,1.3-1.1,2.4-2.4,2.4s-2.4-1.1-2.4-2.4v-24.7l0,0L136.9,116z"></path>
+<path d="M150.6,118.1c-3.3,0.1-6.2-2.6-6.2-6.2V91.6l0,0l4.7,2.2v20.7C149.2,115.7,149.6,116.9,150.6,118.1z"></path>
+<path d="M150.6,90.1c-3.3,0.1-6.2-2.7-6.2-6.2V65.1l0-1.8l4.7,2.2v20.9C149.2,87.8,149.6,88.9,150.6,90.1z"></path>
+<path d="M144.5,115.2c-3.3,0.1-6.2-2.6-6.2-6.2V88.7l0,0l4.7,2.2v20.7C143,112.9,143.4,114,144.5,115.2z"></path>
+<path d="M144.5,87.3c-3.3,0.1-6.2-2.6-6.2-6.2V70.7c1.7-1,3.5-2.3,4.7-4.2l0,17.2C143,85,143.4,86.1,144.5,87.3z"></path>
+<path d="M53.4,119.5v22.3c0,3.5-2.8,6.2-6.2,6.2c1-1.2,1.4-2.3,1.4-3.6v-22.7L53.4,119.5L53.4,119.5z"></path>
+<path d="M59.6,116.7V139c0,3.5-2.8,6.2-6.2,6.2c1-1.2,1.4-2.3,1.4-3.6v-22.6L59.6,116.7L59.6,116.7z"></path>
+<path d="M65.7,113.8v24.7c0,1.3-1.1,2.4-2.4,2.4c-1.3,0-2.4-1.1-2.4-2.4V116L65.7,113.8L65.7,113.8z"></path>
+<path d="M53.4,91.6v20.3c0,3.5-2.8,6.2-6.2,6.2c1-1.2,1.4-2.3,1.4-3.6V93.8L53.4,91.6L53.4,91.6z"></path>
+<path d="M59.6,88.7v20.3c0,3.5-2.8,6.2-6.2,6.2c1-1.2,1.4-2.3,1.4-3.6V90.9L59.6,88.7L59.6,88.7z"></path>
+<path d="M102.8,42.6c3.8,3.4,6.2,3.3,6.2,3.3c-10.7,3.3-12.1-6.5-12.1-6.5l-3.4-1.9c-0.7-0.4-0.9-1.4-0.3-2
+					c0.4-0.4,1.2-0.5,1.7-0.2c0.1,0.1,0.3,0.2,0.5,0.3c7.2,3.4,12.7,0.8,15.4-0.2c-1.7,3.6-6,4-6,4c1.8,1.4,3.6,1.1,5.9,1.3
+					C108,42.9,104.6,42.7,102.8,42.6z"></path>
+<path d="M147.2,55.4c-0.6-3.7-2.3-6.6-5.9-9.2c-6.2-4.3-11.2-1.4-13.9,1.5c-2.6,2.9-1,7.1-0.7,8.7c0.3,3-0.6,6.6-6.8,7.1
+					c-8.1,0.5-10.7-7.4-11.6-9.9c-5.3,1.1-8.4-0.6-8.4-0.6l-1.2,7.5c0.1-0.1,0.2-0.2,0.3-0.3c0.4-0.3,0.9-0.5,1.4-0.5l1.1,0
+					c0.4,0,0.9,0.1,1.2,0.4c0.5,0.4,1,0.9,1.6,1.6c3.4,3.6,10.3,11,26.5,14.2l0-2.5c-2.3-0.4-4.9-1.5-7.6-3.8c2,0.9,3.8,1.4,5.4,1.6
+					c3.1,0.2,4.6-0.3,6.7-1.1c0.5-0.2,1.2-0.7,1.4-0.8c-2.7-0.6-6-2.2-9.1-5.4c6.7,4,11.5,3.1,13.9,2.1c-3.2-0.7-7.1-3.1-9.9-7.7
+					c4.4,3.7,8.5,4.6,11.6,4.5c-2.2-2.1-4.3-5.6-5.3-10.4c2.2,4.4,4.7,6.9,7,8.3l3.3,1.5c0,0,0,0,0.1,0c0.5,0.1,1,0.2,1.4,0.3
+					C149.3,61.8,147.6,59.4,147.2,55.4z M136.9,88.1l-2.3-1.1c0.1-1.2,0.3-2.3,0.3-3.6c1,0.6,2.1,1,3.4,1c-1-1.2-1.4-2.4-1.4-3.6
+					v-9.4c-0.8,0.4-1.6,0.7-2.3,0.9c0,0-0.1,0-0.1,0.1c-0.8,0.3-1.5,0.5-2.1,0.5c-0.1,0-0.1,0-0.1,0l0,4.9c-0.9-0.1-1.9-0.3-2.2-0.4
+					c-16.3-3.4-23.3-10.9-26.8-14.6c-0.6-0.6-1-1.1-1.4-1.4c0,0-0.2-0.1-0.3-0.1l-1.1,0c-0.2,0-0.3,0-0.4,0.1
+					c-1.5,1.6-3.5,3.5-4.3,4.2c0,0-2.6-1.4-2.6-1.5c-0.4-0.2-0.9-0.1-1.1,0.3c-0.2,0.3-0.6,0.9-0.9,1.3c-0.3,0.4-0.6,0.7-0.9,1
+					c-4.3,3.3-11.4,8.1-19.8,10c-0.9,0.2-4.3,0.8-4.5,0.8l0-4.7c-1.4-0.1-3.1-0.7-4.7-1.9v9.8c0,1.3-0.4,2.4-1.4,3.6
+					c1.2,0,2.3-0.3,3.3-0.9c0.1,1.2,0.2,2.4,0.3,3.5l-2.2,1v20.7c0,1.3-0.4,2.4-1.4,3.6c3.3,0.1,6.2-2.7,6.2-6.2v-4.1
+					c0.9,3.6,1.9,7,3.2,10.2l-1.8,0.8l0,22.6c0,1.4,1.3,2.6,2.7,2.4c1.2-0.2,2-1.3,2-2.5v-16.6c0.4,0.9,0.9,1.8,1.4,2.6v11.2
+					c0,1.3,1.1,2.4,2.5,2.4c1.4,0,2.5-1.1,2.5-2.4v-3.5c2.9,3.8,6.2,7.5,10,11.1c-0.2,0.5-0.4,1.1-0.4,1.2
+					c-1.5,4.1-4.6,9.8-9.8,12.2c2.1,2.1,4.5,4.2,7.2,6.2l5.3-14.7c0.4-1.1,1.6-0.4,1.2,0.7l-5.1,15c1.6,1.1,3.2,2.2,5,3.3l3.8-14.7
+					c0.4-1.4,1.5-0.8,1.4,0l-3.1,16l-0.4,1.6l10.9-0.1l-0.3-1.5l-3.1-16.1c-0.1-0.8,1-1.4,1.4,0l3.8,14.8c1.7-1.1,3.4-2.2,5-3.3
+					l-5.2-15.1c-0.4-1.1,0.8-1.8,1.2-0.7l5.4,14.8c2.7-2,5.1-4,7.3-6.2c-5.4-2.4-8.5-8.4-10-12.6l-0.3-0.7
+					c3.9-3.7,7.3-7.4,10.2-11.3v3.7c0,1.3,1.1,2.4,2.5,2.4c1.4,0,2.5-1.1,2.5-2.4v-11.4c0.5-0.9,1-1.7,1.4-2.7v16.8
+					c0,1.2,0.8,2.3,2,2.5c1.5,0.2,2.7-0.9,2.7-2.4v-22.6l-1.9-0.9c1.3-3.4,2.4-6.9,3.3-10.6v4.5c0,3.5,2.8,6.2,6.2,6.2
+					c-1-1.2-1.4-2.3-1.4-3.6V88.1z M133.5,82.2c-0.1,1.4-0.2,2.8-0.4,4.2c-0.3,2.7-0.6,5.2-1,7.7c-1,6.4-2.6,12.3-4.6,17.6
+					c-0.5,1.2-1,2.5-1.5,3.6c-0.4,1-0.9,2-1.4,2.9c-1.5,2.9-3.1,5.7-5,8.4c-5.2,7.4-12,14.1-20.7,20.8c-8.6-6.6-15.4-13.3-20.6-20.6
+					c-1.9-2.7-3.6-5.4-5-8.3c-0.5-1-1-1.9-1.4-2.9c-0.6-1.2-1.1-2.5-1.6-3.8c-2-5.2-3.5-10.8-4.5-16.9c-0.4-2.7-0.8-5.5-1.1-8.4
+					c-0.1-1.3-0.3-2.7-0.4-4.1c0-0.4-0.1-0.8-0.1-1.1c0.3,0,0.6-0.1,0.9-0.1c13.3-2,24.7-6.9,33.8-16.3c9.1,9.3,20.8,13.9,33.9,16.3
+					c0.3,0.1,0.5,0.1,0.8,0.1C133.6,81.5,133.6,81.9,133.5,82.2z M107.5,48.5c0,0-10.3,1.9-12.3-7.6c-1.9-1-3.3-1.6-3.3-1.6
+					l-0.4,0.9c0,0-1.2-0.7-3-0.6c-2.7-0.1-4.8,2.4-4.3,4.8c0,0,1.2-0.9,2.7-1c0,0.5,0,1.1,0.3,1.8c0.4,1.3,2.4,2.9,4.3,4
+					c-0.2,2-0.6,4.5-1.6,6.7c0,0.1-0.8,1.7-0.8,1.8c-1.5,2.7-5,7.7-11.2,5.9c-2.5-0.7-5.1-4.3-6.7-7.2c0.3-1.6,2-5.8-0.6-8.7
+					c-2.6-3-7.6-5.9-13.9-1.6c-3.6,2.6-5.4,5.5-6,9.2c-0.4,3.3-1.6,5.5-2.4,6.7c0.7,0,1.8-0.1,3.1-0.6l1.4-0.6
+					c2.5-1.2,5.6-3.8,8.1-8.8c-1.1,5.3-3.6,8.9-6,10.9c3.2,0.2,7.4-0.7,11.9-4.4c-2.8,4.6-6.7,6.9-9.9,7.6c2.4,1,7.2,2,13.9-2
+					c-3.1,3.2-6.4,4.8-9.1,5.3c0.4,0.3,1.2,0.9,2.5,1.4c0.3,0.1,0.6,0.2,0.9,0.3c0,0,0.1,0,0.1,0c2.3,0.6,5.6,0.6,9.9-1.4
+					c-1.1,0.9-2.2,1.7-3.3,2.2c-1.6,0.9-3.3,1.3-4.7,1.5l0,0l0,0l0,2.4c9.2-1.3,17.5-6.8,22.2-10.4c0.3-0.2,0.6-0.5,0.8-0.8
+					c0.5-0.6,1.3-1.7,1.6-2.2c0.3-0.5,1-0.6,1.4-0.2l3,1.8c1.1-5.1,2.2-13.5,2.2-13.5s4.9,4.1,12.2,0.1
+					C108.8,49.8,107.5,48.5,107.5,48.5z"></path>
+<path d="M125.4,86.6c-10.1-2.8-18.6-6.7-26-11.7l-0.5-0.3l-0.5,0.3c-7.4,5-15.9,8.8-26,11.7l-0.7,0.2l0.1,0.7
+					c2,28.5,14,40.9,26.6,50.1l0.5,0.4l0.5-0.4C112,128.4,124,116,126,87.5l0.1-0.7L125.4,86.6z M90,81.9c3.1-1.5,6.1-3.2,8.9-5.1
+					c2.5,1.7,5,3.2,7.8,4.5v5.1c-0.6-0.1-1.2-0.1-1.8-0.1c-2.2,0-4.1,0.5-5.8,1.6l-0.1,0l-0.1,0c-1.7-1-3.6-1.6-5.8-1.6
+					c-1,0-2,0.1-3,0.3V81.9z M88.2,126.3c-7.4-8.2-13.2-19.7-14.7-38.2c5.3-1.5,10.2-3.3,14.7-5.4v4.1c0,0-0.1,0-0.1,0
+					c-1.3,0.2-2.5,0.4-3.6,0.4c-1.8,0-2.9-0.5-2.9-0.5v28c0,0,3.4,0.9,5,0.9c0.5,0,1.1,0,1.7-0.1V126.3z M88.2,112.6
+					c-0.6,0-1.1,0.1-1.7,0.1c-1.2,0-2.4-0.1-3.4-0.5V88.6c0.5,0.1,0.9,0.1,1.4,0.1c1.1,0,2.4-0.2,3.7-0.4c0.6-0.1,1.2-0.2,1.8-0.3
+					c1-0.1,2-0.3,3-0.3c1.7,0,3.4,0.3,5,1.3v23.8c-0.3-0.1-0.7-0.3-1.1-0.3c-0.2,0-0.4-0.1-0.5-0.1c-0.2,0-0.5-0.1-0.7-0.1
+					c-0.2,0-0.4-0.1-0.7-0.1H95c-0.1,0-0.3,0-0.4,0c0,0-0.1,0-0.1,0h0c-0.1,0-0.2,0-0.3,0c0,0,0,0,0,0c-0.1,0-0.3,0-0.4,0
+					c-0.1,0-0.2,0-0.3,0h-0.1c-0.1,0-0.1,0-0.2,0c-1,0-2,0.1-3,0.2H90C89.4,112.5,88.8,112.5,88.2,112.6z M106.6,129.3
+					c-2.5,2.4-5.1,4.5-7.8,6.4c-3-2.2-6.1-4.7-8.9-7.5v-12.7c0,0,0.1,0,0.1,0c1.2-0.1,2.4-0.2,3.5-0.2c1.9,0,3.2,0.3,4,0.7
+					c0.8,0.3,1.8,0.4,2.6,0c0.9-0.4,2.2-0.7,3.9-0.7c0.8,0,1.6,0,2.4,0.1V129.3z M106.6,112.3c-0.1,0-0.3,0-0.4,0
+					c-0.1,0-0.2,0-0.2,0h-0.2c-0.1,0-0.3,0-0.4,0c-0.1,0-0.3,0-0.5,0c-0.1,0-0.2,0-0.4,0s-0.2,0-0.4,0c-0.2,0-0.4,0-0.6,0
+					c-0.2,0-0.4,0-0.6,0c-0.2,0-0.4,0-0.6,0c-0.2,0-0.4,0-0.6,0.1c-0.2,0-0.4,0-0.5,0.1c-0.2,0-0.4,0.1-0.5,0.1
+					c-0.4,0.1-0.7,0.2-1.1,0.3V89.1c1.6-1,3.3-1.3,5-1.3c0.6,0,1.2,0,1.8,0.1h0.1c0.1,0,0.1,0,0.2,0c0.4,0,0.9,0.1,1.3,0.2
+					c0.1,0,0.1,0,0.2,0c0.9,0.1,1.9,0.3,2.7,0.4c0.1,0,0.3,0,0.4,0c0.3,0,0.5,0.1,0.8,0.1c0.3,0,0.6,0,0.9,0c0.5,0,1,0,1.4-0.1v23.5
+					c-1,0.4-2.2,0.5-3.4,0.5h0c-0.5,0-0.9,0-1.4,0c-0.1,0-0.2,0-0.3,0c-0.4,0-0.8-0.1-1.2-0.1c-0.2,0-0.4,0-0.6,0
+					C107.4,112.4,107,112.4,106.6,112.3z M108.4,127.5v-12c1,0.1,1.9,0.1,2.9,0.1c2.9,0,5-1,5-1V86.7c0,0-1.2,0.5-3,0.5
+					c-1,0-2.3-0.2-3.6-0.4c-0.4-0.1-0.9-0.1-1.3-0.2v-4.4c4.8,2.3,10,4.3,15.8,5.9C122.7,107.6,116.3,119.2,108.4,127.5z"></path>
+<path d="M69,82.1l-1,0.2l0.5,2.2c0.1,0.5-0.1,0.8-0.5,0.9c-0.5,0.1-0.8-0.1-0.9-0.6l-0.5-2.2l-1,0.2l0.5,2.2c0.3,1,1.1,1.2,2,1
+					c0.9-0.2,1.6-0.8,1.3-1.8L69,82.1z"></path>
+<polygon points="70.6,82.6 72.5,85 73.9,84.6 72.9,81.1 72,81.3 72.7,83.9 72.7,83.9 70.8,81.6 69.5,82 70.5,85.5 71.3,85.3 
+					70.6,82.6 				"></polygon>
+<polygon points="75.4,84.1 74.3,80.6 73.4,80.9 74.4,84.4 				"></polygon>
+<polygon points="78.1,83.2 78.2,79.3 77.2,79.7 77.2,82.4 77.2,82.4 75.6,80.2 74.6,80.5 76.9,83.6 				"></polygon>
+<polygon points="82.2,81.7 82,81.1 80.3,81.7 80,80.9 81.6,80.4 81.3,79.7 79.8,80.3 79.5,79.6 81.2,79 80.9,78.3 78.4,79.3 
+					79.6,82.7 				"></polygon>
+<path d="M85.1,79.5C84.9,79,84.6,78.8,84,79v0c0.4-0.2,0.7-0.7,0.5-1.2c-0.3-0.7-1.1-0.6-1.7-0.3l-1.6,0.6l1.4,3.4l0.9-0.4
+					l-0.5-1.3l0.4-0.1c0.5-0.2,0.6,0,0.8,0.3c0.1,0.2,0.2,0.5,0.4,0.7l1-0.4C85.4,80.1,85.3,79.8,85.1,79.5z M83.2,79l-0.4,0.1
+					l-0.3-0.8l0.4-0.1c0.3-0.1,0.6-0.2,0.8,0.1C83.8,78.7,83.5,78.9,83.2,79z"></path>
+<path d="M85.7,78.4c0.9,0,1.5-0.4,1.7,0c0.1,0.2-0.1,0.5-0.3,0.6c-0.3,0.2-0.6,0.1-0.8-0.2l-0.9,0.4c0.4,0.9,1.2,0.8,2,0.5
+					c0.8-0.3,1.3-1,1-1.7c-0.4-0.9-1.2-0.6-1.8-0.5c-0.3,0-0.6,0.1-0.7-0.1c-0.1-0.2,0-0.4,0.3-0.5c0.2-0.1,0.3-0.1,0.4-0.1
+					c0.1,0,0.2,0.1,0.3,0.2l0.9-0.4c-0.3-0.8-1.1-0.7-1.8-0.4c-0.7,0.3-1.3,0.8-1,1.6C85,78.1,85.3,78.4,85.7,78.4z"></path>
+<polygon points="90.2,78.2 88.6,74.9 87.7,75.3 89.3,78.6 				"></polygon>
+<path d="M93,74.6c-0.6-1.2-1.6-1.2-2.7-0.6L89,74.7l1.7,3.2l1.3-0.7C93.2,76.6,93.7,75.8,93,74.6z M91.7,76.6l-0.4,0.2l-1.1-2
+					l0.4-0.2c0.5-0.3,1.1-0.2,1.5,0.5C92.4,75.8,92.1,76.3,91.7,76.6z"></path>
+<path d="M94.2,71.7l-1.1,0.6l0.6,3.9l0.9-0.5L94.5,75l1.3-0.7l0.6,0.5l1-0.6L94.2,71.7z M94.3,74.2L94,72.7l0,0l1.2,1.1
+					L94.3,74.2z"></path>
+<path d="M99.5,70.5c-0.8-1.1-1.7-1-2.7-0.3L95.5,71l2,3l1.3-0.9C99.8,72.4,100.2,71.6,99.5,70.5z M98.3,72.6l-0.4,0.3L96.7,71
+					l0.4-0.3c0.5-0.3,1.1-0.3,1.5,0.3C99,71.7,98.8,72.3,98.3,72.6z"></path>
+<path d="M104.3,72l-1.3-0.8l-1.8,3.2l1.3,0.8c1.1,0.6,2,0.6,2.7-0.5C105.9,73.4,105.4,72.6,104.3,72z M104.3,74.1
+					c-0.4,0.6-1,0.7-1.5,0.4l-0.4-0.2l1.1-1.9l0.4,0.2C104.4,72.8,104.7,73.4,104.3,74.1z"></path>
+<polygon points="107.3,77.8 107.7,77.2 106.1,76.3 106.5,75.7 107.9,76.4 108.2,75.8 106.8,75 107.2,74.4 108.7,75.2 109,74.6 
+					106.6,73.3 104.9,76.5 				"></polygon>
+<path d="M110.6,79.5c0.8,0.4,1.7,0.5,2.1-0.4l-1-0.5c-0.2,0.3-0.5,0.4-0.8,0.2c-0.5-0.2-0.4-0.9-0.1-1.3
+					c0.2-0.5,0.6-1.1,1.1-0.8c0.4,0.2,0.5,0.5,0.4,0.8l1,0.5c0.4-0.8-0.3-1.5-1.1-1.9c-1-0.5-1.9-0.1-2.4,1
+					C109.3,78.1,109.6,79,110.6,79.5z"></path>
+<path d="M115.8,77.7c-1.1-0.5-2-0.1-2.5,1c-0.5,1.1-0.1,2,1,2.5c1.1,0.5,2,0.1,2.5-1C117.3,79.1,117,78.1,115.8,77.7z
+					 M115.9,79.8c-0.2,0.5-0.6,1-1.2,0.8c-0.6-0.3-0.5-0.9-0.3-1.4c0.2-0.5,0.6-1.1,1.2-0.8C116.2,78.6,116.1,79.2,115.9,79.8z"></path>
+<polygon points="119.2,83 119.4,82.4 117.9,81.8 119,79 118,78.7 116.7,82.1 				"></polygon>
+<polygon points="121.8,80.1 120.9,79.8 119.6,83.2 120.6,83.5 				"></polygon>
+<polygon points="122.1,84.1 123,81.1 123,81.1 122.8,84.3 123.7,84.6 125.5,82 125.5,82 124.5,84.9 125.3,85.2 126.5,81.7 
+					125,81.2 123.7,83.4 123.7,83.4 123.9,80.8 122.4,80.3 121.2,83.8 				"></polygon>
+<path d="M129.3,82.6l-1.2-0.3l-2.4,3.1l1,0.3l0.4-0.6l1.4,0.4l0,0.7l1.1,0.3L129.3,82.6z M127.6,84.4l0.9-1.3l0,0l0,1.6
+					L127.6,84.4z"></path>
+<polygon points="111.2,101.4 111.2,101.4 111.2,101.4 				"></polygon>
+<path d="M59.6,70.7v10.4c0,3.5-2.8,6.2-6.2,6.2c1-1.2,1.4-2.3,1.4-3.6V66.5C56.1,68.4,57.8,69.8,59.6,70.7z"></path>
+<path d="M53.4,65.1V84c0,3.5-2.8,6.2-6.2,6.2c0,0,0,0,0,0c1-1.2,1.4-2.3,1.4-3.6V65.6l4.7-2.2v0l0,0L53.4,65.1z"></path>
+<path d="M95.7,108.1c-0.1-0.2-0.3-0.3-0.5-0.4l-2.6-5.4c0.3-0.4,0.5-0.8,0.5-1.2c0-0.2,0-0.3-0.1-0.5c-0.3-0.6-0.8-0.8-1.5-0.6
+					l-0.1-0.3c0.4-0.5,0.5-1.1,0.3-1.5c-0.2-0.3-0.4-0.4-0.7-0.6c0.4-0.6,0.9-1.4,0.9-2.9c0-0.5-0.2-1-0.3-1.5c-0.3-1.2-0.4-2-0.2-3
+					c-1.5,0.3-2.4,1.2-2.9,1.9c-0.2-0.6-0.2-1-0.2-1c-1.3,0.8-2.4,2.1-2.6,3.5c-0.5,3.3,0.8,4.3,1.5,4.9c-0.2,0.4-0.1,0.7,0.1,1.1
+					c0.2,0.3,0.6,0.5,1.2,0.5c0,0,0.1,0,0.1,0c0.1,0,0.1,0,0.2,0l0.2,0.3c-0.5,0.5-0.6,1.1-0.3,1.6c0.2,0.3,0.6,0.5,1.2,0.5
+					c0.1,0,0.3,0,0.4-0.1l3.2,5.1c0,0.1,0,0.1,0,0.2c0,0.3,0.1,0.6,0.3,0.9c0.2,0.2,0.5,0.4,0.8,0.4h0.1c0.3,0,0.6-0.1,0.8-0.3
+					c0.3-0.2,0.4-0.6,0.4-0.9C96,108.7,95.9,108.4,95.7,108.1z M86.5,97.2c-0.3-0.7-0.4-3.7,1.4-4.8c-0.1,1.6,0.2,2.3,0.2,2.3
+					s0.5-2.1,2.2-3.2c0.1-0.1,0.3-0.1,0.4-0.2c-0.5,1.9,1.1,2.9,0.2,5.1c-0.3,0.7-1.5,1-1.7-1.7c-0.2,0.2-0.7,2.2,0.9,3.3
+					c-0.3,0.3-0.8,0.5-1.1,0.3c-1.7-1.3-1.5-4-1.5-4s-1.2,3.1,1.2,4.7C87.4,99.3,86.8,97.9,86.5,97.2z M88.9,100.5
+					c-0.5,0.1-0.8,0-0.9-0.2c-0.1-0.2-0.1-0.4,0-0.7c0.2,0,0.9,0,1.5-0.4c0.6-0.3,0.9-0.9,1-1.1c0.3,0,0.4,0.1,0.6,0.3
+					c0.1,0.2,0,0.6-0.4,0.9c-0.2,0.3-0.5,0.5-0.9,0.7C89.5,100.4,89.2,100.5,88.9,100.5z M91.2,101.1c-0.2,0.2-0.4,0.3-0.6,0.4
+					c-0.2,0.1-0.5,0.2-0.7,0.3l-0.4-0.7c0.3-0.1,0.5-0.2,0.8-0.3c0.3-0.1,0.5-0.3,0.7-0.5L91.2,101.1z M90.3,103L90.3,103
+					c-0.1,0-0.2,0-0.3,0c-0.4,0-0.7,0-0.8-0.2c0-0.1-0.1-0.2-0.1-0.3c0-0.1,0-0.3,0.2-0.4l0.3,0.5l0,0c0,0,0.4-0.1,0.5-0.1
+					c0.3-0.1,0.5-0.2,0.7-0.3c0.6-0.3,1-0.8,1-0.8l0,0v0l-0.2-0.5c0,0,0.1,0,0.1,0c0.2,0,0.4,0.1,0.5,0.3c0.1,0.2,0,0.5-0.3,0.8
+					c0,0.1-0.1,0.1-0.1,0.2c-0.1,0.1-0.1,0.1-0.2,0.2c-0.2,0.1-0.4,0.3-0.6,0.4c-0.2,0.1-0.5,0.2-0.7,0.3
+					C90.5,102.9,90.4,103,90.3,103z M93.9,108.1l-2.8-4.5c0.2-0.1,0.4-0.2,0.6-0.3c0.2-0.1,0.4-0.2,0.5-0.3l2.2,4.8
+					C94.2,107.8,94.1,107.9,93.9,108.1C93.9,108,93.9,108.1,93.9,108.1z M95.1,109.4c-0.1,0.1-0.3,0.2-0.4,0.1c0,0,0,0,0,0
+					c-0.1,0-0.3-0.1-0.4-0.2v0c0,0,0,0,0,0v0l0,0c-0.1-0.1-0.1-0.2-0.1-0.3c0-0.1,0-0.2,0.1-0.3c0-0.1,0.1-0.1,0.1-0.2
+					c0.1-0.1,0.3-0.1,0.4-0.1h0.1c0.1,0,0.1,0,0.2,0.1l0,0c0.1,0,0.1,0.1,0.1,0.1c0,0,0.1,0.1,0.1,0.1
+					C95.4,108.9,95.3,109.2,95.1,109.4z"></path>
+<path d="M113.8,100.5L113.8,100.5c0.2-0.1,0.3-0.3,0.4-0.4c0-0.1,0-0.1,0-0.2c0.1-0.1,0.2-0.3,0.1-0.6c-0.1-0.3-0.4-0.3-0.7-0.3
+					l-0.1,0c0-0.1-0.1-0.1-0.2-0.1c-0.1-0.1-0.4,0-0.7,0c-1,0.2-1.5,0.8-1.7,1.1c-0.1,0.1-0.1,0.2-0.3,0.3c-0.2,0.2-0.4,0.7-0.4,0.9
+					c0,0,0,0,0,0.1l-0.1,0c-0.3,0.1-0.5,0.2-0.6,0.3c-0.1,0.1-0.2,0.1-0.4,0.2c-0.2,0.1-0.4,0.2-0.5,0.4c-0.3,0.1-0.8,0.3-1.1,0.3
+					c-0.1,0-0.2,0.1-0.3,0.1c-0.3,0.1-0.4,0.2-0.4,0.2c-0.1-0.1-0.2-0.7-0.2-1c0-0.3-0.1-0.5-0.2-0.8c0.2,0,0.3,0,0.5,0.1
+					c0.1,0,0.2,0,0.3,0c0.3,0.1,0.6,0,0.8-0.1c0.2,0.3,0.6,0.4,1,0.2c0.2-0.1,0.4-0.2,0.5-0.5c0.1-0.2,0.1-0.5,0-0.7
+					c-0.1-0.2-0.3-0.4-0.5-0.4c-0.2,0-0.4,0-0.6,0.1c-0.1,0-0.2,0.1-0.2,0.1c0-0.1-0.1-0.1-0.2-0.2c-0.1-0.1-0.3-0.2-0.3-0.3
+					c0.2-0.1,0.5-0.2,0.6-0.3c0.1-0.1,0.2-0.2,0.3-0.3c0.1-0.1,0.1-0.1,0.2-0.2c0,0,0,0,0,0c0.6,0.2,1.4-0.1,1.8-0.6
+					c0.1-0.2,0.4-0.7,0.4-1c0.1-0.2,0.3-0.4,0.2-0.6c-0.1-0.1-0.1-0.1-0.3-0.1c-0.1,0-0.2,0-0.3,0l-0.2,0c-0.5,0.1-1.2,0.1-1.6,0.4
+					c-0.3,0.2-0.5,0.4-0.6,0.7c-0.1,0-0.2,0-0.3,0c-0.1,0-0.2,0-0.3-0.1h0c-0.1,0-0.4-0.1-0.6-0.2c-0.2-0.1-0.3-0.2-0.4-0.3
+					c0,0-0.1-0.1-0.1-0.1c0.4-0.2,0.6-0.5,0.8-0.8c0.2,0.1,0.4,0.1,0.6,0c0.3-0.1,0.5-0.2,0.7-0.5c0.2-0.2,0.2-0.5,0.1-0.7
+					c-0.1-0.3-0.2-0.4-0.5-0.5c-0.2-0.1-0.4-0.1-0.7,0c-0.3,0.1-0.5,0.2-0.6,0.4c0,0.1-0.1,0.1-0.1,0.2c-0.3,0-0.6,0-0.8,0.1
+					l-0.3,0.1c-0.4,0.1-0.7,0.1-1.2,0.1l-0.1,0c-0.7-0.1-1.3-0.2-2.2,0.2c-0.8,0.4-1.2,1-1.5,1.8l0,0.1c0,0,0,0.1,0,0.1
+					c-0.2,0.4-0.3,1.3,0,1.9c0.3,0.7,1.5,0.2,1.5,0.2l0,0c0.1,0.2,0.2,0.3,0.2,0.4c0,0,0,0,0,0.1c0.1,0.1,0.1,0.3,0.2,0.5l0,0
+					c0,0.1,0,0.1,0,0.1l0.3,0.8c0.1,0.3,0.3,0.6,0.4,1l0.1,0.2c0.1,0.2,0.1,0.3,0.1,0.4c0,0.1,0.1,0.3,0.2,0.5
+					c0.3,0.9,0.7,2.1,1.4,2.8c0.3,0.3,0.7,0.5,1.1,0.5c0.1,0,0.2,0,0.3,0c0.4-0.1,0.7-0.3,0.8-0.4c0.6-0.4,1.9-1.2,2.5-1.5
+					c0.1,0.1,0.2,0,0.5-0.1c0.1-0.1,0.3-0.2,0.4-0.3c0.1-0.1,0.3-0.2,0.4-0.3c0.1-0.1,0.1-0.1,0.2-0.2c0,0,0.1-0.1,0.2-0.2
+					c0.1-0.1,0.2-0.1,0.2-0.2c0.1,0,0.2-0.1,0.3-0.1c0.1,0,0.1,0,0.2-0.1c0.4-0.1,0.7-0.3,1-0.6c0.1-0.1,0.3-0.4,0.5-0.7
+					c0.1-0.1,0.2-0.2,0.3-0.3c0.1-0.1,0.3-0.3,0.4-0.5c0-0.1,0-0.3-0.1-0.4C114,100.6,113.9,100.5,113.8,100.5z M108.2,100.4
+					C108.2,100.4,108.2,100.3,108.2,100.4c0.1-0.1,0.1-0.2,0.1-0.2c0,0,0.1,0,0.1-0.1c0.1,0,0.2-0.1,0.3-0.1c0,0,0,0,0.1,0
+					c0.1,0,0.1,0,0.1,0.1c0,0,0,0.1,0,0.2c-0.1,0.1-0.1,0.2-0.3,0.3c-0.2,0.1-0.4,0-0.4-0.1C108.2,100.5,108.2,100.4,108.2,100.4
+					L108.2,100.4z M108.5,97.7c-0.1-0.2,0.2-0.4,0.4-0.6c0.4-0.2,1-0.3,1.4-0.3l0.1,0l0,0l0,0c0,0.2-0.2,0.6-0.3,0.7
+					c-0.3,0.3-0.9,0.5-1.3,0.4c0,0-0.1,0-0.1-0.1c0,0,0,0,0,0C108.5,97.9,108.5,97.8,108.5,97.7C108.5,97.8,108.5,97.8,108.5,97.7
+					C108.5,97.7,108.5,97.7,108.5,97.7z M107,95.1c0,0,0-0.1,0-0.1c0,0,0-0.1,0.1-0.1c0.1-0.1,0.2-0.2,0.3-0.2c0.2,0,0.3,0,0.4,0
+					c0.1,0,0.1,0.1,0.1,0.1c0,0.1,0,0.2-0.1,0.3c-0.1,0.1-0.2,0.2-0.4,0.2c-0.1,0-0.3,0-0.4,0c0,0-0.1-0.1-0.1-0.1
+					C107,95.2,107,95.2,107,95.1C107,95.1,107,95.1,107,95.1z M107.6,100c0.1,0,0.1,0.1,0.2,0.1c0,0.1,0,0.1,0,0.2c0,0,0,0,0,0
+					c-0.1,0.1-0.4,0.2-0.6,0.2c-0.1,0-0.2,0-0.3,0c-0.3,0-0.5,0-0.7-0.2l-0.2-0.7c0.1,0.1,0.2,0.2,0.3,0.3c0.1,0.1,0.3,0.2,0.4,0.3
+					c0.1,0,0.2,0.1,0.2,0.1c0.1,0,0.2,0,0.3,0c0.1-0.1,0.1-0.1,0-0.2c0-0.1-0.1-0.1-0.2-0.1c0,0,0,0,0,0l-0.1,0c0,0-0.1,0-0.1,0
+					c-0.1,0-0.2-0.1-0.3-0.2c0,0-0.1-0.1-0.1-0.1c-0.3-0.3-0.4-0.6-0.6-0.9c0,0-0.1-0.1-0.1-0.1c-0.1-0.2-0.1-0.3-0.1-0.4
+					c0.4,0.3,0.5,0.4,0.7,0.4c0,0,0.1,0,0.1,0.1c0.1,0.1,0.4,0.3,0.5,0.6c0,0,0.1,0.1,0.1,0.1c0,0,0.1,0.1,0.1,0.1
+					C107.1,99.7,107.4,99.8,107.6,100z M106.5,97.5c0.3,0.1,0.6,0.2,0.8,0.3l0,0c0.1,0,0.2,0,0.4,0c0.1,0,0.3,0,0.4,0.1l0,0.1
+					c0,0,0.1,0.1,0.1,0.1c0,0,0,0.1-0.1,0.1c-0.1,0.1-0.1,0.1-0.2,0.2c-0.1,0.1-0.4,0.3-0.7,0.3c-0.1-0.1-0.2-0.3-0.3-0.4
+					c0.1,0,0.1,0,0.1,0c0,0,0,0,0,0c0.1,0,0.2-0.1,0.2-0.1c0-0.1,0-0.1,0-0.2c0-0.1-0.1-0.1-0.2-0.1l0,0h-0.1c-0.1,0-0.2,0-0.3-0.1
+					c0,0-0.1,0-0.1,0c-0.3-0.1-0.9-0.5-1.1-0.7c0,0,0,0,0,0c0.2-0.1,0.3-0.1,0.4-0.2c0.1,0.1,0.2,0.2,0.3,0.2
+					C106.1,97.3,106.3,97.4,106.5,97.5z M102.4,98c0,0-0.3,0.3-0.4,0.3c0,0-0.2,0.2-0.5,0.5c-0.7,0.3-1-0.9-0.6-1.6l0-0.1
+					c0.2-0.7,0.5-1.2,1.2-1.5c0.4-0.2,0.7-0.3,1.1-0.3c0.2,0,0.4,0,0.7,0.1l0.1,0c0.6,0.1,1,0,1.4-0.1c0.1,0,0.2,0,0.3,0
+					c0.2,0,0.5-0.1,0.7-0.1c0,0.1,0.1,0.2,0.1,0.3c-0.1,0.2-0.4,0.6-0.9,0.8c-0.2,0.1-1,0.3-1.1,0.4c-0.1,0-0.6,0.2-0.7,0.2
+					C103.5,97.2,102.4,98,102.4,98z M106.8,105.7c-0.3,0.2-0.9,0.6-1.5,0c-0.6-0.6-1-1.8-1.3-2.6l0,0c-0.1-0.2-0.1-0.4-0.2-0.5
+					c0-0.1-0.1-0.3-0.2-0.6c-0.2-0.5-0.5-1.2-0.6-1.4c0,0,0-0.1-0.1-0.2l-0.2-0.4c-0.1-0.3-0.3-0.6-0.4-0.9c0.3-0.3,1.4-1.2,2.4-1.4
+					c0.1,0.1,0.1,0.3,0.2,0.6c0,0.2,0.1,0.5,0.2,0.8c0.1,0.3,0.2,0.6,0.3,1l0.2,0.6c0.1,0.4,0.2,0.9,0.3,1.3
+					c0.1,0.7,0.2,1.1,0.3,1.2c0.3,0.3,0.7,0.1,1.1,0c0.1,0,0.1-0.1,0.2-0.1c0.2,0,0.5-0.1,0.9-0.3c0,0,0,0.1,0.1,0.1
+					c0.1,0.1,0.2,0.3,0.2,0.4c0.1,0.2,0.3,0.7,0.5,1C108.7,104.6,107.5,105.3,106.8,105.7z M110,104c-0.1,0-0.1,0.1-0.2,0.1
+					c0,0,0,0-0.1,0c-0.1-0.2-0.4-0.6-0.5-1.1c-0.1-0.2-0.2-0.4-0.3-0.5c0,0-0.1-0.1-0.1-0.1c0,0,0.1,0,0.1-0.1l0,0
+					c0,0,0.1,0,0.1-0.1l0.1,0c0.1,0.1,0.1,0.3,0.2,0.4c0.1,0.3,0.4,0.9,0.6,1.2c0,0,0,0,0,0C110.1,103.9,110.1,104,110,104z
+					 M110.8,103.4c-0.1,0-0.1,0.1-0.2,0.1c0,0,0,0,0,0c-0.1-0.2-0.4-0.7-0.6-1.2c-0.1-0.2-0.1-0.3-0.2-0.4c0,0,0,0,0.1,0l0,0
+					c0,0,0.1,0,0.1,0l0.2-0.1c0,0,0,0,0.2,0.2c0.3,0.3,0.4,0.5,0.6,0.8c0.1,0.2,0.1,0.3,0.1,0.3L110.8,103.4z M113.7,100.1l-0.1,0.1
+					c-0.1,0.1-0.1,0.1-0.4,0.2c-0.4,0.3-0.9,1-0.9,1.2c0,0.1,0,0.2,0.1,0.2c0.1,0.1,0.1,0.1,0.2,0.1c0.1,0,0.3-0.2,0.4-0.4
+					c0,0,0,0,0,0c0.3-0.3,0.5-0.5,0.7-0.5c0,0,0.1,0,0.1,0l0,0c0,0.1-0.1,0.1-0.2,0.2c-0.1,0.1-0.3,0.2-0.4,0.4l0,0
+					c-0.1,0.1-0.3,0.5-0.4,0.6c-0.3,0.3-0.5,0.4-0.8,0.5l-0.2,0c0,0-0.1,0-0.2,0.1c0-0.1-0.1-0.2-0.2-0.3c-0.2-0.4-0.3-0.6-0.6-0.9
+					c0-0.1-0.1-0.1-0.2-0.2c0,0,0.1-0.6,0.7-1.3c0.5-0.6,1.3-0.9,1.5-0.8c0,0,0,0,0,0c-0.4,0.1-0.7,0.3-0.9,0.6l-0.1,0.1
+					c-0.1,0.1-0.2,0.2-0.3,0.3c-0.1,0.2-0.1,0.2-0.1,0.3c0,0,0.1,0.1,0.1,0.1h0c0.1,0,0.1,0,0.1-0.1c0.3-0.4,1.1-1.1,1.6-1.2l0.1,0
+					c0.3-0.1,0.4,0.1,0.4,0.1c-0.4,0-0.8,0.3-1.1,0.6c-0.1,0-0.1,0.1-0.1,0.1c-0.1,0.1-0.3,0.3-0.4,0.4c0,0,0,0-0.1,0.1l0,0.1
+					c-0.1,0.1,0,0.1,0,0.2c0.1,0,0.2,0,0.2,0l0-0.1c0,0,0-0.1,0-0.1c0.1-0.1,0.3-0.3,0.3-0.3c0,0,0.1-0.1,0.1-0.1l0,0
+					c0.2-0.1,0.5-0.4,0.8-0.5C113.8,99.8,113.8,100,113.7,100.1z"></path>
+<polygon points="74.3,113.7 74.9,113.4 74.3,112 75,111.7 75.6,113.3 76.2,113 75.2,110.6 72,112 73,114.4 73.6,114.1 73,112.6 
+					73.7,112.3 				"></polygon>
+<path d="M76.1,115.8c0-0.3-0.1-0.6,0.1-0.7c0.2-0.1,0.4,0,0.5,0.2c0.1,0.1,0.1,0.3,0.1,0.4c0,0.1-0.1,0.2-0.2,0.2l0.4,0.8
+					c0.8-0.3,0.7-1.1,0.4-1.7c-0.3-0.6-0.8-1.2-1.6-0.8c-0.3,0.2-0.6,0.5-0.5,0.8c0,0.8,0.4,1.4,0,1.6c-0.2,0.1-0.4-0.1-0.5-0.3
+					c-0.1-0.3-0.1-0.6,0.2-0.7l-0.4-0.8c-0.9,0.4-0.8,1.2-0.4,1.9c0.3,0.7,1,1.2,1.6,0.9C76.5,117.2,76.2,116.4,76.1,115.8z"></path>
+<polygon points="79.1,120 79.7,119.7 78.2,117 77.6,117.4 78.1,118.3 75.6,119.7 76.1,120.5 78.6,119.1 				"></polygon>
+<path d="M81.8,123.1l-0.5-0.8l-1.8,1.2c-0.4,0.2-0.7,0.2-1-0.2c-0.2-0.4-0.1-0.7,0.2-1l1.8-1.2l-0.5-0.8l-1.9,1.2
+					c-0.8,0.6-0.7,1.4-0.3,2.1c0.5,0.7,1.2,1.1,2,0.6L81.8,123.1z"></path>
+<path d="M83.3,125.1l-0.9-1.1l-2.8,2.1l0.9,1.2c0.7,0.9,1.5,1.3,2.6,0.5C84.1,126.9,84,126,83.3,125.1z M82.5,126.9
+					c-0.6,0.4-1.2,0.3-1.5-0.1l-0.3-0.3l1.7-1.3l0.3,0.3C83,125.9,83,126.5,82.5,126.9z"></path>
+<polygon points="85.1,127.3 82.4,129.6 83,130.3 85.7,128.1 				"></polygon>
+<path d="M87.1,129.7l-3.5,1.4l0.6,0.7l0.7-0.3l0.9,1l-0.4,0.6l0.7,0.8l1.7-3.4L87.1,129.7z M86.9,130.5l-0.8,1.3l-0.6-0.7
+					L86.9,130.5L86.9,130.5z"></path>
+<polygon points="92.6,135.3 90.2,137.9 92,139.6 92.5,139.1 91.3,138 93.3,135.9 				"></polygon>
+<path d="M95.6,140.3c-0.2,0.4-0.5,0.6-0.9,0.4c-0.4-0.2-0.5-0.6-0.3-1l1-2l-0.8-0.4l-1,2c-0.4,0.9,0.1,1.6,0.8,2
+					c0.8,0.4,1.6,0.4,2.1-0.5l1-2l-0.8-0.4L95.6,140.3z"></path>
+<path d="M99.3,141.9c-0.5,0-0.7-0.6-0.7-1.1c0-0.5,0.1-1.2,0.6-1.2c0.4,0,0.6,0.2,0.7,0.5l1,0c0-0.9-0.8-1.2-1.7-1.1
+					c-1,0.1-1.6,0.7-1.5,1.9c0,1.2,0.6,1.8,1.7,1.8c0.8,0,1.6-0.4,1.6-1.3l-1,0C99.9,141.6,99.7,141.8,99.3,141.9z"></path>
+<polygon points="103,137.6 103.7,138.8 102.7,139.4 102,138.2 101.2,138.6 103,141.7 103.8,141.2 103,140 104,139.4 
+					104.8,140.7 105.6,140.2 103.8,137.1 				"></polygon>
+<path d="M105.8,135.1l-0.8,0.8l1.4,3.5l0.7-0.6l-0.3-0.7l1-0.9l0.6,0.4l0.8-0.7L105.8,135.1z M106.4,137.4l-0.7-1.4v0l1.3,0.8
+					L106.4,137.4z"></path>
+<polygon points="112.6,128.8 112.1,128.4 110.1,130.7 110.6,131.1 111.3,130.4 113.5,132.3 114.1,131.5 111.9,129.6 				"></polygon>
+<path d="M115.8,128.3c0.2,0.1,0.4,0.3,0.7,0.4l0.6-0.8c-0.3-0.1-0.5-0.3-0.8-0.4c-0.5-0.3-0.8-0.4-1.2,0.1l0,0
+					c0.2-0.4,0.3-0.9-0.1-1.2c-0.6-0.5-1.2,0-1.5,0.5l-1,1.2l2.8,2.2l0.6-0.7l-1.1-0.9l0.2-0.3C115.3,128,115.4,128.1,115.8,128.3z
+					 M114.4,127.9l-0.2,0.3l-0.6-0.5l0.2-0.3c0.2-0.2,0.4-0.4,0.7-0.2C114.8,127.4,114.6,127.7,114.4,127.9z"></path>
+<path d="M115.9,123.4l-0.7,0.9l2.1,3.1l0.5-0.8l-0.4-0.6l0.8-1.1l0.7,0.2l0.6-0.9L115.9,123.4z M117.1,125.5l-0.9-1.2l0,0
+					l1.4,0.5L117.1,125.5z"></path>
+<path d="M120.6,120.7c-0.4-0.3-0.9-0.1-1.2,0.2h0c0.1-0.4,0.1-0.8-0.3-1c-0.5-0.3-1.1,0-1.4,0.5l-0.8,1.4l3,1.9l0.8-1.4
+					C120.8,122.2,121.5,121.2,120.6,120.7z M118.9,121.3l-0.3,0.4l-0.6-0.4l0.3-0.4c0.1-0.2,0.3-0.3,0.5-0.1
+					C119,120.9,119,121.1,118.9,121.3z M120.1,122l-0.3,0.5l-0.7-0.4l0.3-0.5c0.1-0.2,0.3-0.2,0.5-0.1
+					C120.2,121.6,120.3,121.8,120.1,122z"></path>
+<path d="M119.7,116.8l-0.5,1l2.5,2.8l0.4-0.8l-0.5-0.5l0.6-1.2l0.7,0.1l0.5-0.9L119.7,116.8z M121.2,118.8l-1.1-1.1l0,0l1.5,0.3
+					L121.2,118.8z"></path>
+<path d="M123.7,114.1l-2.3-1l-0.4,0.9l2.2,1c0.1,0,0.5,0.2,0.3,0.5c-0.1,0.2-0.4,0.2-0.6,0.1l-0.4,0.9c0.8,0.4,1.3,0.1,1.6-0.6
+					C124.5,115.1,124.5,114.4,123.7,114.1z"></path>
+<path d="M126,111.2l0.4-1h-3.8l-0.4,1.1l2.8,2.5l0.3-0.9l-0.6-0.5l0.5-1.3L126,111.2z M124.2,112l-1.2-1v0l1.5,0.1L124.2,112z"></path>
+<path d="M89.2,134.1c-0.4,0-0.7,0.3-0.7,0.7c0,0.4,0.3,0.7,0.7,0.7c0.4,0,0.7-0.3,0.7-0.7C89.9,134.4,89.6,134.1,89.2,134.1z"></path>
+<path d="M109.7,133.7c-0.4,0-0.7,0.3-0.7,0.7c0,0.4,0.3,0.7,0.7,0.7s0.7-0.3,0.7-0.7C110.4,134,110.1,133.7,109.7,133.7z"></path>
+</g>
+</g>
+</g>
+<g>
+<g>
+<g>
+<path d="M199.8,34.6h7.3l0.2,39.2c0,2.6,0.9,4.5,2.6,5.7c1.8,1.2,4.3,1.9,7.5,1.9c2.6,0,4.6-0.8,6.2-2.2
+					c1.7-1.5,2.5-3.9,2.5-7.2V34.6h5.3v38.5c0,4-1.4,7.1-4.4,9.3c-2.9,2.2-7,3.3-12.3,3.3c-5.1,0-9-1.1-11.6-3.4
+					c-2.6-2.3-2.9-5-2.9-9.4L199.8,34.6z"></path>
+<path d="M238.3,42.1h4.3l22.3,32v-32h4.3v43h-4.3l-22.3-32.3v31.7h-4.3V42.1z"></path>
+<path d="M280.1,84.6V42.1h5.6v42.4H280.1z"></path>
+<path d="M326.4,42.1l-14.2,43.4h-3.8L294,42.1h6.5L311.3,77l11.3-34.9H326.4z"></path>
+<path d="M358.5,42.1v9.4h-2.5c0-2.7-0.8-4.5-2.4-5.4c-1.6-0.9-4.3-1.4-8.1-1.4h-5.2v10.8h10v3.1h-10v23.4h5.7
+					c3.6,0,6.1-0.5,7.6-1.5c1.6-1,2.4-2.9,2.4-5.7h2.5v9.8h-23.8V42.1H358.5z"></path>
+<path d="M369,84.6V42.1h5.1v2.7c1.7-1.2,3.4-2.1,5-2.7c1.7-0.6,3.4-0.9,5.2-0.9c4.5,0,8.3,1.7,11.5,5.1
+					c3.2,3.4,4.8,7.4,4.8,12.1c0,5-1.4,9.1-4.2,12.4c-2.8,3.2-6.5,5-11.2,5.3l7.8,4.5c8.3,4.7,14.2,7.5,18,8.6
+					c3.6,1,5.7,1.4,10.6,1.1c5.3,0,9.7-2.1,13.6-6l-0.1,2.4c-4.1,5.4-9.1,6.7-19.1,6.7c-5.4,0-10.7-2.5-18.9-6.5
+					c-8.2-4-15.8-8.4-23-13v10.6H369z M374.1,48v23.4l1.3-2.1c2.1,1.5,3.9,2.5,5.3,3.1c1.5,0.6,2.9,0.9,4.2,0.9
+					c3.2,0,5.8-1.2,7.8-3.5c2.1-2.4,3.1-5.4,3.1-9.2c0-4.4-1.3-8.2-4-11.4c-2.7-3.2-5.8-4.8-9.4-4.8c-1.5,0-3,0.3-4.4,0.9
+					C376.6,45.8,375.3,46.7,374.1,48z"></path>
+<path d="M426.7,50.7c0-2.5-0.5-4.2-1.4-5.2c-1-1.1-2.4-1.6-4.3-1.6c-1.6,0-2.9,0.4-3.9,1.1c-1,0.7-1.6,1.8-1.6,3.3
+					c0,1.3,0.5,2.5,1.5,3.6c1,1.1,3.1,2.5,6.3,4.2c0.4,0.2,0.8,0.5,1.5,0.8c7.8,4.2,11.7,8.7,11.7,13.5c0,4.5-1.6,8.1-4.7,10.9
+					c-3.1,2.8-7.3,4.1-12.6,4.1c-4.4,0-8.1-1.2-11-3.7c-2.9-2.5-4.4-5.5-4.4-9.1c0-3.1,1-5.7,3-7.8c2-2.1,4.5-3.1,7.5-3.1
+					c2.6,0,4.8,0.6,6.5,2c1.8,1.4,2.7,3,2.7,5c0,1.4-0.5,2.6-1.4,3.4c-0.9,0.8-2.2,1.3-3.8,1.3c-0.5,0-0.9,0-1.2-0.1
+					c-0.3-0.1-0.6-0.2-0.9-0.4l0.1-1.1c1.1-0.1,1.9-0.5,2.6-1.2c0.7-0.7,1-1.7,1-2.8c0-1.3-0.5-2.2-1.5-2.7c-1-0.5-2.3-0.8-3.9-0.8
+					c-2.1,0-3.9,0.6-5.3,1.8c-1.4,1.2-2.1,3-2.1,5.4c0,3.2,1.3,5.7,3.9,7.7c2.6,1.9,5.7,2.9,9.3,2.9c3.5,0,6.4-0.9,8.7-2.6
+					c2.3-1.8,3.4-4.2,3.4-7.3c0-1.9-0.5-3.5-1.6-4.9c-1.1-1.4-3.4-3-7-5c-0.4-0.2-1-0.6-1.8-1c-6.5-3.7-9.8-7.4-9.8-11.2
+					c0-2.6,0.9-4.7,2.7-6.5c1.8-1.8,4-2.7,6.5-2.7c1,0,1.9,0.1,2.8,0.4c0.8,0.2,1.8,0.6,2.7,1.2h1.9v8H426.7z"></path>
+<path d="M445.7,84.6V42.1h5.6v42.4H445.7z"></path>
+<path d="M461.8,84.6V42.1h3.6c1.2,0,2.9-0.1,5.2-0.2c2.2-0.1,3.8-0.2,4.8-0.2c6,0,10.9,1.9,14.7,5.9c3.8,4,5.8,9,5.8,15.1
+					c0,6.3-2,11.6-6.2,15.8c-4.1,4.2-9.4,6.3-15.7,6.3c-0.8,0-2.3-0.1-4.3-0.2c-2-0.1-3.6-0.2-4.8-0.2H461.8z M466.6,80.5
+					c1.3,0.5,2.5,0.8,3.7,1.1c1.2,0.2,2.3,0.4,3.4,0.4c5,0.4,9.1-1.1,12.3-4.7c3.2-3.6,4.8-8.1,4.8-13.6c0-5.5-1.6-10-4.9-13.7
+					c-3.3-3.7-7.3-5.3-12.2-4.9c-1,0-2.1,0.1-3.3,0.4c-1.2,0.3-2.4,0.6-3.8,1.1V80.5z"></path>
+<path d="M533.7,84.6V42.1h3.6c1.2,0,2.9-0.1,5.2-0.2c2.2-0.1,3.8-0.2,4.8-0.2c6,0,10.9,1.9,14.7,5.9c3.8,4,5.8,9,5.8,15.1
+					c0,6.3-2,11.6-6.2,15.8c-4.1,4.2-9.4,6.3-15.7,6.3c-0.8,0-2.3-0.1-4.3-0.2c-2-0.1-3.6-0.2-4.8-0.2H533.7z M538.5,80.5
+					c1.3,0.5,2.5,0.8,3.7,1.1c1.2,0.2,2.3,0.4,3.4,0.4c5,0.4,9.1-1.1,12.3-4.7c3.2-3.6,4.8-8.1,4.8-13.6c0-5.5-1.6-10-4.9-13.7
+					c-3.3-3.7-7.3-5.3-12.2-4.9c-1,0-2.1,0.1-3.3,0.4c-1.2,0.3-2.4,0.6-3.8,1.1V80.5z"></path>
+<path d="M495.8,85l15.5-43.3h2.6l15,43.3h-6.8l-6.4-20.5h-9.3L499.3,85H495.8z M507.5,60h6.9l-3.3-10.8L507.5,60z"></path>
+</g>
+</g>
+</g>
+<g>
+<g>
+<g>
+<path d="M199.9,163.4V121h3.6c1.2,0,2.9-0.1,5.2-0.2c2.2-0.1,3.8-0.2,4.8-0.2c6,0,10.9,1.9,14.7,5.9c3.8,4,5.8,9,5.8,15.1
+					c0,6.3-2,11.6-6.2,15.8c-4.1,4.2-9.4,6.3-15.7,6.3c-0.8,0-2.3-0.1-4.3-0.2c-2-0.1-3.6-0.2-4.8-0.2H199.9z M204.7,159.4
+					c1.3,0.5,2.5,0.8,3.7,1.1c1.2,0.2,2.3,0.4,3.4,0.4c5,0.4,9.1-1.1,12.3-4.7c3.2-3.6,4.8-8.1,4.8-13.6c0-5.5-1.6-10-4.9-13.7
+					c-3.3-3.7-7.3-5.3-12.2-4.9c-1,0-2.1,0.1-3.3,0.4c-1.2,0.3-2.4,0.6-3.8,1.1V159.4z"></path>
+<path d="M264,121v9.4h-2.4c0-2.7-0.8-4.5-2.4-5.4c-1.6-0.9-4.2-1.4-8-1.4h-5v10.8h9.8v3.1h-9.8v23.4h5.5c3.5,0,6-0.5,7.5-1.5
+					c1.6-1,2.3-2.9,2.3-5.7h2.4v9.8h-23.5V121H264z"></path>
+</g>
+<g>
+<path d="M398.9,121v39.6h2.2c2.8,0,6.4-0.2,7.9-0.2c2.4,0,4.9-3.3,4.4-7l3,0.1v9.8h-23V121H398.9z"></path>
+<path d="M425.9,163.4V121h5.6v42.4H425.9z"></path>
+<path d="M442.2,121h10.3l9.5,20.4l9-20.4h9.5v42.4h-6.8l0-39.6l-13,27.6l-14-27.6v39.6h-4.5V121z"></path>
+<path d="M485.3,163.9l15.5-43.3h2.6l15,43.3h-6.8l-6.4-20.5h-9.3l-7.1,20.5H485.3z M497,138.9h6.9l-3.3-10.8L497,138.9z"></path>
+<path d="M361.5,164.7c-6.6,0-12-2.1-16.3-6.2c-4.3-4.2-6.4-9.4-6.4-15.8c0-6.1,2.1-11.3,6.5-15.5c4.4-4.3,9.7-6.4,15.9-6.4
+					c6.5,0,11.9,2.1,16.4,6.4c4.5,4.3,6.7,9.4,6.7,15.5c0,6.2-2.1,11.4-6.5,15.6C373.5,162.5,368.1,164.7,361.5,164.7z M363.4,160.2
+					c4.7,0,8.4-1.4,11.3-4.1c2.9-2.7,4.4-6.3,4.4-10.6c0-2.6-0.4-5.1-1.4-7.6c-1-2.4-2.3-4.7-4.2-6.7c-2-2.2-4.2-3.9-6.6-5
+					c-2.4-1.2-5-1.7-7.9-1.7c-4.3,0-7.8,1.3-10.5,4.2c-2.7,2.8-4,6.5-4,11.1c0,2.7,0.4,5.2,1.3,7.6c0.9,2.4,2.2,4.6,3.9,6.5
+					c1.9,2.1,4,3.7,6.2,4.7C358.1,159.6,360.6,160.2,363.4,160.2z"></path>
+</g>
+</g>
+<path d="M333.6,155.4l1.9,2.3c-2.6,2.3-5.4,4-8.5,5.1c-3.1,1.1-6.4,1.7-10.1,1.7c-7.9,0-14.3-2.4-19.4-7.4c-5-5-7.6-11.2-7.6-18.7
+			c0-7.3,2.6-13.4,7.7-18.4c5.1-5.1,11.4-7.6,18.8-7.6c2.5,0,5,0.3,7.5,1c2.5,0.7,5,1.7,7.5,3.1l2.2,1.4v9.3h-2.2V127
+			c0-3.2-1.5-5.8-4.5-8c-3.1-2.2-7-3.3-11.9-3.3c-5.6,0-10.1,1.6-13.5,5c-3.3,3.4-5,8.2-5,14.4c0,3.5,0.5,6.8,1.6,10
+			c1.1,3.2,2.6,6,4.7,8.5c2.3,2.7,4.7,4.7,7.4,5.8c2.7,1.1,5.7,1.7,8.9,1.7c2.8,0,5.3-0.4,7.7-1.2
+			C329.1,159.1,331.4,157.6,333.6,155.4z"></path>
+</g>
+</g>
+</svg></div><div><strong>Universidad de Colima</strong><span>Recurso educativo de Programación Web</span></div></div><div class="nav-bottom"><button class="nav-btn prev" data-prev="6" type="button">← Evidencia y reflexión</button><button class="nav-btn primary" id="restart" type="button">Volver al inicio</button><button class="small-btn danger-btn" id="resetProgress" type="button">Reiniciar progreso y datos</button></div>
+</div>
+</article>
+</section>
+</main>
+</div>
+<footer aria-label="Autoría, licencia y transparencia del recurso" class="resource-footer"><div class="resource-footer-grid"><div><strong>HTML5 desde cero · Fase 1</strong><span>Experiencia visual guiada para Programación Web</span></div><div><strong>Autor y responsable académico</strong><span>Ing. Ricardo Jaramillo Velasco · Facultad de Telemática · Universidad de Colima</span></div><div><strong>Diseño pedagógico</strong><span>Estrategia de Aprendizaje Inmersivo con Artefactos (EAIA).</span></div><div><strong>Transparencia de IAG</strong><span>Material desarrollado por el docente con apoyo de IAG conforme a la Declaratoria del curso y al Acuerdo No. 23 de 2024 de la Universidad de Colima.</span></div><div><strong>Derechos</strong><span>© 2026 Ricardo Jaramillo Velasco, Universidad de Colima · <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.es" rel="license noopener noreferrer" target="_blank">CC BY-NC-SA 4.0</a></span></div></div></footer><dialog aria-labelledby="aiDialogTitle" class="info-dialog quality-dialog" id="aiDialog">
+<div class="dialog-inner">
+<button aria-label="Cerrar información de calidad y transparencia" class="dialog-close" data-close-dialog="" type="button">×</button>
+<h2 id="aiDialogTitle" tabindex="-1">Calidad, accesibilidad y transparencia</h2>
+<p class="soft">Resumen de las decisiones de diseño, autoría y uso responsable de IAG aplicadas a esta Fase 1.</p>
+<div class="quality-grid dialog-quality-grid">
+<article class="quality-card"><strong>WCAG 2.2 · criterios atendidos</strong><p>Se priorizaron estructura semántica, operación con teclado, foco visible, instrucciones asociadas, contraste, reflow, mensajes de estado y reducción de movimiento. Los controles interactivos utilizan estados comprensibles y retroalimentación inmediata.</p></article>
+<article class="quality-card"><strong>Heurísticas de Nielsen</strong><p>Se aplican visibilidad del estado, correspondencia con la tarea real, control y libertad, consistencia, prevención de errores, reconocimiento antes que recuerdo, diseño enfocado y ayuda contextual.</p></article><article class="quality-card"><strong>Diseño pedagógico · EAIA</strong><p>Este recurso educativo fue diseñado bajo los principios de la <b>Estrategia de Aprendizaje Inmersivo con Artefactos (EAIA)</b>, integrando comprensión conceptual, representación visual, interacción guiada, construcción progresiva de un producto, retroalimentación, generación de evidencia y reflexión metacognitiva.</p><p><b>Secuencia del recurso:</b> comprender → observar → interactuar → construir → comprobar → evidenciar → reflexionar.</p></article>
+<article class="quality-card"><strong>Declaratoria de Uso de IAG · Profesorado</strong><p><b>Docente:</b> Ing. Ricardo Jaramillo Velasco<br><b>Curso:</b> Programación Web<br><b>Periodo escolar:</b> Agosto-Noviembre 2026</p><p>La IAG se utilizó como apoyo para elaborar materiales educativos, generar código de la herramienta interactiva, diseñar evaluación formativa y producir retroalimentación orientativa. <b>No se utiliza para revisar automáticamente los trabajos del estudiante.</b></p><p><b>Marco institucional:</b> Declaratoria de Uso de IAG del programa analítico y Acuerdo No. 23 de 2024, Universidad de Colima.</p></article>
+<article class="quality-card author-card"><strong>Autoría, licencia y alcance</strong><p><b>Autor y responsable académico:</b> Ing. Ricardo Jaramillo Velasco · Facultad de Telemática · Universidad de Colima.</p><p>© 2026 Ricardo Jaramillo Velasco, Universidad de Colima. Recurso bajo licencia <b>Creative Commons Atribución-NoComercial-CompartirIgual 4.0 Internacional (CC BY-NC-SA 4.0)</b>.</p><p>El contenido técnico se fundamenta en documentación de MDN y W3C/WAI. La alineación con WCAG 2.2 AA no constituye una certificación formal independiente.</p></article>
+</div>
+<div class="warning-note"><strong>Declaración responsable:</strong> la conformidad formal con WCAG requiere una evaluación completa de todos los criterios aplicables y pruebas con tecnologías de asistencia. La evidencia y las reflexiones del PDF corresponden al estudiante.</div>
+<p class="quality-links"><strong>Fuentes de diseño:</strong> <a href="https://www.w3.org/TR/WCAG22/" rel="noopener noreferrer" target="_blank">WCAG 2.2</a> · <a href="https://www.nngroup.com/articles/ten-usability-heuristics/" rel="noopener noreferrer" target="_blank">10 heurísticas de Nielsen</a>.</p>
+</div>
+</dialog><dialog aria-labelledby="refDialogTitle" class="info-dialog" id="refDialog">
+<div class="dialog-inner">
+<button aria-label="Cerrar ventana" class="dialog-close" data-close-dialog="" type="button">×</button>
+<h2 id="refDialogTitle">Referencia</h2>
+<div id="refDialogBody"></div>
+</div>
+</dialog><script>
+const stages=[...document.querySelectorAll('.stage')];
+const routeBtns=[...document.querySelectorAll('.route-btn')];
+let current=0;const completed=new Set();
+function showStage(i){current=Math.max(0,Math.min(stages.length-1,i));stages.forEach((s,n)=>s.classList.toggle('active',n===current));routeBtns.forEach((b,n)=>{b.classList.toggle('active',n===current);b.classList.toggle('done',completed.has(n));});const pct=Math.round(((current+1)/stages.length)*100);document.getElementById('progressBar').style.width=pct+'%';document.getElementById('progressPercent').textContent=pct+'%';document.getElementById('stepCount').textContent=(current+1)+' / '+stages.length;document.getElementById('progressName').textContent='Paso '+(current+1)+' · '+stages[current].dataset.title;window.scrollTo({top:0,behavior:(window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches)?'auto':'smooth'});}
+routeBtns.forEach(b=>b.addEventListener('click',()=>showStage(+b.dataset.go)));document.querySelectorAll('.next').forEach(b=>b.addEventListener('click',()=>showStage(+b.dataset.next)));document.querySelectorAll('.prev').forEach(b=>b.addEventListener('click',()=>showStage(+b.dataset.prev)));document.getElementById('restart').addEventListener('click',()=>showStage(0));
+
+// checkpoints
+const goodMsg='Correcto. Esa es la idea que necesitas conservar antes de continuar.';const badMsg='Todavía no. Revisa la explicación visual de este paso y vuelve a intentarlo.';
+document.querySelectorAll('.checkpoint').forEach(cp=>{const n=+cp.dataset.check;cp.querySelectorAll('.choice').forEach(btn=>btn.addEventListener('click',()=>{const good=btn.dataset.result==='good';const fb=document.getElementById('feedback'+n);fb.className='feedback '+(good?'good':'bad');fb.textContent=good?goodMsg:badMsg;if(good){completed.add(n);routeBtns[n].classList.add('done');}}));});
+
+// anatomy
+const pieceData={
+open:['<p> · etiqueta de apertura','Marca dónde comienza el elemento. La letra p significa “párrafo”.','<p>Estoy aprendiendo HTML</p>'],
+content:['Contenido','Es la información que verá la persona. En este caso, una frase dentro del párrafo.','Estoy aprendiendo HTML'],
+close:['</p> · etiqueta de cierre','Marca dónde termina el elemento. La diagonal / indica cierre.','</p>'],
+openA:['<a · inicio de un enlace','La letra a identifica un enlace (anchor). Después puede incluir atributos.','<a href="portafolio.html">Mi portafolio</a>'],
+attr:['href · atributo','href indica el destino del enlace. Un atributo agrega información al elemento.','href="portafolio.html"'],
+openEnd:['> · fin de la apertura','Cierra la etiqueta de apertura; a partir de aquí empieza el contenido visible.','<a href="portafolio.html">'],
+linkText:['Texto del enlace','Es lo que la persona puede leer y activar. Debe describir el destino.','Mi portafolio'],
+closeA:['</a> · cierre del enlace','Indica que el enlace termina.','</a>']};
+function htmlEsc(s){return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
+document.querySelectorAll('.piece[data-piece]').forEach(p=>p.addEventListener('click',()=>{document.querySelectorAll('.piece[data-piece]').forEach(x=>x.classList.remove('active'));p.classList.add('active');const d=pieceData[p.dataset.piece];document.getElementById('pieceInfo').innerHTML=`<div class="big">${htmlEsc(d[0])}</div><h3>${d[0].includes('atributo')?'Aporta información adicional':'¿Qué hace esta parte?'}</h3><p class="soft">${d[1]}</p><pre class="codebox">${htmlEsc(d[2])}</pre>`;}));
+
+// doc explorer
+const docData={doctype:['DOCTYPE · tipo de documento','El <!DOCTYPE html> va al inicio y le indica al navegador que el documento usa HTML moderno.','none'],html:['html · raíz del documento','<html> contiene todo el documento. El atributo lang="es" indica que el idioma principal es español.','none'],head:['head · información para el navegador','<head> contiene información del documento que normalmente no aparece como contenido visible.','head'],meta:['meta · configuración del documento','<meta charset="UTF-8"> ayuda a que caracteres como á, é, í, ñ se interpreten correctamente.','head'],title:['title · nombre de la pestaña','<title> define el texto que aparece en la pestaña del navegador y ayuda a identificar la página.','head'],body:['body · contenido visible','<body> contiene lo que la persona ve e interactúa: títulos, párrafos, listas, imágenes, enlaces, etc.','body']};
+document.querySelectorAll('.doc-piece').forEach(p=>p.addEventListener('click',()=>{document.querySelectorAll('.doc-piece').forEach(x=>x.classList.remove('active'));p.classList.add('active');const d=docData[p.dataset.doc];document.getElementById('docTitle').textContent=d[0];document.getElementById('docExplain').innerHTML=d[1].replaceAll('<','&lt;').replaceAll('>','&gt;');document.querySelectorAll('.doc-layer').forEach(x=>x.classList.remove('active'));if(d[2]==='head')document.getElementById('doc-head').classList.add('active');if(d[2]==='body')document.getElementById('doc-body').classList.add('active');}));
+
+// concepts
+const concepts={heading:{title:'Título',what:'Se usa para nombrar y jerarquizar partes del contenido.',when:'Usa <h1> para el título principal y <h2> para secciones importantes.',remember:'No elijas h1/h2 por tamaño visual; elige por jerarquía.',code:'<h1>Mi currículum</h1>\n<h2>Habilidades</h2>',render:'<h1>Mi currículum</h1><h2>Habilidades</h2>'},paragraph:{title:'Párrafo',what:'Agrupa una idea o explicación en texto.',when:'Usa <p> para una presentación, descripción o idea completa.',remember:'Un párrafo no es un salto de línea: representa una unidad de texto.',code:'<p>Soy estudiante y estoy aprendiendo desarrollo web.</p>',render:'<p>Soy estudiante y estoy aprendiendo desarrollo web.</p>'},list:{title:'Lista',what:'Agrupa varios elementos relacionados.',when:'Usa <ul> cuando el orden no importa y <li> para cada elemento.',remember:'Ideal para habilidades, intereses, requisitos o características.',code:'<ul>\n  <li>HTML</li>\n  <li>Git</li>\n  <li>Trabajo en equipo</li>\n</ul>',render:'<ul><li>HTML</li><li>Git</li><li>Trabajo en equipo</li></ul>'},link:{title:'Enlace',what:'Conecta esta página con otro recurso.',when:'Usa <a> y el atributo href para indicar el destino.',remember:'El texto del enlace debe ayudar a entender a dónde lleva.',code:'<a href="portafolio.html">Ver mi portafolio</a>',render:'<p><a href="#">Ver mi portafolio</a></p>'},image:{title:'Imagen',what:'Incorpora contenido visual a la página.',when:'Usa <img> con src para el archivo y alt para describir una imagen informativa.',remember:'alt no es un pie de foto: es una alternativa textual útil.',code:'<img src="foto.jpg" alt="Retrato de Ana López">',render:'<svg viewBox="0 0 260 130" width="100%" role="img" aria-label="Ejemplo de retrato"><rect width="260" height="130" rx="12" fill="#edf5ff"/><circle cx="67" cy="52" r="25" fill="#b8d5ee"/><path d="M28 118c7-28 71-28 78 0" fill="#b8d5ee"/><rect x="126" y="35" width="95" height="14" rx="7" fill="#b3c7db"/><rect x="126" y="61" width="75" height="10" rx="5" fill="#d0deea"/><rect x="126" y="80" width="88" height="10" rx="5" fill="#d0deea"/></svg><p><small>Imagen con texto alternativo: “Retrato de Ana López”.</small></p>'}};
+function loadConcept(k){const d=concepts[k];document.getElementById('conceptMeaning').innerHTML=`<div class="meaning-row"><b>¿Qué representa?</b>${d.what}</div><div class="meaning-row"><b>¿Cuándo la uso?</b>${htmlEsc(d.when)}</div><div class="meaning-row"><b>Qué recordar</b>${d.remember}</div>`;document.getElementById('conceptCode').textContent=d.code;document.getElementById('conceptRender').innerHTML=d.render;}
+loadConcept('heading');document.querySelectorAll('.tab-btn').forEach(b=>b.addEventListener('click',()=>{document.querySelectorAll('.tab-btn').forEach(x=>x.classList.remove('active'));b.classList.add('active');loadConcept(b.dataset.concept);}));
+
+// semantics
+const semData={header:'<strong>&lt;header&gt;</strong> presenta la página o una sección. En un CV puede contener tu nombre y perfil.',nav:'<strong>&lt;nav&gt;</strong> agrupa enlaces principales de navegación. Úsalo cuando realmente exista una ruta entre partes o páginas.',main:'<strong>&lt;main&gt;</strong> identifica el contenido principal de la página. Para comenzar, piensa en él como el “centro” del documento.',section:'<strong>&lt;section&gt;</strong> agrupa contenido relacionado por un tema: Habilidades, Educación, Proyectos, etc.',footer:'<strong>&lt;footer&gt;</strong> cierra la página o sección con información final: autor, contacto o notas.'};
+document.querySelectorAll('.semantic-btn').forEach(b=>b.addEventListener('click',()=>{document.querySelectorAll('.semantic-btn').forEach(x=>x.classList.remove('active'));b.classList.add('active');document.querySelectorAll('.wire').forEach(x=>x.classList.remove('active'));const el=document.getElementById('sem-'+b.dataset.sem);if(el)el.classList.add('active');document.getElementById('semInfo').innerHTML=semData[b.dataset.sem];}));
+
+// project state
+const state={name:'Ana López',role:'Estudiante de desarrollo web',profile:'Me interesa crear sitios claros y accesibles. Estoy aprendiendo HTML como base del desarrollo web.',skills:'HTML, Git, Trabajo en equipo',education:'Licenciatura en curso',project:'Mi primera página HTML',email:'ana@correo.com'};let mission=0;
+const missionInfo=[{title:'Misión 1 · Identidad',instruction:'Observa cómo un <code>&lt;header&gt;</code> presenta tu página. Personaliza tu nombre y tu perfil.',fields:[['name','Nombre'],['role','Perfil corto']]},{title:'Misión 2 · Perfil',instruction:'Agrega una <code>&lt;section&gt;</code> con un <code>&lt;h2&gt;</code> y un <code>&lt;p&gt;</code>. Aquí explicas quién eres.',fields:[['profile','Presentación']]},{title:'Misión 3 · Habilidades',instruction:'Convierte varias habilidades relacionadas en una lista <code>&lt;ul&gt;</code> con elementos <code>&lt;li&gt;</code>.',fields:[['skills','Habilidades (separadas por coma)']]},{title:'Misión 4 · Formación y proyecto',instruction:'Usa secciones temáticas para organizar información de distinto tipo.',fields:[['education','Formación'],['project','Proyecto destacado']]},{title:'Misión 5 · Contacto',instruction:'Cierra con un <code>&lt;footer&gt;</code> y crea un enlace de correo usando <code>mailto:</code>.',fields:[['email','Correo']]}];
+function renderFields(){const info=missionInfo[mission];document.getElementById('missionTitle').textContent=info.title;document.getElementById('missionInstruction').innerHTML=info.instruction;document.getElementById('missionFields').innerHTML=info.fields.map(([key,label])=>`<div class="field"><label for="f_${key}">${label}</label>${key==='profile'?`<textarea id="f_${key}" data-key="${key}">${state[key]}</textarea>`:`<input id="f_${key}" data-key="${key}" value="${state[key].replaceAll('"','&quot;')}">`}</div>`).join('');document.querySelectorAll('[data-key]').forEach(el=>el.addEventListener('input',()=>{state[el.dataset.key]=el.value;renderCV();}));}
+function escContent(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}function escAttr(s){return escContent(s).replace(/"/g,'&quot;').replace(/'/g,'&#39;');}function cvBody(){const skills=state.skills.split(',').map(s=>s.trim()).filter(Boolean).map(s=>`      <li>${escContent(s)}</li>`).join('\n');let out=`<header>\n  <h1>${escContent(state.name)}</h1>\n  <p>${escContent(state.role)}</p>\n</header>`;if(mission>=1){out+=`\n\n<main>\n  <section>\n    <h2>Perfil</h2>\n    <p>${escContent(state.profile)}</p>\n  </section>`;}if(mission>=2){out+=`\n\n  <section>\n    <h2>Habilidades</h2>\n    <ul>\n${skills}\n    </ul>\n  </section>`;}if(mission>=3){out+=`\n\n  <section>\n    <h2>Formación</h2>\n    <p>${escContent(state.education)}</p>\n  </section>\n\n  <section>\n    <h2>Proyecto</h2>\n    <p>${escContent(state.project)}</p>\n  </section>`;}if(mission>=1){out+=`\n</main>`;}if(mission>=4){out+=`\n\n<footer>\n  <p>Contacto: <a href="mailto:${escAttr(state.email)}">${escContent(state.email)}</a></p>\n</footer>`;}return out;}
+function renderCV(){const full=`<!DOCTYPE html>\n<html lang="es">\n<head>\n  <meta charset="UTF-8">\n  <meta name="viewport" content="width=device-width, initial-scale=1.0">\n  <title>CV de ${escContent(state.name)}</title>\n</head>\n<body>\n${cvBody()}\n</body>\n</html>`;document.getElementById('cvPreview').srcdoc=full;document.getElementById('cvCode').textContent=full;return full;}
+renderFields();renderCV();document.querySelectorAll('.mission').forEach((b,i)=>b.addEventListener('click',()=>{mission=i;document.querySelectorAll('.mission').forEach(x=>x.classList.remove('active'));b.classList.add('active');renderFields();renderCV();}));document.getElementById('markMission').addEventListener('click',()=>{document.querySelectorAll('.mission')[mission].classList.add('done');if(mission<4){mission++;document.querySelectorAll('.mission').forEach((x,i)=>x.classList.toggle('active',i===mission));renderFields();renderCV();}});document.getElementById('copyCode').addEventListener('click',async()=>{try{await navigator.clipboard.writeText(renderCV());document.getElementById('copyCode').textContent='Código copiado';setTimeout(()=>document.getElementById('copyCode').textContent='Copiar código',1300);}catch(e){document.getElementById('copyCode').textContent='Selecciona el código manualmente';}});
+
+// final retrieval
+const finalAnswered=new Set();document.querySelectorAll('.final-choice').forEach(b=>b.addEventListener('click',()=>{const item=b.closest('.final-item');if(b.dataset.correct==='1'){item.classList.add('done');finalAnswered.add(+item.dataset.final);}else{item.classList.remove('done');}if(finalAnswered.size===4){completed.add(6);routeBtns[6].classList.add('done');}}));
+showStage(0);
+</script><script>
+// === Mejora de accesibilidad, progreso, evidencia y metacognición ===
+const STORAGE_KEY='html5_fase1_accessible_v1';
+const initialShowStage=showStage;
+let unlockedMax=0;
+const checkpointAttempts=Array(6).fill(0);
+const missionDone=new Set();
+const finalAttempts=Array(4).fill(0);
+let evidenceGenerated=false;
+
+function announceStatus(message){
+  const node=document.getElementById('a11yStatus');
+  if(node){node.textContent=''; window.setTimeout(()=>node.textContent=message,25);}
+}
+function reducedMotion(){return window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;}
+function syncRoute(){
+  routeBtns.forEach((b,n)=>{
+    const isCurrent=n===current;
+    if(isCurrent)b.setAttribute('aria-current','step'); else b.removeAttribute('aria-current');
+    b.disabled=n>unlockedMax;
+    b.setAttribute('aria-disabled',String(n>unlockedMax));
+    b.classList.toggle('done',completed.has(n));
+  });
+  const pg=document.querySelector('.progress');
+  if(pg) pg.setAttribute('aria-valuenow',String(Math.round(((current+1)/stages.length)*100)));
+  stages.forEach((s,n)=>s.setAttribute('aria-hidden',String(n!==current)));
+}
+
+function syncMissions(){
+  const buttons=[...document.querySelectorAll('.mission')];
+  const maxEnabled=Math.min(4,missionDone.size);
+  buttons.forEach((b,i)=>{const locked=i>maxEnabled;b.disabled=locked;b.setAttribute('aria-disabled',String(locked));b.classList.toggle('done',missionDone.has(i));b.setAttribute('aria-pressed',String(i===mission));});
+}
+showStage=function(i,focusHeading=true){
+  i=Math.max(0,Math.min(stages.length-1,i));
+  if(i>unlockedMax){
+    announceStatus('Completa la comprobación del paso actual antes de continuar.');
+    const cp=stages[current].querySelector('.checkpoint, #finalQuestions, #generateEvidence');
+    if(cp)cp.scrollIntoView({behavior:reducedMotion()?'auto':'smooth',block:'center'});
+    return;
+  }
+  initialShowStage(i);
+  syncRoute();
+  if(focusHeading){
+    const heading=stages[current].querySelector('.step-head h2');
+    if(heading){window.setTimeout(()=>heading.focus({preventScroll:true}),60);}
+  }
+  announceStatus(`Paso ${current+1} de ${stages.length}: ${stages[current].dataset.title}`);
+  saveProgress();
+};
+
+function unlockThrough(n){unlockedMax=Math.max(unlockedMax,n);syncRoute();saveProgress();}
+
+// Checkpoints: feedback, attempts, and guided unlock.
+document.querySelectorAll('.checkpoint').forEach(cp=>{
+  const n=+cp.dataset.check;
+  cp.querySelectorAll('.choice').forEach(btn=>btn.addEventListener('click',()=>{
+    checkpointAttempts[n]++;
+    cp.querySelectorAll('.choice').forEach(x=>x.setAttribute('aria-pressed','false'));
+    btn.setAttribute('aria-pressed','true');
+    if(btn.dataset.result==='good'){
+      if(n===0 && !radioValue('confidenceBefore')){
+        completed.delete(0); routeBtns[0].classList.remove('done');
+        const fb=document.getElementById('feedback0'); if(fb){fb.className='feedback good';fb.textContent='La respuesta es correcta. Antes de avanzar registra tu confianza inicial en la escala que aparece al inicio del paso.';}
+        announceStatus('Respuesta correcta. Falta registrar la confianza inicial antes de continuar.'); saveProgress(); return;
+      }
+      completed.add(n);
+      if(n<5) unlockThrough(n+1);
+      if(n===5){
+        if(missionDone.size===5){unlockThrough(6);}
+        else announceStatus(`Respuesta correcta. Aún faltan ${5-missionDone.size} misiones del currículum por registrar.`);
+      }
+      saveProgress();
+    }
+  }));
+});
+
+// Selection states on interactive visual controls.
+function pressedGroup(selector){
+  document.querySelectorAll(selector).forEach(btn=>btn.addEventListener('click',()=>{
+    document.querySelectorAll(selector).forEach(x=>x.setAttribute('aria-pressed','false'));
+    btn.setAttribute('aria-pressed','true');
+  }));
+}
+pressedGroup('.piece[data-piece]'); pressedGroup('.doc-piece'); pressedGroup('.tab-btn'); pressedGroup('.semantic-btn'); pressedGroup('.mission');
+
+// Mission completion is evidence of the practical activity.
+document.getElementById('markMission').addEventListener('click',()=>{
+  document.querySelectorAll('.mission').forEach((m,i)=>{if(m.classList.contains('done'))missionDone.add(i);});
+  syncMissions(); updateEvidenceSummary();
+  if(missionDone.size===5 && completed.has(5)) unlockThrough(6);
+  saveProgress();
+});
+
+document.querySelectorAll('.mission').forEach((m,i)=>m.addEventListener('click',()=>{
+  m.setAttribute('aria-label',`${m.textContent.trim()}${m.classList.contains('done')?', completada':''}`);
+}));
+
+// Copy status is exposed to assistive technology.
+document.getElementById('copyCode').addEventListener('click',()=>announceStatus(document.getElementById('copyCode').textContent));
+function downloadTextFile(name,text,type='text/plain'){const blob=new Blob([text],{type});const url=URL.createObjectURL(blob);const a=document.createElement('a');a.href=url;a.download=name;document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),1200);}
+document.getElementById('downloadHtmlPhase1')?.addEventListener('click',()=>{downloadTextFile('CV.html',renderCV(),'text/html');announceStatus('Archivo CV.html descargado. Consérvalo para continuar con la Fase 2 de CSS.');});
+
+// Initial confidence.
+document.querySelectorAll('input[name="confidenceBefore"]').forEach(r=>r.addEventListener('change',()=>{announceStatus(`Confianza inicial registrada: ${r.value} de 5.`);saveProgress();}));
+
+// Final quiz: preserve immediate feedback through structural state, not color alone.
+document.querySelectorAll('.final-choice').forEach(btn=>btn.addEventListener('click',()=>{
+  const item=btn.closest('.final-item');
+  const idx=+item.dataset.final;
+  finalAttempts[idx]++;
+  item.querySelectorAll('.final-choice').forEach(x=>x.setAttribute('aria-pressed','false'));
+  btn.setAttribute('aria-pressed','true');
+  let msg=item.querySelector('.inline-result');
+  if(!msg){msg=document.createElement('div');msg.className='inline-result';msg.setAttribute('role','status');item.appendChild(msg);}
+  if(btn.dataset.correct==='1'){
+    msg.textContent='✓ Correcto.'; item.classList.add('done'); finalAnswered.add(idx);
+  }else{
+    msg.textContent='Revisa el concepto e inténtalo de nuevo.'; item.classList.remove('done'); finalAnswered.delete(idx);
+  }
+  updateEvidenceSummary(); saveProgress();
+}));
+
+function radioValue(name){return document.querySelector(`input[name="${name}"]:checked`)?.value||'';}
+function cleanText(id){return (document.getElementById(id)?.value||'').trim();}
+function reflectionsComplete(){return ['reflectionChange','reflectionDifficulty','reflectionEvidence'].every(id=>cleanText(id).length>=20);}
+function updateEvidenceSummary(){
+  const q=document.getElementById('quizSummary'); if(q)q.textContent=`Comprobación final: ${finalAnswered.size} / 4`;
+  const m=document.getElementById('missionSummary'); if(m)m.textContent=`Actividad CV: ${missionDone.size} / 5 misiones registradas`;
+  const r=document.getElementById('reflectionSummary'); if(r)r.textContent=`Reflexión: ${reflectionsComplete()?'completa':'pendiente'}`;
+}
+['studentName','studentId','reflectionChange','reflectionDifficulty','reflectionEvidence'].forEach(id=>document.getElementById(id)?.addEventListener('input',()=>{updateEvidenceSummary();saveProgress();}));
+['confidenceAfter','artifactUtility','understandingGain'].forEach(name=>document.querySelectorAll(`input[name="${name}"]`).forEach(r=>r.addEventListener('change',saveProgress)));
+
+function validateEvidence(show=true){
+  const errors=[];
+  if(finalAnswered.size<4) errors.push('Responde correctamente las 4 preguntas de comprobación final.');
+  if(missionDone.size<5) errors.push('Registra como comprendidas las 5 misiones del currículum web.');
+  if(!cleanText('studentName')) errors.push('Escribe tu nombre.');
+  if(cleanText('studentId').length<4) errors.push('Escribe una matrícula válida de al menos 4 caracteres.');
+  if(!radioValue('confidenceBefore')) errors.push('Registra tu confianza inicial en el paso 1.');
+  if(!radioValue('confidenceAfter')) errors.push('Selecciona tu nivel de confianza al terminar.');
+  if(!radioValue('artifactUtility')) errors.push('Valora la utilidad del artefacto.');
+  if(!radioValue('understandingGain')) errors.push('Indica si mejoró tu entendimiento.');
+  if(!reflectionsComplete()) errors.push('Completa las tres reflexiones con una respuesta breve pero explicativa.');
+  const invalidMap={studentName:!cleanText('studentName'),studentId:cleanText('studentId').length<4,reflectionChange:cleanText('reflectionChange').length<20,reflectionDifficulty:cleanText('reflectionDifficulty').length<20,reflectionEvidence:cleanText('reflectionEvidence').length<20};
+  Object.entries(invalidMap).forEach(([id,bad])=>{const el=document.getElementById(id);if(el)el.setAttribute('aria-invalid',String(bad));});
+  const box=document.getElementById('evidenceErrors');
+  if(show && box){
+    if(errors.length){box.hidden=false;box.innerHTML='<strong>Antes de generar el PDF, revisa:</strong><ul>'+errors.map(e=>`<li>${e}</li>`).join('')+'</ul>';box.focus();}
+    else{box.hidden=true;box.textContent='';}
+  }
+  return errors;
+}
+
+document.getElementById('previewEvidence').addEventListener('click',()=>{
+  const errors=validateEvidence(true);
+  const status=document.getElementById('pdfStatus');
+  if(!errors.length){status.textContent='Todo está listo. Ya puedes generar tu evidencia PDF.';announceStatus('La evidencia está completa y lista para generar.');}
+});
+
+// --- PDF autocontenido: generador textual sin dependencias externas ---
+function pdfSafe(text){return String(text??'').replace(/[“”]/g,'"').replace(/[‘’]/g,"'").replace(/[–—]/g,'-').replace(/…/g,'...').replace(/[^\x09\x0A\x0D\x20-\xFF]/g,'?');}
+function pdfEscape(text){return pdfSafe(text).replace(/\\/g,'\\\\').replace(/\(/g,'\\(').replace(/\)/g,'\\)');}
+function latin1Bytes(text){const out=new Uint8Array(text.length);for(let i=0;i<text.length;i++)out[i]=text.charCodeAt(i)&255;return out;}
+function wrapPdfText(text,maxChars=86){const paras=pdfSafe(text).split(/\n/),lines=[];paras.forEach(p=>{if(!p){lines.push('');return;}const words=p.split(/\s+/);let line='';words.forEach(w=>{if((line+' '+w).trim().length>maxChars){if(line)lines.push(line);line=w;}else line=(line+' '+w).trim();});if(line)lines.push(line);});return lines;}
+function wrapPdfCode(text,maxChars=92){const out=[];pdfSafe(text).split(/\n/).forEach(line=>{if(line.length<=maxChars){out.push(line);return;}let rest=line;while(rest.length>maxChars){out.push(rest.slice(0,maxChars));rest='  '+rest.slice(maxChars);}if(rest)out.push(rest);});return out;}
+function pdfRgb(hex){let h=String(hex||'#000000').replace('#','').trim();if(h.length===3)h=h.split('').map(c=>c+c).join('');if(!/^[0-9a-fA-F]{6}$/.test(h))h='000000';return [parseInt(h.slice(0,2),16)/255,parseInt(h.slice(2,4),16)/255,parseInt(h.slice(4,6),16)/255].map(n=>Math.round(n*1000)/1000);}
+function createEvidencePdf(data){
+  const W=595,H=842,M=42,CONTENT_BOTTOM=70;
+  const C={navy:'#0B1F33',cyan:'#49C6E5',blue:'#1F7AA8',text:'#17324D',muted:'#5F6F82',paper:'#F7FAFC',line:'#D6E1EA',soft:'#EAF5FB',green:'#2C8B66',yellow:'#C98B16',violet:'#7357B6',code:'#0A1728',white:'#FFFFFF'};
+  let pages=[],ops=[],y=718;
+  const num=n=>Number(n).toFixed(3).replace(/\.?0+$/,'');
+  const fill=(hex)=>{const [r,g,b]=pdfRgb(hex);return `${num(r)} ${num(g)} ${num(b)} rg`;};
+  const stroke=(hex)=>{const [r,g,b]=pdfRgb(hex);return `${num(r)} ${num(g)} ${num(b)} RG`;};
+  const rect=(x,y0,w,h,fc,sc=null,lw=1)=>{ops.push('q');if(fc)ops.push(fill(fc));if(sc){ops.push(stroke(sc));ops.push(`${lw} w`);}ops.push(`${x} ${y0} ${w} ${h} re ${fc&&sc?'B':fc?'f':'S'}`);ops.push('Q');};
+  const text=(txt,x,yy,size=10,font='F1',color=C.text)=>{ops.push(`BT /${font} ${size} Tf ${fill(color)} 1 0 0 1 ${x} ${yy} Tm (${pdfEscape(txt)}) Tj ET`);};
+  const startPage=(continued=false)=>{ops=[];rect(0,754,W,88,C.navy);rect(0,748,W,6,C.cyan);text('UNIVERSIDAD DE COLIMA',M,818,9,'F3','#8FE6FA');text('HTML5 DESDE CERO - FASE 1',M,794,18,'F3',C.white);text(continued?'Evidencia de aprendizaje - continuación':'Evidencia de aprendizaje y reflexión metacognitiva',M,776,10,'F1','#D9EAF5');y=718;};
+  const finishPage=()=>pages.push(ops);
+  const ensure=(need=24)=>{if(y-need<CONTENT_BOTTOM){finishPage();startPage(true);}};
+  const paragraph=(txt,size=9.6,color=C.text,max=88,gap=13,font='F1')=>{const lines=wrapPdfText(txt,max);ensure(lines.length*gap+8);lines.forEach(l=>{text(l,M,y,size,font,color);y-=gap;});y-=4;};
+  const section=(title,color=C.blue)=>{ensure(36);rect(M,y-24,W-M*2,28,C.soft,C.line,.7);rect(M,y-24,5,28,color);text(title,M+14,y-15,11.5,'F3',C.text);y-=38;};
+  const infoCard=(label,value,x,yy,w)=>{rect(x,yy-47,w,48,C.paper,C.line,.7);text(label.toUpperCase(),x+10,yy-16,7.3,'F3',C.muted);wrapPdfText(value,Math.max(18,Math.floor(w/5.6))).slice(0,2).forEach((l,i)=>text(l,x+10,yy-32-i*11,9.5,'F3',C.text));};
+  const metric=(x,yy,w,value,label,color)=>{rect(x,yy-58,w,58,C.paper,C.line,.7);rect(x,yy-58,5,58,color);text(value,x+13,yy-27,16,'F3',color);text(label,x+13,yy-45,7.5,'F3',C.muted);};
+  const reflection=(question,answer)=>{const lines=wrapPdfText(answer,82);const h=35+lines.length*12;ensure(h+10);rect(M,y-h,W-M*2,h,C.paper,C.line,.7);text(question,M+12,y-18,9,'F3',C.blue);let yy=y-34;lines.forEach(l=>{text(l,M+12,yy,9.3,'F1',C.text);yy-=12;});y-=h+12;};
+  const codeBlock=(title,code)=>{section(title,C.violet);const lines=wrapPdfCode(code,94);let idx=0;while(idx<lines.length){let room=Math.floor((y-CONTENT_BOTTOM-22)/9.3);if(room<8){finishPage();startPage(true);section(title+' (continuación)',C.violet);room=Math.floor((y-CONTENT_BOTTOM-22)/9.3);}const count=Math.min(room,42,lines.length-idx);const h=count*9.3+20;rect(M,y-h,W-M*2,h,C.code,C.code,.5);let yy=y-14;for(let j=0;j<count;j++){text(lines[idx+j],M+11,yy,6.9,'F2','#E8F1FA');yy-=9.3;}y-=h+12;idx+=count;}};
+  startPage(false);
+  section('1. Identificación');
+  infoCard('Estudiante',data.name,M,y,246);infoCard('Matrícula',data.id,M+258,y,125);infoCard('Fecha',data.date,M+395,y,116);y-=62;
+  paragraph('Producto: curriculum web sencillo construido con HTML5, organizado mediante estructura semántica y contenido significativo.',9.4,C.muted,92,12);
+  section('2. Resumen de aprendizaje');
+  const gap=8,mw=(W-M*2-gap*3)/4;
+  metric(M,y,mw,`${data.quiz}/4`,'Comprobación',C.blue);metric(M+mw+gap,y,mw,`${data.missions}/5`,'Misiones',C.green);metric(M+(mw+gap)*2,y,mw,`${data.after}/5`,'Confianza final',C.violet);metric(M+(mw+gap)*3,y,mw,`${data.utility}/5`,'Utilidad',C.yellow);y-=72;
+  paragraph(`Confianza inicial: ${data.before}/5 | Cambio de confianza: ${data.delta>=0?'+':''}${data.delta} | Mejora percibida del entendimiento: ${data.gain}/5.`,9.2,C.text,94,12,'F3');
+  section('3. Producto construido');
+  paragraph(`CV de ${data.cv.name}: incluye identidad (${data.cv.role}), perfil, lista de habilidades, formación, proyecto y contacto mediante enlace de correo.`,9.4,C.text,92,12);
+  paragraph('Estructura aplicada: <!DOCTYPE html>, html, head, body, header, main, section, listas, enlaces y footer.',9.2,C.muted,92,12);
+  codeBlock('4. Código HTML construido',data.html);
+  section('5. Comprobación y autoevaluación');
+  paragraph(`Resultado final: ${data.quiz}/4 respuestas correctas. Intentos por pregunta final: ${data.finalAttempts}.`,9.4,C.text,92,12);
+  paragraph(`Pasos conceptuales/prácticos completados: ${data.steps}/6. Intentos en checkpoints: ${data.checkpointAttempts}.`,9.2,C.text,92,12);
+  paragraph(`Confianza inicial ${data.before}/5 -> confianza final ${data.after}/5. Utilidad percibida ${data.utility}/5. Mejora percibida del entendimiento ${data.gain}/5.`,9.4,C.text,92,12);
+  section('6. Reflexión metacognitiva');
+  reflection('Cambio en mi comprensión de HTML',data.reflections.change);reflection('Dificultad y estrategia utilizada',data.reflections.difficulty);reflection('Evidencia de comprensión en mi CV',data.reflections.evidence);
+  ensure(208);section('7. Autoría, licencia y transparencia de IAG');
+  ensure(170);rect(M,y-155,W-M*2,155,'#EEF6FA',C.line,.7);text('Autor y responsable académico',M+14,y-20,9,'F3',C.blue);text('Ing. Ricardo Jaramillo Velasco - Facultad de Telemática - Universidad de Colima',M+14,y-36,9.2,'F3',C.text);text('Curso: Programación Web | Periodo: Agosto-Noviembre 2026',M+14,y-52,8.7,'F1',C.text);text('Declaratoria de Uso de IAG',M+14,y-76,9,'F3',C.violet);wrapPdfText('El recurso fue desarrollado por el docente con apoyo de Inteligencia Artificial Generativa para elaborar materiales educativos, generar código de la herramienta interactiva, apoyar la evaluación formativa y producir retroalimentación orientativa. La IA no revisa automáticamente los trabajos ni sustituye las decisiones, respuestas o reflexiones del estudiante.',88).slice(0,5).forEach((l,i)=>text(l,M+14,y-92-i*11,8.4,'F1',C.text));text('Marco institucional: Acuerdo No. 23 de 2024, Universidad de Colima.',M+14,y-148,8.2,'F3',C.violet);y-=169;
+  paragraph('Enfoque pedagógico: Estrategia de Aprendizaje Inmersivo con Artefactos (EAIA). Secuencia: comprender, observar, interactuar, construir, comprobar, evidenciar y reflexionar.',8.5,C.blue,92,11,'F3');
+  paragraph('© 2026 Ricardo Jaramillo Velasco, Universidad de Colima. Licencia Creative Commons Atribución-NoComercial-CompartirIgual 4.0 Internacional (CC BY-NC-SA 4.0).',8.5,C.muted,92,11);
+  finishPage();
+  const total=pages.length;pages.forEach((p,i)=>{p.push(`q ${stroke(C.line)} 0.8 w ${M} 50 m ${W-M} 50 l S Q`);p.push(`BT /F1 7.3 Tf ${fill(C.muted)} 1 0 0 1 ${M} 35 Tm (${pdfEscape('Ricardo Jaramillo Velasco - Universidad de Colima')}) Tj ET`);p.push(`BT /F1 7.1 Tf ${fill(C.muted)} 1 0 0 1 ${M} 23 Tm (${pdfEscape('EAIA | CC BY-NC-SA 4.0 | IAG: Acuerdo No. 23 de 2024')}) Tj ET`);p.push(`BT /F3 7.5 Tf ${fill(C.text)} 1 0 0 1 ${W-92} 29 Tm (${pdfEscape(`Página ${i+1} de ${total}`)}) Tj ET`);});
+  const obj=[];obj[1]='<< /Type /Catalog /Pages 2 0 R >>';const F1=3,F2=4,F3=5,INFO=6;let next=7,pageIds=[],contentIds=[];pages.forEach(()=>{pageIds.push(next++);contentIds.push(next++);});obj[2]=`<< /Type /Pages /Kids [${pageIds.map(id=>id+' 0 R').join(' ')}] /Count ${pages.length} >>`;obj[F1]='<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica /Encoding /WinAnsiEncoding >>';obj[F2]='<< /Type /Font /Subtype /Type1 /BaseFont /Courier /Encoding /WinAnsiEncoding >>';obj[F3]='<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica-Bold /Encoding /WinAnsiEncoding >>';obj[INFO]=`<< /Title (${pdfEscape('HTML5 desde cero - Fase 1 - Evidencia de aprendizaje')}) /Author (${pdfEscape('Ricardo Jaramillo Velasco - Universidad de Colima')}) /Subject (${pdfEscape('Evidencia de aprendizaje, HTML5 y reflexión metacognitiva')}) >>`;pages.forEach((arr,i)=>{const content=arr.join('\n');obj[pageIds[i]]=`<< /Type /Page /Parent 2 0 R /MediaBox [0 0 ${W} ${H}] /Resources << /Font << /F1 ${F1} 0 R /F2 ${F2} 0 R /F3 ${F3} 0 R >> >> /Contents ${contentIds[i]} 0 R >>`;obj[contentIds[i]]=`<< /Length ${latin1Bytes(content).length} >>\nstream\n${content}\nendstream`;});let pdf='%PDF-1.4\n%\xE2\xE3\xCF\xD3\n',offsets=[0];for(let i=1;i<obj.length;i++){offsets[i]=latin1Bytes(pdf).length;pdf+=`${i} 0 obj\n${obj[i]}\nendobj\n`;}const xref=latin1Bytes(pdf).length;pdf+=`xref\n0 ${obj.length}\n0000000000 65535 f \n`;for(let i=1;i<obj.length;i++)pdf+=String(offsets[i]).padStart(10,'0')+' 00000 n \n';pdf+=`trailer\n<< /Size ${obj.length} /Root 1 0 R /Info ${INFO} 0 R >>\nstartxref\n${xref}\n%%EOF`;return new Blob([latin1Bytes(pdf)],{type:'application/pdf'});
+}
+function downloadEvidencePdf(){
+  const errors=validateEvidence(true);if(errors.length)return;
+  const id=cleanText('studentId').replace(/[^A-Za-z0-9_-]/g,'_');
+  const before=+radioValue('confidenceBefore'),after=+radioValue('confidenceAfter');
+  const data={name:cleanText('studentName'),id:cleanText('studentId'),date:new Date().toLocaleString('es-MX'),before,after,delta:after-before,utility:+radioValue('artifactUtility'),gain:+radioValue('understandingGain'),quiz:finalAnswered.size,missions:missionDone.size,steps:[0,1,2,3,4,5].filter(n=>completed.has(n)).length,finalAttempts:finalAttempts.map((n,i)=>`P${i+1}:${n}`).join(' | '),checkpointAttempts:checkpointAttempts.map((n,i)=>`Paso${i+1}:${n}`).join(' | '),html:renderCV(),cv:{...state},reflections:{change:cleanText('reflectionChange'),difficulty:cleanText('reflectionDifficulty'),evidence:cleanText('reflectionEvidence')}};
+  const blob=createEvidencePdf(data),url=URL.createObjectURL(blob),a=document.createElement('a');a.href=url;a.download=`HTML5_Fase1_${id}.pdf`;document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),1800);
+  evidenceGenerated=true;completed.add(6);unlockThrough(7);document.getElementById('pdfStatus').textContent=`Evidencia generada: HTML5_Fase1_${id}.pdf. Incluye autoría, transparencia de IAG y licencia del recurso.`;announceStatus('Evidencia PDF generada correctamente con formato institucional. Ya puedes pasar al cierre.');saveProgress();
+}
+document.getElementById('generateEvidence').addEventListener('click',downloadEvidencePdf);
+
+
+// References dialog and transparent AI note.
+const referenceData={
+ html:{title:'Referencia · Qué es HTML',html:'<p>La definición utilizada sigue la explicación de MDN: HTML es el lenguaje de marcado que estructura el contenido que interpreta el navegador.</p><p><strong>APA 7:</strong> Mozilla Developer Network. (2026). <em>HTML: Lenguaje de marcado de hipertexto</em>. https://developer.mozilla.org/es/docs/Web/HTML</p>'},
+ semantic:{title:'Referencia · Estructura semántica',html:'<p>La estructura semántica usa elementos que describen el propósito de regiones y contenidos, mejorando significado y accesibilidad.</p><p><strong>APA 7:</strong> World Wide Web Consortium, Web Accessibility Initiative. (2026). <em>Content Structure</em>. https://www.w3.org/WAI/tutorials/page-structure/content/</p>'}
+};
+document.querySelectorAll('.ref-btn[data-ref]').forEach(btn=>btn.addEventListener('click',()=>{const d=referenceData[btn.dataset.ref];document.getElementById('refDialogTitle').textContent=d.title;document.getElementById('refDialogBody').innerHTML=d.html;document.getElementById('refDialog').showModal();}));
+let qualityReturnFocus=null;
+function openQualityModal(trigger){qualityReturnFocus=trigger||document.activeElement;const dlg=document.getElementById('aiDialog');dlg.showModal();setTimeout(()=>document.getElementById('aiDialogTitle').focus(),20);announceStatus('Información de calidad, accesibilidad y transparencia abierta.');}
+document.getElementById('openAIInfo')?.addEventListener('click',e=>openQualityModal(e.currentTarget));
+document.getElementById('openQuality')?.addEventListener('click',e=>openQualityModal(e.currentTarget));
+document.getElementById('aiDialog')?.addEventListener('close',()=>{qualityReturnFocus?.focus();qualityReturnFocus=null;});
+document.querySelectorAll('[data-close-dialog]').forEach(btn=>btn.addEventListener('click',()=>btn.closest('dialog').close()));
+document.querySelectorAll('dialog').forEach(d=>d.addEventListener('click',e=>{if(e.target===d)d.close();}));
+
+// Persistent progress with explicit error handling.
+function saveProgress(){
+  try{
+    const data={current,unlockedMax,mission,completed:[...completed],missionDone:[...missionDone],finalAnswered:[...finalAnswered],checkpointAttempts,finalAttempts,evidenceGenerated,state,
+      confidenceBefore:radioValue('confidenceBefore'),confidenceAfter:radioValue('confidenceAfter'),artifactUtility:radioValue('artifactUtility'),understandingGain:radioValue('understandingGain'),
+      studentName:cleanText('studentName'),studentId:cleanText('studentId'),reflectionChange:cleanText('reflectionChange'),reflectionDifficulty:cleanText('reflectionDifficulty'),reflectionEvidence:cleanText('reflectionEvidence')};
+    localStorage.setItem(STORAGE_KEY,JSON.stringify(data));
+  }catch(err){announceStatus('No fue posible guardar el progreso localmente. Puedes continuar, pero no cierres esta pestaña hasta generar tu evidencia.');}
+}
+function restoreProgress(){
+  try{
+    const raw=localStorage.getItem(STORAGE_KEY);if(!raw){syncRoute();return;}const d=JSON.parse(raw);
+    unlockedMax=Math.max(0,Math.min(7,+d.unlockedMax||0));
+    (d.completed||[]).forEach(n=>completed.add(n));(d.missionDone||[]).forEach(n=>missionDone.add(n));(d.finalAnswered||[]).forEach(n=>finalAnswered.add(n));
+    if(Array.isArray(d.checkpointAttempts))d.checkpointAttempts.forEach((v,i)=>checkpointAttempts[i]=v||0);if(Array.isArray(d.finalAttempts))d.finalAttempts.forEach((v,i)=>finalAttempts[i]=v||0);
+    if(d.state)Object.assign(state,d.state);evidenceGenerated=!!d.evidenceGenerated;
+    const setRadio=(name,val)=>{if(val){const r=document.querySelector(`input[name="${name}"][value="${val}"]`);if(r)r.checked=true;}};
+    setRadio('confidenceBefore',d.confidenceBefore);setRadio('confidenceAfter',d.confidenceAfter);setRadio('artifactUtility',d.artifactUtility);setRadio('understandingGain',d.understandingGain);
+    [['studentName',d.studentName],['studentId',d.studentId],['reflectionChange',d.reflectionChange],['reflectionDifficulty',d.reflectionDifficulty],['reflectionEvidence',d.reflectionEvidence]].forEach(([id,val])=>{const el=document.getElementById(id);if(el&&val)el.value=val;});
+    document.querySelectorAll('.mission').forEach((m,i)=>m.classList.toggle('done',missionDone.has(i)));document.querySelectorAll('.final-item').forEach((item,i)=>item.classList.toggle('done',finalAnswered.has(i)));
+    mission=Math.max(0,Math.min(4,+d.mission||0));renderFields();renderCV();syncMissions();updateEvidenceSummary();
+    current=Math.min(+d.current||0,unlockedMax);showStage(current,false);
+    if(evidenceGenerated && cleanText('studentId'))document.getElementById('pdfStatus').textContent='Ya generaste una evidencia en esta sesión. Puedes generarla nuevamente si modificas tus respuestas.';
+  }catch(err){announceStatus('El progreso guardado no pudo recuperarse. El recurso iniciará desde el comienzo.');syncRoute();}
+}
+
+// Reset is deliberate and recoverable only through confirmation.
+document.getElementById('resetProgress')?.addEventListener('click',()=>{
+  if(confirm('¿Deseas borrar el progreso, las respuestas y los datos de esta actividad?')){try{localStorage.removeItem(STORAGE_KEY);}catch(e){}location.reload();}
+});
+
+// Initialize guided route and state.
+unlockedMax=0;syncRoute();syncMissions();restoreProgress();updateEvidenceSummary();
+</script>
+</body>
+</html>
