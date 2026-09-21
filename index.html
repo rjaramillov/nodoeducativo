@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>NODO Educativo </title>
-<meta name="description" content="NODO Educativo: sandboxes interactivos, diseñados con la estrategia EAIA de Aprendizaje de Inmersión Activa. Libre y gratuito.">
+<title>NODO Educativo</title>
+<meta name="description" content="NODO Educativo: sandboxes interactivos y la ruta CV Web en 3 fases (HTML5 → CSS → GitHub Pages), diseñados con la estrategia EAIA de Aprendizaje de Inmersión Activa. Libre y gratuito.">
 <meta name="theme-color" content="#0b0b0e" id="meta-theme">
 <link rel="icon" href='data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><rect width="100" height="100" rx="24" fill="%230b0b0e"/><rect x="17" y="17" width="66" height="66" rx="18" fill="none" stroke="%232dd4bf" stroke-width="7"/><circle cx="50" cy="50" r="13" fill="%232dd4bf"/></svg>'>
 
@@ -30,12 +30,11 @@
 <!--
   ═══════════════════════════════════════════════════════════════
   NODO — Nodo educativo de práctica telemática
-  Facultad de Telemática · Universidad de Colima
-  Marca: NODO (logotipo) + "Nodo educativo" (descriptor)
-  Sandboxes: Flexbox · Python Playground (artefactos EAIA)
-  METODOLOGÍA: EAIA — diagrama del ciclo visible en la sección
-  02, ampliable en modal accesible (<dialog>: trap de foco,
-  Escape, retorno de foco, cierre con clic exterior).
+  Sandboxes: Flexbox · Python Playground
+  Ruta CV Web (3 fases, un solo proyecto que crece — P10):
+    Fase 1 HTML5 · Fase 2 CSS · Fase 3 GitHub Pages
+  METODOLOGÍA: EAIA — diagrama ampliable en modal accesible
+  (<dialog>: trap de foco, Escape, retorno de foco).
   CUMPLIMIENTO: WCAG 2.1 AA · Heurísticas de Nielsen (10/10)
   ═══════════════════════════════════════════════════════════════
 -->
@@ -208,11 +207,6 @@
     transition: color 0.2s, background 0.2s;
   }
   .nav-links a:hover { color: var(--text-hi); background: var(--hover-bg); }
-  .faculty {
-    font-family: 'JetBrains Mono', monospace; font-size: 0.8rem;
-    color: var(--text-md);
-    padding-left: 20px; border-left: 1px solid var(--border-strong);
-  }
 
   /* ============ Conmutador de tema ============ */
   .theme-toggle {
@@ -322,6 +316,18 @@
   .section-head p { color: var(--text-md); }
 
   /* ============ Sandboxes ============ */
+  .route-note {
+    display: flex; align-items: flex-start; gap: 12px;
+    max-width: 78ch; margin-bottom: 30px;
+    padding: 14px 18px;
+    border: 1px solid var(--teal);
+    border-radius: 12px;
+    background: var(--teal-dim);
+    color: var(--text-md); font-size: 0.93rem;
+  }
+  .route-note svg { flex-shrink: 0; margin-top: 3px; color: var(--teal-strong); }
+  .route-note b { color: var(--teal-strong); }
+
   #cards-container {
     display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
     gap: 20px; padding-bottom: 96px;
@@ -425,11 +431,11 @@
     border: 1px solid var(--border-strong);
     border-radius: 16px;
     padding: 0;
+    margin: auto;
     width: min(1080px, 94vw);
     max-height: 92vh;
     box-shadow: var(--shadow);
     overscroll-behavior: contain;
-	 margin: auto;
   }
   dialog.eaia-modal::backdrop {
     background: rgba(0, 0, 0, 0.72);
@@ -454,11 +460,11 @@
   .modal-close:hover { color: var(--text-hi); border-color: var(--teal); background: var(--teal-dim); }
   .eaia-modal img {
     display: block;
-    width: auto;                       /* la imagen mide lo que necesita */
-    max-width: 100%;                   /* pero nunca más ancha que el modal */
+    width: auto;
+    max-width: 100%;
     height: auto;
-    max-height: calc(92vh - 170px);    /* ni más alta que la ventana */
-    margin-inline: auto;               /* ← centrada horizontalmente, siempre */
+    max-height: calc(92vh - 170px);
+    margin-inline: auto;
   }
   .modal-caption {
     padding: 14px 22px 18px;
@@ -472,7 +478,6 @@
       to   { opacity: 1; transform: none; }
     }
   }
-  /* Reserva para navegadores sin <dialog> (se controla por JS) */
   dialog.eaia-modal.modal-fallback { display: none; position: fixed; inset: 0; margin: auto; z-index: 300; height: fit-content; }
   dialog.eaia-modal.modal-fallback.open { display: block; }
   .modal-fallback-backdrop {
@@ -641,7 +646,6 @@
     .principles { grid-template-columns: repeat(2, 1fr); }
   }
   @media (max-width: 900px) {
-    .faculty { display: none; }
     .strategy-intro { grid-template-columns: 1fr; gap: 28px; }
   }
   @media (max-width: 700px) {
@@ -659,7 +663,6 @@
   <style>
     .reveal { opacity: 1 !important; transform: none !important; }
     .theme-toggle { display: none; }
-    /* Sin JS: el diagrama se muestra tal cual, sin ampliación */
     .eaia-trigger { pointer-events: none; cursor: default; }
     .eaia-hint { display: none; }
   </style>
@@ -697,7 +700,6 @@
           <a href="#faq">Preguntas</a>
           <a href="#contacto">Contacto</a>
         </div>
-        <span class="faculty"></span>
 
         <button type="button" class="theme-toggle" id="theme-toggle">
           <svg class="icon-sun" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
@@ -713,11 +715,11 @@
     <section class="hero" id="inicio" aria-labelledby="titulo-principal">
       <p class="badge">
         <span class="pulse-dot" aria-hidden="true"></span>
-        Nuevo: Python Playground
+        Nuevo: Ruta CV Web · HTML → CSS → Publicación
       </p>
       <h1 id="titulo-principal">De la teoría a la <span>práctica.</span></h1>
       <p>
-        Este NODO Educativo es una espacio para publicar sandboxes diseñados con la
+        Este NODO Educativo es un espacio para publicar sandboxes diseñados con la
         estrategia EAIA — Aprendizaje de Inmersión Activa — donde programas, rompes y
         reconstruyes sobre problemas reales, con retroalimentación inmediata.
         Libre y gratuito para la comunidad universitaria.
@@ -751,12 +753,12 @@
 
     <section class="stats" aria-label="NODO en números">
       <div class="stat">
-        <span class="stat-num" aria-hidden="true" data-target="2">2</span><span class="sr-only">2</span>
+        <span class="stat-num" aria-hidden="true" data-target="5">5</span><span class="sr-only">5</span>
         <span class="stat-label">Sandboxes disponibles</span>
       </div>
       <div class="stat">
-        <span class="stat-num" aria-hidden="true" data-target="20" data-suffix="+">20+</span><span class="sr-only">Más de 20</span>
-        <span class="stat-label">Retos y ejemplos guiados</span>
+        <span class="stat-num" aria-hidden="true" data-target="45" data-suffix="+">45+</span><span class="sr-only">Más de 45</span>
+        <span class="stat-label">Pasos guiados y retos</span>
       </div>
       <div class="stat">
         <span class="stat-num" aria-hidden="true" data-target="100" data-suffix="%">100%</span><span class="sr-only">Cien por ciento</span>
@@ -775,10 +777,124 @@
         <p>Cada herramienta de NODO es un sandbox: un artefacto interactivo de la EAIA, un entorno seguro donde se aprende rompiendo cosas y volviéndolas a construir. Los disponibles están listos ahora; los que están en desarrollo se publicarán aquí mismo al terminar.</p>
       </div>
 
+      <p class="route-note reveal">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polygon points="3 11 22 2 13 21 11 13 3 11"/></svg>
+        <span><b>Ruta completa disponible: HTML5 → CSS → GitHub Pages.</b>
+        Tres fases guiadas sobre el mismo proyecto — tu currículum web — que crece hasta publicarse en Internet. Cada fase cierra con evidencia y reflexión.</span>
+      </p>
+
       <div id="cards-container">
 
-        <!-- ── Sandbox 1 · Flexbox ── -->
-        <a href="sandboxes/Flexbox_Laboratorio_Interactivo.html" class="card reveal" style="--d:0s" aria-label="Abrir Sandbox de Flexbox">
+        <!-- ── Ruta CV Web · Fase 1 · HTML5 ── -->
+        <a href="sanboxes/HTML5_Fase1_EAIA.html" class="card reveal" style="--d:0s" aria-label="Abrir HTML5 desde cero, Fase 1 de la ruta CV Web">
+          <figure class="card-ill">
+            <svg viewBox="0 0 320 140" role="img" aria-labelledby="ill-html-t ill-html-d">
+              <title id="ill-html-t">Ilustración de estructura HTML</title>
+              <desc id="ill-html-d">Una ventana de navegador con tres bloques semánticos apilados —encabezado, contenido y pie— y, a su lado, el símbolo de código con signos menor y mayor que.</desc>
+              <g aria-hidden="true">
+                <rect x="26" y="18" width="168" height="104" rx="10" fill="var(--ill-surface)" stroke="var(--ill-stroke)" stroke-width="1.5"/>
+                <circle cx="40" cy="31" r="3" fill="var(--ill-text)" opacity="0.7"/>
+                <circle cx="51" cy="31" r="3" fill="var(--ill-text)" opacity="0.7"/>
+                <circle cx="62" cy="31" r="3" fill="var(--ill-text)" opacity="0.7"/>
+                <rect x="38" y="42" width="144" height="16" rx="5" fill="var(--ill-accent-bg)" stroke="var(--ill-accent)" stroke-width="1.5"/>
+                <rect x="38" y="64" width="144" height="34" rx="5" fill="var(--ill-alt)" stroke="var(--ill-stroke)" stroke-width="1.5"/>
+                <rect x="46" y="72" width="86" height="6" rx="3" fill="var(--ill-text)" opacity="0.4"/>
+                <rect x="46" y="84" width="64" height="6" rx="3" fill="var(--ill-text)" opacity="0.3"/>
+                <rect x="38" y="104" width="144" height="12" rx="5" fill="var(--ill-alt)" stroke="var(--ill-stroke)" stroke-width="1.5"/>
+                <circle cx="252" cy="70" r="38" fill="var(--ill-accent-bg)" stroke="var(--ill-accent)" stroke-width="2"/>
+                <path d="M240 58 l-12 12 l12 12" fill="none" stroke="var(--ill-accent-strong)" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M264 58 l12 12 l-12 12" fill="none" stroke="var(--ill-accent-strong)" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/>
+                <line x1="260" y1="52" x2="252" y2="88" stroke="var(--ill-accent-strong)" stroke-width="3" stroke-linecap="round"/>
+              </g>
+            </svg>
+          </figure>
+          <div class="card-content">
+            <div class="card-topline">
+              <h3 style="margin:0;">HTML5 desde cero</h3>
+              <span class="tag tag-live">✓ Disponible</span>
+            </div>
+            <p class="card-desc">Fase 1: primero entiende la estructura. Qué es HTML, etiquetas, documento y estructura semántica, y la construcción guiada de un currículum web en 5 misiones, con evidencia en PDF y reflexión.</p>
+            <div class="card-footer">
+              <span class="card-link">Abrir sandbox
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+              </span>
+              <span class="card-meta">Fase 1 de 3 · 8 pasos</span>
+            </div>
+          </div>
+        </a>
+
+        <!-- ── Ruta CV Web · Fase 2 · CSS ── -->
+        <a href="sanboxes/CSS_Fase2_EAIA.html" class="card reveal" style="--d:.06s" aria-label="Abrir CSS aplicado, Fase 2 de la ruta CV Web">
+          <figure class="card-ill">
+            <svg viewBox="0 0 320 140" role="img" aria-labelledby="ill-css-t ill-css-d">
+              <title id="ill-css-t">Ilustración de estilos CSS</title>
+              <desc id="ill-css-d">Una tarjeta con la tipografía Aa y líneas de texto, junto a una paleta de tres colores y un control deslizante de ajuste.</desc>
+              <g aria-hidden="true">
+                <rect x="26" y="18" width="148" height="104" rx="10" fill="var(--ill-surface)" stroke="var(--ill-stroke)" stroke-width="1.5"/>
+                <text x="44" y="90" fill="var(--ill-accent-strong)" font-family="Georgia, serif" font-size="54" font-weight="700">Aa</text>
+                <rect x="116" y="44" width="42" height="8" rx="4" fill="var(--ill-text)" opacity="0.4"/>
+                <rect x="116" y="60" width="36" height="8" rx="4" fill="var(--ill-text)" opacity="0.3"/>
+                <rect x="116" y="76" width="40" height="8" rx="4" fill="var(--ill-text)" opacity="0.22"/>
+                <circle cx="228" cy="44" r="14" fill="var(--ill-accent)"/>
+                <circle cx="262" cy="44" r="14" fill="var(--ill-rose)"/>
+                <circle cx="245" cy="76" r="14" fill="var(--ill-accent-bg)" stroke="var(--ill-accent)" stroke-width="2"/>
+                <rect x="196" y="102" width="96" height="8" rx="4" fill="var(--ill-text)" opacity="0.3"/>
+                <circle cx="196" cy="106" r="9" fill="var(--ill-accent-strong)" stroke="var(--ill-surface)" stroke-width="2"/>
+              </g>
+            </svg>
+          </figure>
+          <div class="card-content">
+            <div class="card-topline">
+              <h3 style="margin:0;">CSS aplicado</h3>
+              <span class="tag tag-live">✓ Disponible</span>
+            </div>
+            <p class="card-desc">Fase 2: dale identidad visual al mismo CV. Reglas, selectores, color con contraste accesible, tipografía, cajas, layout responsive y playground, hasta generar tu evidencia.</p>
+            <div class="card-footer">
+              <span class="card-link">Abrir sandbox
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+              </span>
+              <span class="card-meta">Fase 2 de 3 · 10 pasos</span>
+            </div>
+          </div>
+        </a>
+
+        <!-- ── Ruta CV Web · Fase 3 · GitHub Pages ── -->
+        <a href="sanboxes/GitHubPages_Fase3_EAIA.html" class="card reveal" style="--d:.12s" aria-label="Abrir GitHub Pages, Fase 3 de la ruta CV Web">
+          <figure class="card-ill">
+            <svg viewBox="0 0 320 140" role="img" aria-labelledby="ill-gh-t ill-gh-d">
+              <title id="ill-gh-t">Ilustración de publicación en la web</title>
+              <desc id="ill-gh-d">Un globo terráqueo del que sube una flecha de publicación, junto a una barra de direcciones con candado que representa una URL pública segura.</desc>
+              <g aria-hidden="true">
+                <circle cx="74" cy="76" r="36" fill="var(--ill-surface)" stroke="var(--ill-accent)" stroke-width="2"/>
+                <ellipse cx="74" cy="76" rx="15" ry="36" fill="none" stroke="var(--ill-stroke)" stroke-width="1.5"/>
+                <line x1="38" y1="76" x2="110" y2="76" stroke="var(--ill-stroke)" stroke-width="1.5"/>
+                <line x1="44" y1="58" x2="104" y2="58" stroke="var(--ill-stroke)" stroke-width="1.5" opacity="0.6"/>
+                <line x1="44" y1="94" x2="104" y2="94" stroke="var(--ill-stroke)" stroke-width="1.5" opacity="0.6"/>
+                <path d="M74 32 v-20 m0 0 l-8 8 m8 -8 l8 8" fill="none" stroke="var(--ill-accent-strong)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+                <rect x="150" y="50" width="150" height="36" rx="18" fill="var(--ill-alt)" stroke="var(--ill-stroke)" stroke-width="1.5"/>
+                <circle cx="170" cy="68" r="6" fill="var(--ill-accent)"/>
+                <rect x="186" y="64" width="72" height="8" rx="4" fill="var(--ill-text)" opacity="0.4"/>
+                <rect x="150" y="98" width="112" height="8" rx="4" fill="var(--ill-text)" opacity="0.28"/>
+              </g>
+            </svg>
+          </figure>
+          <div class="card-content">
+            <div class="card-topline">
+              <h3 style="margin:0;">GitHub Pages</h3>
+              <span class="tag tag-live">✓ Disponible</span>
+            </div>
+            <p class="card-desc">Fase 3: publica tu CV en Internet. Dominio, hosting, repositorio y activación de GitHub Pages paso a paso, con verificación de tu URL pública y reflexión de cierre.</p>
+            <div class="card-footer">
+              <span class="card-link">Abrir sandbox
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+              </span>
+              <span class="card-meta">Fase 3 de 3 · 10 pasos</span>
+            </div>
+          </div>
+        </a>
+
+        <!-- ── Sandbox · Flexbox ── -->
+        <a href="sanboxes/Flexbox_Laboratorio_Interactivo.html" class="card reveal" style="--d:.18s" aria-label="Abrir Sandbox de Flexbox">
           <figure class="card-ill">
             <svg viewBox="0 0 320 140" role="img" aria-labelledby="ill-flex-t ill-flex-d">
               <title id="ill-flex-t">Ilustración de un layout Flexbox</title>
@@ -810,8 +926,8 @@
           </div>
         </a>
 
-        <!-- ── Sandbox 2 · Python Playground ── -->
-        <a href="sandboxes/Python_Playground_Prototipo.html" class="card reveal" style="--d:.06s" aria-label="Abrir Python Playground, sandbox de fundamentos de programación">
+        <!-- ── Sandbox · Python Playground ── -->
+        <a href="sanboxes/Python_Playground_Prototipo.html" class="card reveal" style="--d:.24s" aria-label="Abrir Python Playground, sandbox de fundamentos de programación">
           <figure class="card-ill">
             <svg viewBox="0 0 320 140" role="img" aria-labelledby="ill-py-t ill-py-d">
               <title id="ill-py-t">Ilustración del Python Playground</title>
@@ -843,7 +959,7 @@
               <h3 style="margin:0;">Python Playground</h3>
               <span class="tag tag-live">✓ Disponible</span>
             </div>
-            <p class="card-desc">Escribe y ejecuta Python real en tu navegador, sin instalar nada y sin miedo a equivocarte: errores explicados en español sencillo, ejemplos guiados de variables, condicionales, bucles, funciones y listas, y reporte de evidencia en PDF.</p>
+            <p class="card-desc">Escribe y ejecuta Python real en tu navegador, sin instalar nada y sin miedo a equivocarte: errores explicados en español sencillo, ejemplos guiados y reporte de evidencia en PDF.</p>
             <div class="card-footer">
               <span class="card-link">Abrir sandbox
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
@@ -854,7 +970,7 @@
         </a>
 
         <!-- ── Sugerir sandbox ── -->
-        <a href="mailto:rjaramillo0@ucol.mx?subject=Sugerencia%20de%20sandbox%20para%20NODO" class="card card-add reveal" style="--d:.12s">
+        <a href="mailto:rjaramillo0@ucol.mx?subject=Sugerencia%20de%20sandbox%20para%20NODO" class="card card-add reveal" style="--d:.3s">
           <div class="card-content">
             <svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" style="color: var(--teal-strong);" aria-hidden="true"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="16"/><line x1="8" y1="12" x2="16" y2="12"/></svg>
             <p>¿Falta un sandbox que te urgue?</p>
@@ -868,7 +984,6 @@
     <!-- ═══════════ EAIA · La estrategia ═══════════ -->
     <section id="estrategia" class="strategy" aria-labelledby="tit-estrategia">
 
-      <!-- Intro a dos columnas: texto + diagrama ampliable -->
       <div class="strategy-intro reveal">
         <div class="section-head">
           <span class="section-kicker">02 · La estrategia</span>
@@ -877,7 +992,6 @@
         </div>
 
         <figure class="eaia-figure">
-          <!-- Guarda tu imagen como: img/eaia-ciclo.png -->
           <button type="button" class="eaia-trigger" id="eaia-open" aria-haspopup="dialog" aria-controls="eaia-modal">
             <img src="img/eaia-ciclo.png"
                  alt="Diagrama circular del ciclo de la EAIA: alrededor del centro EAIA se encuentran Interactúa, activa; Expone, visual; Genera, profesor con inteligencia artificial; Evidencia, generada; y las fases Prepara, del profesor, y Reflexiona, metacognitiva. Una flecha inferior llamada Retroalimenta cierra el ciclo sobre una base de fundamentos teóricos: Zona de Desarrollo Próximo de Vygotsky, Aprendizaje Activo de Bonwell y Eison, Aprendizaje Situado de Lave y Wenger, Metacognición de Flavell, y Aprendizaje Activo con Tecnología de Glasserman."
@@ -1012,33 +1126,39 @@
           <summary>¿Qué es NODO?
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
           </summary>
-          <p>NODO es un nodo educativo de la Facultad de Telemática de la Universidad de Colima: un punto de conexión entre la teoría de los cursos y la práctica real, construido con sandboxes interactivos diseñados bajo la estrategia EAIA.</p>
+          <p>NODO es un nodo educativo: un punto de conexión entre la teoría de los cursos y la práctica real, construido con sandboxes interactivos diseñados bajo la estrategia EAIA.</p>
         </details>
         <details class="reveal" style="--d:.06s">
+          <summary>¿Las tres fases de la ruta CV Web van en orden?
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+          </summary>
+          <p>Sí. Es un solo proyecto que crece (principio P10 de la EAIA): en la Fase 1 construyes la estructura HTML de tu currículum; en la Fase 2 le das presentación con CSS sobre el mismo archivo; y en la Fase 3 lo publicas en Internet con GitHub Pages. Cada fase cierra con evidencia y reflexión, y el orden importa porque cada una retoma el proyecto donde quedó la anterior.</p>
+        </details>
+        <details class="reveal" style="--d:.12s">
           <summary>¿El Python de verdad corre en mi navegador?
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
           </summary>
           <p>Sí. El Playground usa Pyodide — Python compilado a WebAssembly —, así que tu código se ejecuta completo dentro del navegador: nada se envía a ningún servidor. Incluye botón de detener para bucles infinitos y reinicio del entorno si algo se queda pegado.</p>
         </details>
-        <details class="reveal" style="--d:.12s">
+        <details class="reveal" style="--d:.18s">
           <summary>¿Necesito instalar algo para usar los sandboxes?
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
           </summary>
           <p>No. Todos los sandboxes de NODO funcionan directamente en el navegador, en cualquier computadora con conexión a internet, sin cuentas ni instalaciones.</p>
         </details>
-        <details class="reveal" style="--d:.18s">
+        <details class="reveal" style="--d:.24s">
           <summary>¿Por qué el sandbox lo genera el profesor y no yo con IA?
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
           </summary>
           <p>Es la regla matriz de la EAIA (principio P1). Si generas tú el material de un tema que aún no dominas, nadie con criterio experto validó que sea correcto y bien calibrado, y la IA funciona como atajo en lugar de andamio. Aquí la IA es herramienta de producción del docente; tu rol es interactuar, equivocarte y construir comprensión dentro de una experiencia diseñada.</p>
         </details>
-        <details class="reveal" style="--d:.24s">
+        <details class="reveal" style="--d:.3s">
           <summary>¿Puedo romper algo mientras practico?
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
           </summary>
           <p>Ese es exactamente el punto, y es un principio de diseño de la EAIA (P7): el error no se penaliza, se documenta. Un sandbox es un entorno seguro donde romper y reconstruir es parte del método, y nunca afecta nada real.</p>
         </details>
-        <details class="reveal" style="--d:.3s">
+        <details class="reveal" style="--d:.36s">
           <summary>¿Puedo sugerir un sandbox nuevo?
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
           </summary>
@@ -1072,9 +1192,9 @@
           <rect x="7" y="7" width="50" height="50" rx="15" stroke="currentColor" stroke-width="4"/>
           <circle cx="32" cy="32" r="9" fill="currentColor"/>
         </svg>
-        © <span id="year">2025</span> NODO Educativo 
+        © <span id="year">2025</span> NODO · Nodo educativo · Universidad de Colima
       </span>
-      <span>Estrategia EAIA · WCAG 2.1 AA</span>
+      <span>Metodología EAIA · WCAG 2.1 AA</span>
     </div>
   </footer>
 
@@ -1140,10 +1260,7 @@
   if (mq.addEventListener) mq.addEventListener('change', onSystemChange);
   else if (mq.addListener) mq.addListener(onSystemChange);
 
-  /* ═══ 2 · MODAL DEL DIAGRAMA EAIA (<dialog> accesible) ═══
-     · showModal(): trap de foco + Escape + retorno de foco (nativo)
-     · Clic en el fondo oscuro también cierra
-     · Fallback manual para navegadores sin <dialog>            */
+  /* ═══ 2 · MODAL DEL DIAGRAMA EAIA (<dialog> accesible) ═══ */
   const modal    = document.getElementById('eaia-modal');
   const openBtn  = document.getElementById('eaia-open');
   const closeBtn = document.getElementById('eaia-close');
@@ -1166,37 +1283,34 @@
       } else {
         modal.classList.add('open');
         backdrop.classList.add('open');
-        closeBtn && closeBtn.focus();
+        if (closeBtn) closeBtn.focus();
       }
-      document.body.style.overflow = 'hidden'; /* bloquea scroll de fondo */
+      document.body.style.overflow = 'hidden';
     }
 
     function closeModal() {
       if (native) {
-        modal.close(); /* dispara el evento 'close' de abajo */
+        modal.close();
       } else {
         modal.classList.remove('open');
         backdrop.classList.remove('open');
         document.body.style.overflow = '';
-        openBtn.focus(); /* devuelve el foco al disparador */
+        openBtn.focus();
       }
     }
 
     openBtn.addEventListener('click', openModal);
     if (closeBtn) closeBtn.addEventListener('click', closeModal);
 
-    /* Clic fuera del contenido (en el backdrop) cierra */
     modal.addEventListener('click', e => {
       if (e.target === modal) closeModal();
     });
 
-    /* Nativo: al cerrar por cualquier vía, devolver scroll y foco */
     modal.addEventListener('close', () => {
       document.body.style.overflow = '';
       openBtn.focus();
     });
 
-    /* Fallback: Escape manual */
     if (!native) {
       document.addEventListener('keydown', e => {
         if (e.key === 'Escape' && modal.classList.contains('open')) closeModal();
